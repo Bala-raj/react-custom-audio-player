@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { PlayIcon, PauseIcon, DownloadIcon } from './icons';
+import { PlayIcon, PauseIcon, /*DownloadIcon,*/ ReloadIcon } from './icons';
 
 
-const log = console.log.bind(console);
-const logError = console.error ? console.error.bind(console) : log;
-const logWarning = console.warn ? console.warn.bind(console) : log;
+const log = console.log.bind(console); //eslint-disable-line
+const logError = console.error ? console.error.bind(console) : log; //eslint-disable-line
+const logWarning = console.warn ? console.warn.bind(console) : log; //eslint-disable-line
 
 /* converts given number of seconds to standard time display format
  * http://goo.gl/kEvnKn
@@ -21,26 +21,13 @@ function convertToTime(number) {
 /*
  * AudioPlayer
  *
- * Accepts 'playlist' prop of the form:
+ * Accepts 'src' prop of the form:
  *
- * [{ "url": "./path/to/file.mp3",
- *    "displayText": "ArtistA - Track 1" },
- *  { "url": "https://domain.com/track2.ogg",
- *    "displayText": "ArtistB - Track 2" }]
- *
+ * "./path/to/file.mp3"
+ * 
  * Accepts 'autoplay' prop (true/[false]).
  *
  * Accepts 'autoplayDelayInSeconds' prop (default 0).
- *
- * Accepts 'gapLengthInSeconds' prop (default 0).
- * Specifies gap at end of one track before next
- * track begins (ignored for manual skip).
- *
- * Accepts 'hideBackSkip' prop (default false,
- * hides back skip button if true).
- *
- * Accepts 'hideForwardSkip' prop (default false,
- * hides forward skip button if true).
  *
  * Accepts 'disableSeek' prop (default false,
  * disables seeking through the audio if true).
@@ -48,10 +35,6 @@ function convertToTime(number) {
  * Accepts 'cycle' prop (default true,
  * starts playing at the beginning of the playlist
  * when finished if true).
- *
- * Accepts 'stayOnBackSkipThreshold' prop, default 5,
- * is number of seconds to progress until pressing back skip
- * restarts the current track.
  *
  * Accepts 'style' prop, object, is applied to
  * outermost div (React styles).
@@ -64,6 +47,7 @@ function convertToTime(number) {
  * internally-referenced HTML audio element as its only parameter.
  * Similar to: https://facebook.github.io/react/docs/refs-and-the-dom.html
  */
+
 export default class AudioPlayer extends Component {
 
   constructor(props) {
@@ -73,16 +57,11 @@ export default class AudioPlayer extends Component {
      * to seek a new track position
      */
     this.seekInProgress = false;
-    // index matching requested track (whether track has loaded or not)
-    this.currentTrackIndex = 0;
-
+    
     this.defaultState = {
-      /* activeTrackIndex will change to match
-       * this.currentTrackIndex once metadata has loaded
-       */
-      activeTrackIndex: -1,
-      // indicates whether audio player should be paused
       paused: true,
+      loading: false,
+      reload:false,
       /* elapsed time for current track, in seconds -
        * DISPLAY ONLY! the actual elapsed time may
        * not match up if we're currently seeking, since
@@ -107,11 +86,7 @@ export default class AudioPlayer extends Component {
     this.resizeListener = () => this.fetchAudioProgressBoundingRect();
     this.audioPlayListener = () => this.setState({ paused: false });
     this.audioPauseListener = () => this.setState({ paused: true });
-    this.audioEndListener = () => {
-      const gapLengthInSeconds = this.props.gapLengthInSeconds || 0;
-      clearTimeout(this.gapLengthTimeout);
-      this.gapLengthTimeout = setTimeout(() => this.skipToNextTrack(), gapLengthInSeconds * 1000);
-    };
+    this.audioEndListener = () => this.setState({reload: true});
     this.audioStallListener = () => this.togglePause(true);
     this.audioTimeUpdateListener = () => this.handleTimeUpdate();
     this.audioMetadataLoadedListener = () => this.setState({
@@ -129,16 +104,16 @@ export default class AudioPlayer extends Component {
     const audio = this.audio = document.createElement('audio');
 
     // add event listeners on the audio element
-    audio.preload = 'metadata';
+    audio.preload = 'none';
     audio.addEventListener('play', this.audioPlayListener);
     audio.addEventListener('pause', this.audioPauseListener);
     audio.addEventListener('ended', this.audioEndListener);
     audio.addEventListener('stalled', this.audioStallListener);
     audio.addEventListener('timeupdate', this.audioTimeUpdateListener);
     audio.addEventListener('loadedmetadata', this.audioMetadataLoadedListener);
-    this.addMediaEventListeners(this.props.onMediaEvent);
+    this.addMediaEventListeners(this.props.onMediaEvent);    
 
-    if (this.props.playlist && this.props.playlist.length) {
+    if (this.props.src) {
       this.updateSource();
       if (this.props.autoplay) {
         const delay = this.props.autoplayDelayInSeconds || 0;
@@ -165,6 +140,8 @@ export default class AudioPlayer extends Component {
     this.audio.removeEventListener('stalled', this.audioStallListener);
     this.audio.removeEventListener('timeupdate', this.audioTimeUpdateListener);
     this.audio.removeEventListener('loadedmetadata', this.audioMetadataLoadedListener);
+    this.audio.removeEventListener('oncanplay', this.onBuffered);
+    
     this.removeMediaEventListeners(this.props.onMediaEvent);
     clearTimeout(this.gapLengthTimeout);
     clearTimeout(this.delayTimeout);
@@ -182,26 +159,12 @@ export default class AudioPlayer extends Component {
     this.removeMediaEventListeners(this.props.onMediaEvent);
     this.addMediaEventListeners(nextProps.onMediaEvent);
 
-    const newPlaylist = nextProps.playlist;
-    if (!newPlaylist || !newPlaylist.length) {
+    const newSrc = nextProps.src;
+    if (newSrc !== this.props.src) {
       if (this.audio) {
-        this.audio.src = '';
+        this.audio.src = newSrc || '';
       }
-      this.currentTrackIndex = 0;
       return this.setState(this.defaultState);
-    }
-
-    const oldPlaylist = this.props.playlist;
-
-    const currentTrackUrl = ((oldPlaylist || [])[this.currentTrackIndex] || {}).url;
-    this.currentTrackIndex = newPlaylist.findIndex(track => track.url && currentTrackUrl === track.url);
-    /* if the track we're already playing is in the new playlist, update the
-     * activeTrackIndex.
-     */
-    if (this.currentTrackIndex !== -1) {
-      this.setState({
-        activeTrackIndex: this.currentTrackIndex,
-      });
     }
   }
 
@@ -229,13 +192,17 @@ export default class AudioPlayer extends Component {
     });
   }
 
-  componentDidUpdate() {
-    /* if we loaded a new playlist and reset the current track marker, we
-     * should load up the first one.
-     */
-    if (this.audio && this.currentTrackIndex === -1) {
-      this.skipToNextTrack(false);
-    }
+  // componentDidUpdate() {
+  //    if we loaded a new playlist and reset the current track marker, we
+  //    * should load up the first one.
+     
+  //   if (this.audio && this.currentTrackIndex === -1) {
+  //     this.skipToNextTrack(false);
+  //   }
+  // }
+
+  onBuffered() {
+    this.setState({ loading: false });
   }
 
   togglePause(value) {
@@ -246,7 +213,7 @@ export default class AudioPlayer extends Component {
     if (pause) {
       return this.audio.pause();
     }
-    if (!this.props.playlist || !this.props.playlist.length) {
+    if (!this.props.src) {
       return;
     }
     try {
@@ -261,52 +228,8 @@ export default class AudioPlayer extends Component {
     }
   }
 
-  skipToNextTrack(shouldPlay) {
-    if (!this.audio) {
-      return;
-    }
-    this.audio.pause();
-    if (!this.props.playlist || !this.props.playlist.length) {
-      return;
-    }
-    let i = this.currentTrackIndex + 1;
-    if (i >= this.props.playlist.length) {
-      i = 0;
-    }
-    this.currentTrackIndex = i;
-    this.setState({
-      activeTrackIndex: -1,
-      displayedTime: 0,
-    }, () => {
-      this.updateSource();
-      const shouldPauseOnCycle = (!this.props.cycle && i === 0);
-      const shouldPause = shouldPauseOnCycle || (typeof shouldPlay === 'boolean' ? !shouldPlay : false);
-      this.togglePause(shouldPause);
-    });
-  }
-
-  backSkip() {
-    if (!this.props.playlist || !this.props.playlist.length) {
-      return;
-    }
-    const audio = this.audio;
-    let stayOnBackSkipThreshold = this.props.stayOnBackSkipThreshold;
-    if (isNaN(stayOnBackSkipThreshold)) {
-      stayOnBackSkipThreshold = 5;
-    }
-    if (audio.currentTime >= stayOnBackSkipThreshold) {
-      return audio.currentTime = 0;
-    }
-    let i = this.currentTrackIndex - 1;
-    if (i < 0) {
-      i = this.props.playlist.length - 1;
-    }
-    this.currentTrackIndex = i - 1;
-    this.skipToNextTrack();
-  }
-
   updateSource() {
-    this.audio.src = this.props.playlist[this.currentTrackIndex].url;
+    this.audio.src = this.props.src;
   }
 
   fetchAudioProgressBoundingRect() {
@@ -322,7 +245,7 @@ export default class AudioPlayer extends Component {
   }
 
   adjustDisplayedTime(event) {
-    if (!this.props.playlist || !this.props.playlist.length || this.props.disableSeek) {
+    if (!this.props.src || this.props.disableSeek) {
       return;
     }
     // make sure we don't select stuff in the background while seeking
@@ -369,47 +292,31 @@ export default class AudioPlayer extends Component {
   }
 
   render() {
-    const activeIndex = this.state.activeTrackIndex;
-    const displayText = this.props.playlist ? (
-      activeIndex < 0 ? null : this.props.playlist[activeIndex].displayText
-    ) : 'Please load a playlist';
 
     const displayedTime = this.state.displayedTime;
     const duration = this.audio && this.audio.duration || 0;
 
     const elapsedTime = convertToTime(displayedTime);
-    const fullTime = convertToTime(duration);
+    // const fullTime = convertToTime(duration);
     const timeRatio = `${elapsedTime} `;
 
-    const progressBarWidth = `${(displayedTime / duration) * 100}%`;
+    const progressBarWidth = `${( displayedTime && duration && (displayedTime / duration) * 100 || 0) }%`;
 
     const adjustDisplayedTime = e => this.adjustDisplayedTime(e);
 
     return (
-      <div id="audio_player" className="audio_player" title={displayText} style={this.props.style}>
+      <div id="audio_player" className="audio_player" style={this.props.style}>
 
         <div className="audio_controls">
 
-          <div id="skip_button" className={classNames('skip_button back audio_button', { hidden: this.props.hideBackSkip })} onClick={() => this.backSkip()} >            
-            <div className="skip_button_inner">
-              <div className="right_facing_triangle" />
-              <div className="right_facing_triangle" />
-            </div>
-          </div>
-
-          <div id="play_pause_button" className={classNames('play_pause_button', 'audio_button', { paused: this.state.paused })} onClick={() => this.togglePause()} >
+          <div id="play_pause_button" className={classNames('play_pause_button', 'audio_button', { paused: this.state.paused, loading: this.state.loading, reload:this.state.reload })} onClick={() => this.togglePause()} >
             <div className="play_pause_inner">
               <div className="ivrplaybtn"><PlayIcon /></div>
               <div className="ivrpausebtn"><PauseIcon /></div>
+              <div className="spinner"></div>
+              <div className="reload"><ReloadIcon /> </div>
             </div>
-          </div>
-
-          <div id="skip_button" className={classNames('skip_button audio_button', { hidden: this.props.hideForwardSkip })} onClick={() => this.skipToNextTrack()}>
-            <div className="skip_button_inner">
-              <div className="right_facing_triangle" />
-              <div className="right_facing_triangle" />
-            </div>
-          </div>
+          </div>          
         </div>
 
         <div id="audio_progress_container"className="audio_progress_container"ref={ref => this.audioProgressContainer = ref}onMouseDown={adjustDisplayedTime}onMouseMove={adjustDisplayedTime}onTouchStart={adjustDisplayedTime}onTouchMove={adjustDisplayedTime}>
@@ -419,7 +326,7 @@ export default class AudioPlayer extends Component {
           <div id="audio_progress_overlay" className="audio_progress_overlay">
             <div className="audio_info_marquee">
               <div id="audio_info" className="audio_info noselect" draggable="false">
-                {displayText}
+                {'Test'}
               </div>
             </div>
           </div>
@@ -428,7 +335,7 @@ export default class AudioPlayer extends Component {
         <div id="audio_time_progress" className="audio_time_progress noselect" draggable="false">
           {timeRatio}
         </div>
-        <div className="download-btn"><button className="nostyle"><DownloadIcon /></button></div>
+        {/*<div className="download-btn"><button className="nostyle"><DownloadIcon /></button></div>*/}
       </div>
     );
   }
@@ -436,15 +343,11 @@ export default class AudioPlayer extends Component {
 }
 
 AudioPlayer.propTypes = {
-  playlist: PropTypes.array,
+  src: PropTypes.string,
   autoplay: PropTypes.bool,
-  autoplayDelayInSeconds: PropTypes.number,
-  gapLengthInSeconds: PropTypes.number,
-  hideBackSkip: PropTypes.bool,
-  hideForwardSkip: PropTypes.bool,
+  autoplayDelayInSeconds: PropTypes.number,  
   cycle: PropTypes.bool,
-  disableSeek: PropTypes.bool,
-  stayOnBackSkipThreshold: PropTypes.number,
+  disableSeek: PropTypes.bool,  
   style: PropTypes.object,
   onMediaEvent: PropTypes.object,
   audioElementRef: PropTypes.func,

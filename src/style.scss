@@ -36,23 +36,24 @@ $audio_player_play_btn_inner_width: 30px !default;
 $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
 
 
-.nostyle{
+.nostyle {
     padding: 0;
     border: 0;
     background: none;
     outline: none;
 }
 
-.download-btn{
+.download-btn {
     padding-top: 10px;
     border-left: 1px solid $border-color;
     padding-left: 10px;
 
-    svg{
+    svg {
         width: 16px;
         height: auto;
     }
 }
+
 @keyframes marquee1 {
     0% {
         transform: translateX(100%);
@@ -103,6 +104,28 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
     }
 }
 
+@-webkit-keyframes sk-scaleout {
+    0% {
+        -webkit-transform: scale(0)
+    }
+    100% {
+        -webkit-transform: scale(1.0);
+        opacity: 0;
+    }
+}
+
+@keyframes sk-scaleout {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+    100% {
+        -webkit-transform: scale(1.0);
+        transform: scale(1.0);
+        opacity: 0;
+    }
+}
+
 .noselect {
     cursor: default;
 
@@ -135,9 +158,7 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
 .audio_player {
     display: flex;
     flex-direction: row;
-    height: 40px;
-
-    // background-color: $audio_player_base_bg_color;
+    height: 40px; // background-color: $audio_player_base_bg_color;
     @include boxshadow;
 
     border-radius: 5px;
@@ -232,7 +253,7 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
     }
 
     .audio_button {
-        
+
         padding-left: 0;
         margin-right: 0;
         cursor: pointer;
@@ -250,9 +271,7 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
             height: $audio_player_play_btn_inner_height;
             width: 22px;
             overflow: hidden;
-            position: relative;
-
-            // transform: scale(0.5);
+            position: relative; // transform: scale(0.5);
             transform-origin: left center;
         }
 
@@ -263,7 +282,8 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
                 margin-left: -2px;
             }
 
-            .ivrplaybtn, .ivrpausebtn {
+            .ivrplaybtn,
+            .ivrpausebtn {
                 svg {
                     width: 14px;
                     height: auto;
@@ -271,6 +291,22 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
                     float: left;
                     margin-top: 8px;
                 }
+            }
+            .spinner {
+                width: 40px;
+                height: 40px;
+                margin: -5px -8px;
+                background-color: #333;
+
+                border-radius: 100%;
+                -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
+                animation: sk-scaleout 1.0s infinite ease-in-out;
+            }
+
+            .reload {
+                width: 40px;
+                height: 40px;
+                margin: 7px -3px;
             }
         }
 
@@ -344,6 +380,24 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
 
             .ivrpausebtn {
                 display: none;
+            }
+
+            .spinner {
+                display: none;
+            }
+        }
+
+        &.loading {
+            .ivrplaybtn {
+                display: none;
+            }
+
+            .ivrpausebtn {
+                display: none;
+            }
+
+            .spinner {
+                display: inline-block;
             }
         }
 
