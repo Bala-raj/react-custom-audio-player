@@ -314,7 +314,7 @@ export default class AudioPlayer extends Component {
               <div className="ivrplaybtn"><PlayIcon /></div>
               <div className="ivrpausebtn"><PauseIcon /></div>
               <div className="spinner"></div>
-              <div className="reload"><ReloadIcon /> </div>
+              <div className="reload-icon"><ReloadIcon /> </div>
             </div>
           </div>          
         </div>
