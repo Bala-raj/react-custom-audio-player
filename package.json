@@ -1,6 +1,17 @@
 {
   "name": "react-custom-audio-player",
   "version": "1.0.1",
+  "author": {
+    "name": "Balachander",
+    "url": "https://github.com/Bala-raj"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Bala-raj/react-custom-audio-player.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Bala-raj/react-custom-audio-player/issues"
+  },
   "scripts": {
     "build": "webpack --config webpack.config.babel.js",
     "release": "webpack --p --config webpack.config.babel.js",
