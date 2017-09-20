@@ -84,7 +84,7 @@ export default class AudioPlayer extends Component {
     // event listeners to add on mount and remove on unmount
     this.seekReleaseListener = e => this.seek(e);
     this.resizeListener = () => this.fetchAudioProgressBoundingRect();
-    this.audioPlayListener = () => this.setState({ paused: false });
+    this.audioPlayListener = () => this.setState({ paused: false, reload:false });
     this.audioPauseListener = () => this.setState({ paused: true });
     this.audioEndListener = () => this.setState({reload: true});
     this.audioStallListener = () => this.togglePause(true);
@@ -92,6 +92,9 @@ export default class AudioPlayer extends Component {
     this.audioMetadataLoadedListener = () => this.setState({
       activeTrackIndex: this.currentTrackIndex,
     });
+    this.onBuffered = () => {
+        this.setState({ loading: false })
+    };    
   }
 
   componentDidMount() {
@@ -110,7 +113,8 @@ export default class AudioPlayer extends Component {
     audio.addEventListener('ended', this.audioEndListener);
     audio.addEventListener('stalled', this.audioStallListener);
     audio.addEventListener('timeupdate', this.audioTimeUpdateListener);
-    audio.addEventListener('loadedmetadata', this.audioMetadataLoadedListener);
+    audio.addEventListener('loadedmetadata', this.audioMetadataLoadedListener);    
+    audio.addEventListener('loadeddata', this.onBuffered);    
     this.addMediaEventListeners(this.props.onMediaEvent);    
 
     if (this.props.src) {
@@ -139,8 +143,8 @@ export default class AudioPlayer extends Component {
     this.audio.removeEventListener('ended', this.audioEndListener);
     this.audio.removeEventListener('stalled', this.audioStallListener);
     this.audio.removeEventListener('timeupdate', this.audioTimeUpdateListener);
-    this.audio.removeEventListener('loadedmetadata', this.audioMetadataLoadedListener);
-    this.audio.removeEventListener('oncanplay', this.onBuffered);
+    this.audio.removeEventListener('loadedmetadata', this.audioMetadataLoadedListener);   
+    this.audio.addEventListener('loadeddata', this.onBuffered);   
     
     this.removeMediaEventListeners(this.props.onMediaEvent);
     clearTimeout(this.gapLengthTimeout);
@@ -201,10 +205,6 @@ export default class AudioPlayer extends Component {
   //   }
   // }
 
-  onBuffered() {
-    this.setState({ loading: false });
-  }
-
   togglePause(value) {
     if (!this.audio) {
       return;
@@ -218,6 +218,9 @@ export default class AudioPlayer extends Component {
     }
     try {
       this.audio.play();
+      if(this.audio.readyState === 0) {
+        this.setState({loading:true});
+    }
     } catch (error) {
       logError(error);
       const warningMessage =
@@ -245,7 +248,7 @@ export default class AudioPlayer extends Component {
   }
 
   adjustDisplayedTime(event) {
-    if (!this.props.src || this.props.disableSeek) {
+    if (!this.props.src || this.props.disableSeek || this.audio.readyState === 0) {
       return;
     }
     // make sure we don't select stuff in the background while seeking
@@ -305,21 +308,21 @@ export default class AudioPlayer extends Component {
     const adjustDisplayedTime = e => this.adjustDisplayedTime(e);
 
     return (
-      <div id="audio_player" className="audio_player" style={this.props.style}>
+      <div id="audio_player" className={classNames('audio_player',{ disabled: !this.props.src })} style={this.props.style}>
 
         <div className="audio_controls">
 
-          <div id="play_pause_button" className={classNames('play_pause_button', 'audio_button', { paused: this.state.paused, loading: this.state.loading, reload:this.state.reload })} onClick={() => this.togglePause()} >
+          <div id="play_pause_button" className={classNames('play_pause_button', 'audio_button', { paused: (!this.state.reload && this.state.paused), loading: this.state.loading, reload:this.state.reload })} onClick={() => this.togglePause()} >
             <div className="play_pause_inner">
               <div className="ivrplaybtn"><PlayIcon /></div>
               <div className="ivrpausebtn"><PauseIcon /></div>
               <div className="spinner"><SpinnerIcon /></div>
-              <div className="reload-icon"><ReloadIcon />} </div>
+              <div className="reload-icon"><ReloadIcon /> </div>
             </div>
           </div>          
         </div>
 
-        <div id="audio_progress_container"className="audio_progress_container"ref={ref => this.audioProgressContainer = ref}onMouseDown={adjustDisplayedTime}onMouseMove={adjustDisplayedTime}onTouchStart={adjustDisplayedTime}onTouchMove={adjustDisplayedTime}>
+        <div id="audio_progress_container"className={ classNames("audio_progress_container", { disabled: (this.audio && this.audio.readyState < 3)})} ref={ref => this.audioProgressContainer = ref}onMouseDown={adjustDisplayedTime}onMouseMove={adjustDisplayedTime}onTouchStart={adjustDisplayedTime}onTouchMove={adjustDisplayedTime}>
           
           <div id="audio_progress" className="audio_progress" style={{ width: progressBarWidth }}> <code /></div>
           

@@ -9,7 +9,7 @@ This is a light React wrapper around the HTML5 audio tag.  It provides the abili
 
     import AudioPlayer from 'react-custom-audio-player';
     //...
-     <AudioPlayer playlist={[{ url:'sample.wav' }]} hideBackSkip hideForwardSkip />
+     <AudioPlayer src='sample.wav'/>
 
 ### Example
 

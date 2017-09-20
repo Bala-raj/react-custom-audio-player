@@ -18,7 +18,9 @@ return webpackJsonpreact_custom_audio_player([1],{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PlayIcon; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return PauseIcon; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return DownloadIcon; });
+/* unused harmony export DownloadIcon */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return ReloadIcon; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return SpinnerIcon; });
 
 
 var PlayIcon = function PlayIcon() {
@@ -32,7 +34,7 @@ var PlayIcon = function PlayIcon() {
 var PauseIcon = function PauseIcon() {
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     "svg",
-    { width: "8px", height: "14px", viewBox: "0 0 8 14", version: "1.1", xmlns: "http://www.w3.org/2000/svg" },
+    { width: "4px", height: "4px", viewBox: "0 0 8 14", version: "1.1" },
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       "g",
       { id: "Page-1", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd", strokeLinecap: "round" },
@@ -55,6 +57,152 @@ var DownloadIcon = function DownloadIcon() {
     "svg",
     { width: "22px", height: "16px", viewBox: "1 4 22 16", version: "1.1" },
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("path", { d: "M5,18 L19,18 L19,14.990778 C19,14.4435864 19.4438648,14 20,14 C20.5522847,14 21,14.4509752 21,14.990778 L21,19.009222 C21,19.2817391 20.8899071,19.5285588 20.7106822,19.707684 C20.526412,19.8893137 20.2793017,20 20.0066023,20 L3.99339768,20 C3.72059477,20 3.47347534,19.8902571 3.29394673,19.7115371 C3.1110417,19.5248505 3,19.2780517 3,19.009222 L3,14.990778 C3,14.4435864 3.44386482,14 4,14 C4.55228475,14 5,14.4509752 5,14.990778 L5,18 Z M10.9799805,10.9861538 L10.9799805,5.00262796 C10.9799805,4.45312946 11.4276957,4 11.9799805,4 C12.5361156,4 12.9799805,4.44889183 12.9799805,5.00262796 L12.9799805,10.9861538 L14.6839762,10.9861538 C15.2404693,10.9868609 15.5586673,11.6218428 15.2242058,12.0680271 L12.5209366,15.6721504 C12.2508218,16.0327749 11.7098851,16.0320678 11.4397703,15.6714433 L8.73650108,12.06732 C8.40203958,11.6225499 8.72023763,10.9861538 9.27743777,10.9861538 L10.9799805,10.9861538 Z", id: "Combined-Shape", stroke: "none", fill: "#3B4752", fillRule: "evenodd" })
+  );
+};
+
+var ReloadIcon = function ReloadIcon() {
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    "svg",
+    { width: "16px", height: "16px", viewBox: "0 0 17 17", version: "1.1" },
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "defs",
+      null,
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("path", { d: "M10,21 C8.89742857,21 8,20.1028571 8,19 C8,17.8971429 8.89742857,17 10,17 C11.1025714,17 12,17.8971429 12,19 C12,20.1028571 11.1025714,21 10,21 Z", id: "path-1" })
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "g",
+      { id: "Messages", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "g",
+        { id: "Messages-V2", transform: "translate(-973.000000, -248.000000)", fillRule: "nonzero" },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "g",
+          { id: "Replay-Icon", transform: "translate(969.000000, 244.000000)" },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("path", { d: "M7.02419728,11.4574669 C7.2984025,8.3979809 9.86916203,6 13,6 C16.3137085,6 19,8.6862915 19,12 C19,15.3137085 16.3137085,18 13,18 L13,20 C17.418278,20 21,16.418278 21,12 C21,7.581722 17.418278,4 13,4 C8.76405539,4 5.29704552,7.29220101 5.01810658,11.4574669 L3.80875019,11.4574669 C3.34987948,11.4574669 3.08783403,11.9815578 3.36327292,12.3478391 L5.58949463,15.3159406 C5.81194211,15.6129254 6.25741938,15.6135078 6.47986685,15.3165229 L8.70608857,12.3484214 C8.98152746,11.9809754 8.719482,11.4580492 8.26119362,11.4574669 L7.02419728,11.4574669 Z", id: "Combined-Shape", fill: "#3B4752", transform: "translate(12.125420, 12.000000) rotate(30.000000) translate(-12.125420, -12.000000) " }),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "g",
+            { id: "Shape" },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("use", { fill: "#00BBE5", fillRule: "evenodd", xlinkHref: "#path-1" }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("path", { stroke: "#FFFFFF", strokeWidth: "0.8", d: "M10,20.75 C10.9646044,20.75 11.75,19.9646818 11.75,19 C11.75,18.0353182 10.9646044,17.25 10,17.25 C9.03539562,17.25 8.25,18.0353182 8.25,19 C8.25,19.9646818 9.03539562,20.75 10,20.75 Z" })
+          )
+        )
+      )
+    )
+  );
+};
+
+var SpinnerIcon = function SpinnerIcon() {
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    "svg",
+    { className: "lds-spinner", width: "35px", height: "35px", viewBox: "0 0 100 100", preserveAspectRatio: "xMidYMid", style: { "animationPlayState": "paused", "animationDelay": "-1s", "background": "none" } },
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "g",
+      { transform: "rotate(0 50 50)", style: { "animationPlayState": "paused", "animationDelay": "-1s" } },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "rect",
+        { x: "47", y: "24", rx: "9.4", ry: "4.8", width: "4", height: "8", fill: "#000", style: { "animationPlayState": "paused", "animationDelay": "-1s" } },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("animate", { attributeName: "opacity", values: "1;0", dur: "1s", begin: "-0.9166666666666666s", repeatCount: "indefinite", style: { "animationPlayState": "paused", "animationDelay": "-1s" } })
+      )
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "g",
+      { transform: "rotate(30 50 50)", style: { "animationPlayState": "paused", "animationDelay": "-1s" } },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "rect",
+        { x: "47", y: "24", rx: "9.4", ry: "4.8", width: "4", height: "8", fill: "#000", style: { "animationPlayState": "paused", "animationDelay": "-1s" } },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("animate", { attributeName: "opacity", values: "1;0", dur: "1s", begin: "-0.8333333333333334s", repeatCount: "indefinite", style: { "animationPlayState": "paused", "animationDelay": "-1s" } })
+      )
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "g",
+      { transform: "rotate(60 50 50)", style: { "animationPlayState": "paused", "animationDelay": "-1s" } },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "rect",
+        { x: "47", y: "24", rx: "9.4", ry: "4.8", width: "4", height: "8", fill: "#000", style: { "animationPlayState": "paused", "animationDelay": "-1s" } },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("animate", { attributeName: "opacity", values: "1;0", dur: "1s", begin: "-0.75s", repeatCount: "indefinite", style: { "animationPlayState": "paused", "animationDelay": "-1s" } })
+      )
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "g",
+      { transform: "rotate(90 50 50)", style: { "animationPlayState": "paused", "animationDelay": "-1s" } },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "rect",
+        { x: "47", y: "24", rx: "9.4", ry: "4.8", width: "4", height: "8", fill: "#000", style: { "animationPlayState": "paused", "animationDelay": "-1s" } },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("animate", { attributeName: "opacity", values: "1;0", dur: "1s", begin: "-0.6666666666666666s", repeatCount: "indefinite", style: { "animationPlayState": "paused", "animationDelay": "-1s" } })
+      )
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "g",
+      { transform: "rotate(120 50 50)", style: { "animationPlayState": "paused", "animationDelay": "-1s" } },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "rect",
+        { x: "47", y: "24", rx: "9.4", ry: "4.8", width: "4", height: "8", fill: "#000", style: { "animationPlayState": "paused", "animationDelay": "-1s" } },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("animate", { attributeName: "opacity", values: "1;0", dur: "1s", begin: "-0.5833333333333334s", repeatCount: "indefinite", style: { "animationPlayState": "paused", "animationDelay": "-1s" } })
+      )
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "g",
+      { transform: "rotate(150 50 50)", style: { "animationPlayState": "paused", "animationDelay": "-1s" } },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "rect",
+        { x: "47", y: "24", rx: "9.4", ry: "4.8", width: "4", height: "8", fill: "#000", style: { "animationPlayState": "paused", "animationDelay": "-1s" } },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("animate", { attributeName: "opacity", values: "1;0", dur: "1s", begin: "-0.5s", repeatCount: "indefinite", style: { "animationPlayState": "paused", "animationDelay": "-1s" } })
+      )
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "g",
+      { transform: "rotate(180 50 50)", style: { "animationPlayState": "paused", "animationDelay": "-1s" } },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "rect",
+        { x: "47", y: "24", rx: "9.4", ry: "4.8", width: "4", height: "8", fill: "#000", style: { "animationPlayState": "paused", "animationDelay": "-1s" } },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("animate", { attributeName: "opacity", values: "1;0", dur: "1s", begin: "-0.4166666666666667s", repeatCount: "indefinite", style: { "animationPlayState": "paused", "animationDelay": "-1s" } })
+      )
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "g",
+      { transform: "rotate(210 50 50)", style: { "animationPlayState": "paused", "animationDelay": "-1s" } },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "rect",
+        { x: "47", y: "24", rx: "9.4", ry: "4.8", width: "4", height: "8", fill: "#000", style: { animationPlayState: "paused", animationDelay: "-1s" } },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("animate", { attributeName: "opacity", values: "1;0", dur: "1s", begin: "-0.3333333333333333s", repeatCount: "indefinite", style: { animationPlayState: "paused", animationDelay: "-1s" } })
+      )
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "g",
+      { transform: "rotate(240 50 50)", style: { "animationPlayState": "paused", "animationDelay": "-1s" } },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "rect",
+        { x: "47", y: "24", rx: "9.4", ry: "4.8", width: "4", height: "8", fill: "#000", style: { "animationPlayState": "paused", "animationDelay": "-1s" } },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("animate", { attributeName: "opacity", values: "1;0", dur: "1s", begin: "-0.25s", repeatCount: "indefinite", style: { "animationPlayState": "paused", "animationDelay": "-1s" } })
+      )
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "g",
+      { transform: "rotate(270 50 50)", style: { "animationPlayState": "paused", "animationDelay": "-1s" } },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "rect",
+        { x: "47", y: "24", rx: "9.4", ry: "4.8", width: "4", height: "8", fill: "#000", style: { "animationPlayState": "paused", "animationDelay": "-1s" } },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("animate", { attributeName: "opacity", values: "1;0", dur: "1s", begin: "-0.16666666666666666s", repeatCount: "indefinite", style: { "animationPlayState": "paused", "animationDelay": "-1s" } })
+      )
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "g",
+      { transform: "rotate(300 50 50)", style: { "animationPlayState": "paused", "animationDelay": "-1s" } },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "rect",
+        { x: "47", y: "24", rx: "9.4", ry: "4.8", width: "4", height: "8", fill: "#000", style: { "animationPlayState": "paused", "animationDelay": "-1s" } },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("animate", { attributeName: "opacity", values: "1;0", dur: "1s", begin: "-0.08333333333333333s", repeatCount: "indefinite", style: { "animationPlayState": "paused", "animationDelay": "-1s" } })
+      )
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "g",
+      { transform: "rotate(330 50 50)", style: { "animationPlayState": "paused", "animationDelay": "-1s" } },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "rect",
+        { x: "47", y: "24", rx: "9.4", ry: "4.8", width: "4", height: "8", fill: "#000", style: { "animationPlayState": "paused", "animationDelay": "-1s" } },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("animate", { attributeName: "opacity", values: "1;0", dur: "1s", begin: "0s", repeatCount: "indefinite", style: { "animationPlayState": "paused", "animationDelay": "-1s" } })
+      )
+    )
   );
 };
 
@@ -86,9 +234,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var log = console.log.bind(console);
-var logError = console.error ? console.error.bind(console) : log;
-var logWarning = console.warn ? console.warn.bind(console) : log;
+var log = console.log.bind(console); //eslint-disable-line
+var logError = console.error ? console.error.bind(console) : log; //eslint-disable-line
+var logWarning = console.warn ? console.warn.bind(console) : log; //eslint-disable-line
 
 /* converts given number of seconds to standard time display format
  * http://goo.gl/kEvnKn
@@ -102,26 +250,13 @@ function convertToTime(number) {
 /*
  * AudioPlayer
  *
- * Accepts 'playlist' prop of the form:
+ * Accepts 'src' prop of the form:
  *
- * [{ "url": "./path/to/file.mp3",
- *    "displayText": "ArtistA - Track 1" },
- *  { "url": "https://domain.com/track2.ogg",
- *    "displayText": "ArtistB - Track 2" }]
- *
+ * "./path/to/file.mp3"
+ * 
  * Accepts 'autoplay' prop (true/[false]).
  *
  * Accepts 'autoplayDelayInSeconds' prop (default 0).
- *
- * Accepts 'gapLengthInSeconds' prop (default 0).
- * Specifies gap at end of one track before next
- * track begins (ignored for manual skip).
- *
- * Accepts 'hideBackSkip' prop (default false,
- * hides back skip button if true).
- *
- * Accepts 'hideForwardSkip' prop (default false,
- * hides forward skip button if true).
  *
  * Accepts 'disableSeek' prop (default false,
  * disables seeking through the audio if true).
@@ -129,10 +264,6 @@ function convertToTime(number) {
  * Accepts 'cycle' prop (default true,
  * starts playing at the beginning of the playlist
  * when finished if true).
- *
- * Accepts 'stayOnBackSkipThreshold' prop, default 5,
- * is number of seconds to progress until pressing back skip
- * restarts the current track.
  *
  * Accepts 'style' prop, object, is applied to
  * outermost div (React styles).
@@ -158,16 +289,11 @@ var AudioPlayer = function (_Component) {
     var _this = _possibleConstructorReturn(this, (AudioPlayer.__proto__ || Object.getPrototypeOf(AudioPlayer)).call(this, props));
 
     _this.seekInProgress = false;
-    // index matching requested track (whether track has loaded or not)
-    _this.currentTrackIndex = 0;
 
     _this.defaultState = {
-      /* activeTrackIndex will change to match
-       * this.currentTrackIndex once metadata has loaded
-       */
-      activeTrackIndex: -1,
-      // indicates whether audio player should be paused
       paused: true,
+      loading: false,
+      reload: false,
       /* elapsed time for current track, in seconds -
        * DISPLAY ONLY! the actual elapsed time may
        * not match up if we're currently seeking, since
@@ -195,17 +321,13 @@ var AudioPlayer = function (_Component) {
       return _this.fetchAudioProgressBoundingRect();
     };
     _this.audioPlayListener = function () {
-      return _this.setState({ paused: false });
+      return _this.setState({ paused: false, reload: false });
     };
     _this.audioPauseListener = function () {
       return _this.setState({ paused: true });
     };
     _this.audioEndListener = function () {
-      var gapLengthInSeconds = _this.props.gapLengthInSeconds || 0;
-      clearTimeout(_this.gapLengthTimeout);
-      _this.gapLengthTimeout = setTimeout(function () {
-        return _this.skipToNextTrack();
-      }, gapLengthInSeconds * 1000);
+      return _this.setState({ reload: true });
     };
     _this.audioStallListener = function () {
       return _this.togglePause(true);
@@ -217,6 +339,9 @@ var AudioPlayer = function (_Component) {
       return _this.setState({
         activeTrackIndex: _this.currentTrackIndex
       });
+    };
+    _this.onBuffered = function () {
+      _this.setState({ loading: false });
     };
     return _this;
   }
@@ -242,10 +367,10 @@ var AudioPlayer = function (_Component) {
       audio.addEventListener('stalled', this.audioStallListener);
       audio.addEventListener('timeupdate', this.audioTimeUpdateListener);
       audio.addEventListener('loadedmetadata', this.audioMetadataLoadedListener);
+      audio.addEventListener('loadeddata', this.onBuffered);
       this.addMediaEventListeners(this.props.onMediaEvent);
-      this.add;
 
-      if (this.props.playlist && this.props.playlist.length) {
+      if (this.props.src) {
         this.updateSource();
         if (this.props.autoplay) {
           var delay = this.props.autoplayDelayInSeconds || 0;
@@ -275,7 +400,7 @@ var AudioPlayer = function (_Component) {
       this.audio.removeEventListener('stalled', this.audioStallListener);
       this.audio.removeEventListener('timeupdate', this.audioTimeUpdateListener);
       this.audio.removeEventListener('loadedmetadata', this.audioMetadataLoadedListener);
-      this.audio.removeEventListener('oncanplay', this.onBuffered);
+      this.audio.addEventListener('loadeddata', this.onBuffered);
 
       this.removeMediaEventListeners(this.props.onMediaEvent);
       clearTimeout(this.gapLengthTimeout);
@@ -295,28 +420,12 @@ var AudioPlayer = function (_Component) {
       this.removeMediaEventListeners(this.props.onMediaEvent);
       this.addMediaEventListeners(nextProps.onMediaEvent);
 
-      var newPlaylist = nextProps.playlist;
-      if (!newPlaylist || !newPlaylist.length) {
+      var newSrc = nextProps.src;
+      if (newSrc !== this.props.src) {
         if (this.audio) {
-          this.audio.src = '';
+          this.audio.src = newSrc || '';
         }
-        this.currentTrackIndex = 0;
         return this.setState(this.defaultState);
-      }
-
-      var oldPlaylist = this.props.playlist;
-
-      var currentTrackUrl = ((oldPlaylist || [])[this.currentTrackIndex] || {}).url;
-      this.currentTrackIndex = newPlaylist.findIndex(function (track) {
-        return track.url && currentTrackUrl === track.url;
-      });
-      /* if the track we're already playing is in the new playlist, update the
-       * activeTrackIndex.
-       */
-      if (this.currentTrackIndex !== -1) {
-        this.setState({
-          activeTrackIndex: this.currentTrackIndex
-        });
       }
     }
   }, {
@@ -349,16 +458,16 @@ var AudioPlayer = function (_Component) {
         _this4.audio.removeEventListener(type, mediaEvents[type]);
       });
     }
-  }, {
-    key: 'componentDidUpdate',
-    value: function componentDidUpdate() {
-      /* if we loaded a new playlist and reset the current track marker, we
-       * should load up the first one.
-       */
-      if (this.audio && this.currentTrackIndex === -1) {
-        this.skipToNextTrack(false);
-      }
-    }
+
+    // componentDidUpdate() {
+    //    if we loaded a new playlist and reset the current track marker, we
+    //    * should load up the first one.
+
+    //   if (this.audio && this.currentTrackIndex === -1) {
+    //     this.skipToNextTrack(false);
+    //   }
+    // }
+
   }, {
     key: 'togglePause',
     value: function togglePause(value) {
@@ -369,11 +478,14 @@ var AudioPlayer = function (_Component) {
       if (pause) {
         return this.audio.pause();
       }
-      if (!this.props.playlist || !this.props.playlist.length) {
+      if (!this.props.src) {
         return;
       }
       try {
         this.audio.play();
+        if (this.audio.readyState === 0) {
+          this.setState({ loading: true });
+        }
       } catch (error) {
         logError(error);
         var warningMessage = 'Audio playback failed at ' + new Date().toLocaleTimeString() + '! (Perhaps autoplay is disabled in this browser.)';
@@ -381,57 +493,9 @@ var AudioPlayer = function (_Component) {
       }
     }
   }, {
-    key: 'skipToNextTrack',
-    value: function skipToNextTrack(shouldPlay) {
-      var _this5 = this;
-
-      if (!this.audio) {
-        return;
-      }
-      this.audio.pause();
-      if (!this.props.playlist || !this.props.playlist.length) {
-        return;
-      }
-      var i = this.currentTrackIndex + 1;
-      if (i >= this.props.playlist.length) {
-        i = 0;
-      }
-      this.currentTrackIndex = i;
-      this.setState({
-        activeTrackIndex: -1,
-        displayedTime: 0
-      }, function () {
-        _this5.updateSource();
-        var shouldPauseOnCycle = !_this5.props.cycle && i === 0;
-        var shouldPause = shouldPauseOnCycle || (typeof shouldPlay === 'boolean' ? !shouldPlay : false);
-        _this5.togglePause(shouldPause);
-      });
-    }
-  }, {
-    key: 'backSkip',
-    value: function backSkip() {
-      if (!this.props.playlist || !this.props.playlist.length) {
-        return;
-      }
-      var audio = this.audio;
-      var stayOnBackSkipThreshold = this.props.stayOnBackSkipThreshold;
-      if (isNaN(stayOnBackSkipThreshold)) {
-        stayOnBackSkipThreshold = 5;
-      }
-      if (audio.currentTime >= stayOnBackSkipThreshold) {
-        return audio.currentTime = 0;
-      }
-      var i = this.currentTrackIndex - 1;
-      if (i < 0) {
-        i = this.props.playlist.length - 1;
-      }
-      this.currentTrackIndex = i - 1;
-      this.skipToNextTrack();
-    }
-  }, {
     key: 'updateSource',
     value: function updateSource() {
-      this.audio.src = this.props.playlist[this.currentTrackIndex].url;
+      this.audio.src = this.props.src;
     }
   }, {
     key: 'fetchAudioProgressBoundingRect',
@@ -450,7 +514,7 @@ var AudioPlayer = function (_Component) {
   }, {
     key: 'adjustDisplayedTime',
     value: function adjustDisplayedTime(event) {
-      if (!this.props.playlist || !this.props.playlist.length || this.props.disableSeek) {
+      if (!this.props.src || this.props.disableSeek || this.audio.readyState === 0) {
         return;
       }
       // make sure we don't select stuff in the background while seeking
@@ -499,46 +563,31 @@ var AudioPlayer = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this6 = this;
-
-      var activeIndex = this.state.activeTrackIndex;
-      var displayText = this.props.playlist ? activeIndex < 0 ? null : this.props.playlist[activeIndex].displayText : 'Please load a playlist';
+      var _this5 = this;
 
       var displayedTime = this.state.displayedTime;
       var duration = this.audio && this.audio.duration || 0;
 
       var elapsedTime = convertToTime(displayedTime);
-      var fullTime = convertToTime(duration);
+      // const fullTime = convertToTime(duration);
       var timeRatio = elapsedTime + ' ';
 
-      var progressBarWidth = displayedTime / duration * 100 + '%';
+      var progressBarWidth = (displayedTime && duration && displayedTime / duration * 100 || 0) + '%';
 
       var adjustDisplayedTime = function adjustDisplayedTime(e) {
-        return _this6.adjustDisplayedTime(e);
+        return _this5.adjustDisplayedTime(e);
       };
 
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
-        { id: 'audio_player', className: 'audio_player', title: displayText, style: this.props.style },
+        { id: 'audio_player', className: __WEBPACK_IMPORTED_MODULE_2_classnames___default()('audio_player', { disabled: !this.props.src }), style: this.props.style },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
           { className: 'audio_controls' },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
-            { id: 'skip_button', className: __WEBPACK_IMPORTED_MODULE_2_classnames___default()('skip_button back audio_button', { hidden: this.props.hideBackSkip }), onClick: function onClick() {
-                return _this6.backSkip();
-              } },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'div',
-              { className: 'skip_button_inner' },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'right_facing_triangle' }),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'right_facing_triangle' })
-            )
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { id: 'play_pause_button', className: __WEBPACK_IMPORTED_MODULE_2_classnames___default()('play_pause_button', 'audio_button', { paused: this.state.paused, loading: this.state.loading }), onClick: function onClick() {
-                return _this6.togglePause();
+            { id: 'play_pause_button', className: __WEBPACK_IMPORTED_MODULE_2_classnames___default()('play_pause_button', 'audio_button', { paused: !this.state.reload && this.state.paused, loading: this.state.loading, reload: this.state.reload }), onClick: function onClick() {
+                return _this5.togglePause();
               } },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'div',
@@ -553,26 +602,24 @@ var AudioPlayer = function (_Component) {
                 { className: 'ivrpausebtn' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__icons__["b" /* PauseIcon */], null)
               ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'spinner' })
-            )
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { id: 'skip_button', className: __WEBPACK_IMPORTED_MODULE_2_classnames___default()('skip_button audio_button', { hidden: this.props.hideForwardSkip }), onClick: function onClick() {
-                return _this6.skipToNextTrack();
-              } },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'div',
-              { className: 'skip_button_inner' },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'right_facing_triangle' }),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { className: 'right_facing_triangle' })
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'spinner' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__icons__["c" /* SpinnerIcon */], null)
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'reload-icon' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__icons__["d" /* ReloadIcon */], null),
+                ' '
+              )
             )
           )
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
-          { id: 'audio_progress_container', className: 'audio_progress_container', ref: function ref(_ref) {
-              return _this6.audioProgressContainer = _ref;
+          { id: 'audio_progress_container', className: __WEBPACK_IMPORTED_MODULE_2_classnames___default()("audio_progress_container", { disabled: this.audio && this.audio.readyState < 3 }), ref: function ref(_ref) {
+              return _this5.audioProgressContainer = _ref;
             }, onMouseDown: adjustDisplayedTime, onMouseMove: adjustDisplayedTime, onTouchStart: adjustDisplayedTime, onTouchMove: adjustDisplayedTime },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
@@ -589,7 +636,7 @@ var AudioPlayer = function (_Component) {
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 { id: 'audio_info', className: 'audio_info noselect', draggable: 'false' },
-                displayText
+                'Test'
               )
             )
           )
@@ -598,15 +645,6 @@ var AudioPlayer = function (_Component) {
           'div',
           { id: 'audio_time_progress', className: 'audio_time_progress noselect', draggable: 'false' },
           timeRatio
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'div',
-          { className: 'download-btn' },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'button',
-            { className: 'nostyle' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__icons__["c" /* DownloadIcon */], null)
-          )
         )
       );
     }
@@ -619,15 +657,11 @@ var AudioPlayer = function (_Component) {
 
 
 AudioPlayer.propTypes = {
-  playlist: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.array,
+  src: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
   autoplay: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
   autoplayDelayInSeconds: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.number,
-  gapLengthInSeconds: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.number,
-  hideBackSkip: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
-  hideForwardSkip: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
   cycle: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
   disableSeek: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
-  stayOnBackSkipThreshold: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.number,
   style: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object,
   onMediaEvent: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object,
   audioElementRef: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func
