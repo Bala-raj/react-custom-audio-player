@@ -4,7 +4,7 @@ export const PlayIcon = () => <svg width="14px" height="14px" viewBox="315 8 14 
   <path d="M321.89468,9.99823037 C322.154701,9.51069072 322.579033,9.5158552 322.8363,9.99823037 L327.89468,19.4826931 C328.154701,19.9702328 327.914515,20.3654617 327.374712,20.3654617 L323.356268,20.3654617 C322.809077,20.3654617 321.914515,20.3654617 321.374712,20.3654617 L317.356268,20.3654617 C316.809077,20.3654617 316.579033,19.9650683 316.8363,19.4826931 L321.89468,9.99823037 Z" id="Triangle" stroke="#3B4752" strokeWidth="2" fill="none" transform="translate(322.365476, 14.999986) rotate(90.000000) translate(-322.365476, -14.999986) " />
 </svg>;
 
-export const PauseIcon = () => <svg width="4px" height="4px" viewBox="0 0 8 14" version="1.1" xmlns="http://www.w3.org/2000/svg">
+export const PauseIcon = () => <svg width="4px" height="4px" viewBox="0 0 8 14" version="1.1">
   <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeLinecap="round">
     <g id="Artboard-5" transform="translate(-385.000000, -125.000000)" stroke="#3B4752" strokeWidth="2">
       <g id="Group-2" transform="translate(385.000000, 126.000000)">
@@ -40,53 +40,53 @@ export const ReloadIcon = () =>
 </svg>
 
 
-// export const SpinnerIcon = () =>
-// <svg class="lds-spinner" width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" style={{"animation-play-state": "paused"; "animation-delay": "-1s"; "background": "none";}}><g transform="rotate(0 50 50)" style="animation-play-state: paused; animation-delay: -1s;">
-//   <rect x="47" y="24" rx="9.4" ry="4.8" width="6" height="12" fill="#bd4030" style="animation-play-state: paused; animation-delay: -1s;">
-//     <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.9166666666666666s" repeatCount="indefinite" style="animation-play-state: paused; animation-delay: -1s;"></animate>
-//   </rect>
-// </g><g transform="rotate(30 50 50)" style="animation-play-state: paused; animation-delay: -1s;">
-//   <rect x="47" y="24" rx="9.4" ry="4.8" width="6" height="12" fill="#bd4030" style="animation-play-state: paused; animation-delay: -1s;">
-//     <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.8333333333333334s" repeatCount="indefinite" style="animation-play-state: paused; animation-delay: -1s;"></animate>
-//   </rect>
-// </g><g transform="rotate(60 50 50)" style="animation-play-state: paused; animation-delay: -1s;">
-//   <rect x="47" y="24" rx="9.4" ry="4.8" width="6" height="12" fill="#bd4030" style="animation-play-state: paused; animation-delay: -1s;">
-//     <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.75s" repeatCount="indefinite" style="animation-play-state: paused; animation-delay: -1s;"></animate>
-//   </rect>
-// </g><g transform="rotate(90 50 50)" style="animation-play-state: paused; animation-delay: -1s;">
-//   <rect x="47" y="24" rx="9.4" ry="4.8" width="6" height="12" fill="#bd4030" style="animation-play-state: paused; animation-delay: -1s;">
-//     <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.6666666666666666s" repeatCount="indefinite" style="animation-play-state: paused; animation-delay: -1s;"></animate>
-//   </rect>
-// </g><g transform="rotate(120 50 50)" style="animation-play-state: paused; animation-delay: -1s;">
-//   <rect x="47" y="24" rx="9.4" ry="4.8" width="6" height="12" fill="#bd4030" style="animation-play-state: paused; animation-delay: -1s;">
-//     <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.5833333333333334s" repeatCount="indefinite" style="animation-play-state: paused; animation-delay: -1s;"></animate>
-//   </rect>
-// </g><g transform="rotate(150 50 50)" style="animation-play-state: paused; animation-delay: -1s;">
-//   <rect x="47" y="24" rx="9.4" ry="4.8" width="6" height="12" fill="#bd4030" style="animation-play-state: paused; animation-delay: -1s;">
-//     <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.5s" repeatCount="indefinite" style="animation-play-state: paused; animation-delay: -1s;"></animate>
-//   </rect>
-// </g><g transform="rotate(180 50 50)" style="animation-play-state: paused; animation-delay: -1s;">
-//   <rect x="47" y="24" rx="9.4" ry="4.8" width="6" height="12" fill="#bd4030" style="animation-play-state: paused; animation-delay: -1s;">
-//     <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.4166666666666667s" repeatCount="indefinite" style="animation-play-state: paused; animation-delay: -1s;"></animate>
-//   </rect>
-// </g><g transform="rotate(210 50 50)" style="animation-play-state: paused; animation-delay: -1s;">
-//   <rect x="47" y="24" rx="9.4" ry="4.8" width="6" height="12" fill="#bd4030" style="animation-play-state: paused; animation-delay: -1s;">
-//     <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.3333333333333333s" repeatCount="indefinite" style="animation-play-state: paused; animation-delay: -1s;"></animate>
-//   </rect>
-// </g><g transform="rotate(240 50 50)" style="animation-play-state: paused; animation-delay: -1s;">
-//   <rect x="47" y="24" rx="9.4" ry="4.8" width="6" height="12" fill="#bd4030" style="animation-play-state: paused; animation-delay: -1s;">
-//     <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.25s" repeatCount="indefinite" style="animation-play-state: paused; animation-delay: -1s;"></animate>
-//   </rect>
-// </g><g transform="rotate(270 50 50)" style="animation-play-state: paused; animation-delay: -1s;">
-//   <rect x="47" y="24" rx="9.4" ry="4.8" width="6" height="12" fill="#bd4030" style="animation-play-state: paused; animation-delay: -1s;">
-//     <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.16666666666666666s" repeatCount="indefinite" style="animation-play-state: paused; animation-delay: -1s;"></animate>
-//   </rect>
-// </g><g transform="rotate(300 50 50)" style="animation-play-state: paused; animation-delay: -1s;">
-//   <rect x="47" y="24" rx="9.4" ry="4.8" width="6" height="12" fill="#bd4030" style="animation-play-state: paused; animation-delay: -1s;">
-//     <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="-0.08333333333333333s" repeatCount="indefinite" style="animation-play-state: paused; animation-delay: -1s;"></animate>
-//   </rect>
-// </g><g transform="rotate(330 50 50)" style="animation-play-state: paused; animation-delay: -1s;">
-//   <rect x="47" y="24" rx="9.4" ry="4.8" width="6" height="12" fill="#bd4030" style="animation-play-state: paused; animation-delay: -1s;">
-//     <animate attributeName="opacity" values="1;0" times="0;1" dur="1s" begin="0s" repeatCount="indefinite" style="animation-play-state: paused; animation-delay: -1s;"></animate>
-//   </rect>
-// </g></svg>
+export const SpinnerIcon = () =>
+<svg className="lds-spinner" width="35px" height="35px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" style={{"animationPlayState": "paused", "animationDelay": "-1s", "background": "none"}}><g transform="rotate(0 50 50)" style={{"animationPlayState": "paused", "animationDelay": "-1s"}}>
+  <rect x="47" y="24" rx="9.4" ry="4.8" width="4" height="8" fill="#000" style={{"animationPlayState": "paused", "animationDelay": "-1s"}}>
+    <animate attributeName="opacity" values="1;0"  dur="1s" begin="-0.9166666666666666s" repeatCount="indefinite" style={{"animationPlayState": "paused", "animationDelay": "-1s"}}></animate>
+  </rect>
+</g><g transform="rotate(30 50 50)" style={{"animationPlayState": "paused", "animationDelay": "-1s"}}>
+  <rect x="47" y="24" rx="9.4" ry="4.8" width="4" height="8" fill="#000" style={{"animationPlayState": "paused", "animationDelay": "-1s"}}>
+    <animate attributeName="opacity" values="1;0"  dur="1s" begin="-0.8333333333333334s" repeatCount="indefinite" style={{"animationPlayState": "paused", "animationDelay": "-1s"}}></animate>
+  </rect>
+</g><g transform="rotate(60 50 50)" style={{"animationPlayState": "paused", "animationDelay": "-1s"}}>
+  <rect x="47" y="24" rx="9.4" ry="4.8" width="4" height="8" fill="#000" style={{"animationPlayState": "paused", "animationDelay": "-1s"}}>
+    <animate attributeName="opacity" values="1;0"  dur="1s" begin="-0.75s" repeatCount="indefinite" style={{"animationPlayState": "paused", "animationDelay": "-1s"}}></animate>
+  </rect>
+</g><g transform="rotate(90 50 50)" style={{"animationPlayState": "paused", "animationDelay": "-1s"}}>
+  <rect x="47" y="24" rx="9.4" ry="4.8" width="4" height="8" fill="#000" style={{"animationPlayState": "paused", "animationDelay": "-1s"}}>
+    <animate attributeName="opacity" values="1;0"  dur="1s" begin="-0.6666666666666666s" repeatCount="indefinite" style={{"animationPlayState": "paused","animationDelay": "-1s"}}></animate>
+  </rect>
+</g><g transform="rotate(120 50 50)" style={{"animationPlayState": "paused", "animationDelay": "-1s"}}>
+  <rect x="47" y="24" rx="9.4" ry="4.8" width="4" height="8" fill="#000" style={{"animationPlayState": "paused", "animationDelay": "-1s"}}>
+    <animate attributeName="opacity" values="1;0"  dur="1s" begin="-0.5833333333333334s" repeatCount="indefinite" style={{"animationPlayState": "paused", "animationDelay": "-1s"}}></animate>
+  </rect>
+</g><g transform="rotate(150 50 50)" style={{"animationPlayState": "paused", "animationDelay": "-1s"}}>
+  <rect x="47" y="24" rx="9.4" ry="4.8" width="4" height="8" fill="#000" style={{"animationPlayState": "paused", "animationDelay": "-1s"}}>
+    <animate attributeName="opacity" values="1;0"  dur="1s" begin="-0.5s" repeatCount="indefinite" style={{"animationPlayState": "paused", "animationDelay": "-1s"}}></animate>
+  </rect>
+</g><g transform="rotate(180 50 50)" style={{"animationPlayState": "paused", "animationDelay": "-1s"}}>
+  <rect x="47" y="24" rx="9.4" ry="4.8" width="4" height="8" fill="#000" style={{"animationPlayState": "paused", "animationDelay": "-1s"}}>
+    <animate attributeName="opacity" values="1;0"  dur="1s" begin="-0.4166666666666667s" repeatCount="indefinite" style={{"animationPlayState": "paused", "animationDelay": "-1s"}}></animate>
+  </rect>
+</g><g transform="rotate(210 50 50)" style={{"animationPlayState": "paused", "animationDelay": "-1s"}}>
+  <rect x="47" y="24" rx="9.4" ry="4.8" width="4" height="8" fill="#000" style={{animationPlayState: "paused", animationDelay: "-1s"}}>
+    <animate attributeName="opacity" values="1;0"  dur="1s" begin="-0.3333333333333333s" repeatCount="indefinite" style={{animationPlayState: "paused", animationDelay: "-1s"}}></animate>
+  </rect>
+</g><g transform="rotate(240 50 50)" style={{"animationPlayState": "paused", "animationDelay": "-1s"}}>
+  <rect x="47" y="24" rx="9.4" ry="4.8" width="4" height="8" fill="#000" style={{"animationPlayState": "paused", "animationDelay": "-1s"}}>
+    <animate attributeName="opacity" values="1;0"  dur="1s" begin="-0.25s" repeatCount="indefinite" style={{"animationPlayState": "paused", "animationDelay": "-1s"}}></animate>
+  </rect>
+</g><g transform="rotate(270 50 50)" style={{"animationPlayState": "paused","animationDelay": "-1s"}}>
+  <rect x="47" y="24" rx="9.4" ry="4.8" width="4" height="8" fill="#000" style={{"animationPlayState": "paused", "animationDelay": "-1s"}}>
+    <animate attributeName="opacity" values="1;0"  dur="1s" begin="-0.16666666666666666s" repeatCount="indefinite" style={{"animationPlayState": "paused","animationDelay": "-1s"}}></animate>
+  </rect>
+</g><g transform="rotate(300 50 50)" style={{"animationPlayState": "paused","animationDelay": "-1s"}}>
+  <rect x="47" y="24" rx="9.4" ry="4.8" width="4" height="8" fill="#000" style={{"animationPlayState": "paused", "animationDelay": "-1s"}}>
+    <animate attributeName="opacity" values="1;0"  dur="1s" begin="-0.08333333333333333s" repeatCount="indefinite" style={{"animationPlayState": "paused", "animationDelay": "-1s"}}></animate>
+  </rect>
+</g><g transform="rotate(330 50 50)" style={{"animationPlayState": "paused","animationDelay": "-1s"}}>
+  <rect x="47" y="24" rx="9.4" ry="4.8" width="4" height="8" fill="#000" style={{"animationPlayState": "paused", "animationDelay": "-1s"}}>
+    <animate attributeName="opacity" values="1;0"  dur="1s" begin="0s" repeatCount="indefinite" style={{"animationPlayState": "paused", "animationDelay": "-1s"}}></animate>
+  </rect>
+</g></svg>

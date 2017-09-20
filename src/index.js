@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { PlayIcon, PauseIcon, /*DownloadIcon,*/ ReloadIcon } from './icons';
+import { PlayIcon, PauseIcon, /*DownloadIcon,*/ ReloadIcon, SpinnerIcon } from './icons';
 
 
 const log = console.log.bind(console); //eslint-disable-line
@@ -313,8 +313,8 @@ export default class AudioPlayer extends Component {
             <div className="play_pause_inner">
               <div className="ivrplaybtn"><PlayIcon /></div>
               <div className="ivrpausebtn"><PauseIcon /></div>
-              <div className="spinner"></div>
-              <div className="reload-icon"><ReloadIcon /> </div>
+              <div className="spinner"><SpinnerIcon /></div>
+              <div className="reload-icon"><ReloadIcon />} </div>
             </div>
           </div>          
         </div>

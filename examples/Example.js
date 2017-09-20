@@ -31,7 +31,7 @@ class Example extends React.Component {
         const { url, input } = this.state;
         return (
             <center>
-                <div style={{margin: "30px"}}>
+                <div>
                 <input ref={(c) => (this.input = c)}  type="text" value ={input} /> <button onClick={this.onLoad}> Load </button>
                 <hr />
                 <ul>

@@ -314,15 +314,9 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
 
         }
         .spinner {
-            width: 30px;
-            height: 40px;
-            top: -5px;
-            left: -8px;
-            background-color: #333;
-            border-radius: 100%;
-            -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
-            animation: sk-scaleout 1.0s infinite ease-in-out;
             display: none;
+            left: -12px;
+            top: -2px;
         }
         &.loading .spinner{
             display: block;
