@@ -343,6 +343,8 @@ var AudioPlayer = function (_Component) {
     _this.onBuffered = function () {
       _this.setState({ loading: false });
     };
+
+    _this.audio = document.createElement('audio');
     return _this;
   }
 
@@ -357,7 +359,7 @@ var AudioPlayer = function (_Component) {
       window.addEventListener('resize', this.resizeListener);
       this.resizeListener();
 
-      var audio = this.audio = document.createElement('audio');
+      var audio = this.audio;
 
       // add event listeners on the audio element
       audio.preload = 'none';

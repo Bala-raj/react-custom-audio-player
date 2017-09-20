@@ -94,7 +94,9 @@ export default class AudioPlayer extends Component {
     });
     this.onBuffered = () => {
         this.setState({ loading: false })
-    };    
+    };
+
+    this.audio = document.createElement('audio');
   }
 
   componentDidMount() {
@@ -104,7 +106,7 @@ export default class AudioPlayer extends Component {
     window.addEventListener('resize', this.resizeListener);
     this.resizeListener();
 
-    const audio = this.audio = document.createElement('audio');
+    const audio = this.audio;
 
     // add event listeners on the audio element
     audio.preload = 'none';
