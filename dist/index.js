@@ -627,7 +627,7 @@ var AudioPlayer = function (_Component) {
             'div',
             { id: 'audio_progress', className: 'audio_progress', style: { width: progressBarWidth } },
             ' ',
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('code', { className: 'seeker' })
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('code', null)
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',

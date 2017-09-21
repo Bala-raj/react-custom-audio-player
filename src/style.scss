@@ -216,7 +216,7 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
         min-width: 10px;
     }
 
-    .audio_progress code.seeker {
+    .audio_progress code {
         display: block;
         width: 10px;
         height: 10px;
@@ -224,6 +224,7 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
         border-radius: 50%;
         background: $backgroundColor;
         position: absolute;
+        left: initial;
         right: 0;
         border: 1px solid #fff;
         top: -2px;

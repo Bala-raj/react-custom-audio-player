@@ -326,7 +326,7 @@ export default class AudioPlayer extends Component {
 
         <div id="audio_progress_container"className={ classNames("audio_progress_container", { disabled: (this.audio && this.audio.readyState < 3)})} ref={ref => this.audioProgressContainer = ref}onMouseDown={adjustDisplayedTime}onMouseMove={adjustDisplayedTime}onTouchStart={adjustDisplayedTime}onTouchMove={adjustDisplayedTime}>
           
-          <div id="audio_progress" className="audio_progress" style={{ width: progressBarWidth }}> <code className="seeker"/></div>
+          <div id="audio_progress" className="audio_progress" style={{ width: progressBarWidth }}> <code/></div>
           
           <div id="audio_progress_overlay" className="audio_progress_overlay">
             <div className="audio_info_marquee">
