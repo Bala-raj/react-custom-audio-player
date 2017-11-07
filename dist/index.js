@@ -303,7 +303,10 @@ var AudioPlayer = function (_Component) {
       displayedTime: 0
     };
 
-    _this.state = _this.defaultState;
+    _this.state = Object.assign({}, _this.defaultState);
+    if (props.showLoader) {
+      _this.state.loading = true;
+    }
 
     // html audio element used for playback
     _this.audio = null;
@@ -427,7 +430,7 @@ var AudioPlayer = function (_Component) {
         if (this.audio) {
           this.audio.src = newSrc || '';
         }
-        return this.setState(this.defaultState);
+        this.setState(this.defaultState);
       }
     }
   }, {
@@ -666,11 +669,13 @@ AudioPlayer.propTypes = {
   disableSeek: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
   style: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object,
   onMediaEvent: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object,
-  audioElementRef: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func
+  audioElementRef: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
+  showLoader: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool
 };
 
 AudioPlayer.defaultProps = {
-  cycle: false
+  cycle: false,
+  showLoader: false
 };
 
 /***/ })

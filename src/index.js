@@ -71,7 +71,10 @@ export default class AudioPlayer extends Component {
       displayedTime: 0,
     };
 
-    this.state = this.defaultState;
+    this.state = Object.assign({}, this.defaultState);
+    if(props.showLoader) {
+      this.state.loading = true;
+    }
 
     // html audio element used for playback
     this.audio = null;
@@ -170,7 +173,7 @@ export default class AudioPlayer extends Component {
       if (this.audio) {
         this.audio.src = newSrc || '';
       }
-      return this.setState(this.defaultState);
+      this.setState(this.defaultState);
     }
   }
 
@@ -356,9 +359,11 @@ AudioPlayer.propTypes = {
   style: PropTypes.object,
   onMediaEvent: PropTypes.object,
   audioElementRef: PropTypes.func,
+  showLoader: PropTypes.bool,
 };
 
 AudioPlayer.defaultProps = {
   cycle: false,
+  showLoader: false,
 };
 
