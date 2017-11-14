@@ -426,7 +426,7 @@ var AudioPlayer = function (_Component) {
       this.addMediaEventListeners(nextProps.onMediaEvent);
 
       var newSrc = nextProps.src;
-      if (newSrc !== this.props.src) {
+      if (newSrc !== this.props.src || nextProps.showLoader != this.props.showLoader) {
         if (this.audio) {
           this.audio.src = newSrc || '';
         }
