@@ -348,6 +348,10 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
             display: none;
             left: -12px;
             top: -2px;
+            img{
+                width: 35px;
+                height: 35px;
+            }
         }
 
         &.loading .spinner {
