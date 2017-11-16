@@ -34,6 +34,7 @@ export default () => ({
         contentBase: path.resolve(__dirname, 'dist'),
         // match the output path
 
+        disableHostCheck: true,
         publicPath: '/'
         // match the output `publicPath`
     },

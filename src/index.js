@@ -322,7 +322,7 @@ export default class AudioPlayer extends Component {
             <div className="play_pause_inner">
               <div className="ivrplaybtn"><PlayIcon /></div>
               <div className="ivrpausebtn"><PauseIcon /></div>
-              <div className="spinner"><img src={'spinner.gif'} /></div>
+              <div className="spinner"><img src='https://storage.googleapis.com/branddesignmanager/CWANewDesign/images/spinners.gif' /></div>
               <div className="reload-icon"><ReloadIcon /> </div>
             </div>
           </div>          
