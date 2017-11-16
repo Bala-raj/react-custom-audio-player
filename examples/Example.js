@@ -34,6 +34,10 @@ class Example extends React.Component {
         this.setState({showLoader: false});
     }
 
+    onPlayCB(e) {
+        console.error(e);
+    }
+
     render() {
         const { url, input, showLoader } = this.state;
         return (
@@ -50,7 +54,7 @@ class Example extends React.Component {
 
                 </div>
 
-                <MyComponent src={ url } showLoader={showLoader} />
+                <MyComponent src={ url } showLoader={showLoader} onMediaEvent={{ play: this.onPlayCB}}/>
             </center>
         )
     }
