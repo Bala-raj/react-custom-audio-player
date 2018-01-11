@@ -54,7 +54,7 @@ class Example extends React.Component {
 
                 </div>
 
-                <MyComponent src={ url } showLoader={showLoader} onMediaEvent={{ play: this.onPlayCB}}/>
+                <MyComponent src={ url } showLoader={showLoader} onMediaEvent={{ play: (e)=> {console.error(e)}}}/>
             </center>
         )
     }

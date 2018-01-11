@@ -164,7 +164,7 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
     -webkit-box-direction: normal;
     -ms-flex-direction: row;
     flex-direction: row;
-    height: 40px;
+    height: 42px;
 
 
     
@@ -320,6 +320,10 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
         margin-left: 15px;
         z-index: 2;
         width: 40px;
+        height: 100%;
+        line-height: 42px;
+        padding-left: 10px;
+        border-left: 1px solid $border-color;
     }
 
     .audio_button {
@@ -385,6 +389,7 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
             display: none;
             left: -12px;
             top: -2px;
+            animation: unset;
             img{
                 width: 35px;
                 height: 35px;
