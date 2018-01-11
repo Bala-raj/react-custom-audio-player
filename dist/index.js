@@ -507,6 +507,11 @@ var AudioPlayer = function (_Component) {
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
+          { id: 'audio_time_progress', className: 'audio_time_progress noselect', draggable: 'false' },
+          timeRatio
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
           { id: 'audio_progress_container', className: __WEBPACK_IMPORTED_MODULE_2_classnames___default()("audio_progress_container", { disabled: this.audio && this.audio.readyState < 3 }), ref: function ref(_ref) {
               return _this5.audioProgressContainer = _ref;
             }, onMouseDown: adjustDisplayedTime, onMouseMove: adjustDisplayedTime, onTouchStart: adjustDisplayedTime, onTouchMove: adjustDisplayedTime },
@@ -529,11 +534,6 @@ var AudioPlayer = function (_Component) {
               )
             )
           )
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'div',
-          { id: 'audio_time_progress', className: 'audio_time_progress noselect', draggable: 'false' },
-          timeRatio
         )
       );
     }

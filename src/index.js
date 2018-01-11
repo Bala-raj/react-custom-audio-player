@@ -327,7 +327,11 @@ export default class AudioPlayer extends Component {
             </div>
           </div>          
         </div>
-
+        
+        <div id="audio_time_progress" className="audio_time_progress noselect" draggable="false">
+          {timeRatio}
+        </div>
+        
         <div id="audio_progress_container"className={ classNames("audio_progress_container", { disabled: (this.audio && this.audio.readyState < 3)})} ref={ref => this.audioProgressContainer = ref}onMouseDown={adjustDisplayedTime}onMouseMove={adjustDisplayedTime}onTouchStart={adjustDisplayedTime}onTouchMove={adjustDisplayedTime}>
           
           <div id="audio_progress" className="audio_progress" style={{ width: progressBarWidth }}> <code/></div>
@@ -341,9 +345,7 @@ export default class AudioPlayer extends Component {
           </div>
         </div>
 
-        <div id="audio_time_progress" className="audio_time_progress noselect" draggable="false">
-          {timeRatio}
-        </div>
+        
         {/*<div className="download-btn"><button className="nostyle"><DownloadIcon /></button></div>*/}
       </div>
     );
