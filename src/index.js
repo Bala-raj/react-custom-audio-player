@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { PlayIcon, PauseIcon, /*DownloadIcon,*/ ReloadIcon/*, SpinnerIcon*/ } from './icons';
+import { PlayIcon, PauseIcon, DownloadIcon, ReloadIcon/*, SpinnerIcon*/ } from './icons';
 
 
 
@@ -344,9 +344,8 @@ export default class AudioPlayer extends Component {
             </div>
           </div>
         </div>
-
         
-        {/*<div className="download-btn"><button className="nostyle"><DownloadIcon /></button></div>*/}
+        <div className="download-btn"><button className="nostyle"><DownloadIcon /></button></div>
       </div>
     );
   }
