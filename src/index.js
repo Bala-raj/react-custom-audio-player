@@ -138,6 +138,8 @@ export default class AudioPlayer extends Component {
     };
 
     this.audio = document.createElement('audio');
+
+    this.downloadAudio = this.downloadAudio.bind(this);
   }
 
   componentDidMount() {
@@ -315,7 +317,7 @@ export default class AudioPlayer extends Component {
       displayedTime: progressPercentage * this.audio.duration,
     });
   }
-
+  
   downloadAudio() {
     const filename = this.props.type ? (getFileName(this.props.src) + getExtensionFromType(this.props.type)) : this.props.src;
     if (isIEBrowser()) {
@@ -412,11 +414,15 @@ AudioPlayer.propTypes = {
   onMediaEvent: PropTypes.object,
   audioElementRef: PropTypes.func,
   showLoader: PropTypes.bool,
+  enableDownload: PropTypes.bool,
+  type: PropTypes.oneOf(['audio/wav', 'audio/ogg', 'audio/mpeg'])
 };
 
 AudioPlayer.defaultProps = {
   cycle: false,
   showLoader: false,
+  enableDownload: true,
+  type: ''
 };
 
 if (typeof Object.assign != 'function') {
