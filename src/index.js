@@ -48,7 +48,7 @@ function getExtensionFromType(type) {
  * @param {String} filename The name of the file
  * @returns {String} The new file name
  */
-function getFileName(filename) {
+export function getFileName(filename) {
   const extensionLength = filename.slice((filename.lastIndexOf(".") - 1 >>> 0) + 2).length;
   if (extensionLength) {
     return filename.slice(0, filename.length - extensionLength);
@@ -415,7 +415,7 @@ AudioPlayer.propTypes = {
   audioElementRef: PropTypes.func,
   showLoader: PropTypes.bool,
   enableDownload: PropTypes.bool,
-  type: PropTypes.oneOf(['audio/wav', 'audio/ogg', 'audio/mpeg'])
+  type: PropTypes.oneOf(['audio/wav', 'audio/ogg', 'audio/mpeg', ''])
 };
 
 AudioPlayer.defaultProps = {
