@@ -18,76 +18,88 @@ return webpackJsonpreact_custom_audio_player([1],{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PlayIcon; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return PauseIcon; });
-/* unused harmony export DownloadIcon */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return DownloadIcon; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return ReloadIcon; });
 
 
 var PlayIcon = function PlayIcon() {
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        "svg",
-        { width: "14px", height: "14px", viewBox: "315 8 14 14", version: "1.1", xmlns: "http://www.w3.org/2000/svg" },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("path", { d: "M321.89468,9.99823037 C322.154701,9.51069072 322.579033,9.5158552 322.8363,9.99823037 L327.89468,19.4826931 C328.154701,19.9702328 327.914515,20.3654617 327.374712,20.3654617 L323.356268,20.3654617 C322.809077,20.3654617 321.914515,20.3654617 321.374712,20.3654617 L317.356268,20.3654617 C316.809077,20.3654617 316.579033,19.9650683 316.8363,19.4826931 L321.89468,9.99823037 Z", id: "Triangle", stroke: "#3B4752", strokeWidth: "2", fill: "none", transform: "translate(322.365476, 14.999986) rotate(90.000000) translate(-322.365476, -14.999986) " })
-    );
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    "svg",
+    { width: "14px", height: "14px", viewBox: "315 8 14 14", version: "1.1", xmlns: "http://www.w3.org/2000/svg" },
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("path", { d: "M321.89468,9.99823037 C322.154701,9.51069072 322.579033,9.5158552 322.8363,9.99823037 L327.89468,19.4826931 C328.154701,19.9702328 327.914515,20.3654617 327.374712,20.3654617 L323.356268,20.3654617 C322.809077,20.3654617 321.914515,20.3654617 321.374712,20.3654617 L317.356268,20.3654617 C316.809077,20.3654617 316.579033,19.9650683 316.8363,19.4826931 L321.89468,9.99823037 Z", id: "Triangle", stroke: "#3B4752", strokeWidth: "2", fill: "none", transform: "translate(322.365476, 14.999986) rotate(90.000000) translate(-322.365476, -14.999986) " })
+  );
 };
 
 var PauseIcon = function PauseIcon() {
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        "svg",
-        { width: "4px", height: "4px", viewBox: "0 0 8 14", version: "1.1" },
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    "svg",
+    { width: "4px", height: "4px", viewBox: "0 0 8 14", version: "1.1" },
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "g",
+      { id: "Page-1", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd", strokeLinecap: "round" },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "g",
+        { id: "Artboard-5", transform: "translate(-385.000000, -125.000000)", stroke: "#3B4752", strokeWidth: "2" },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "g",
-            { id: "Page-1", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd", strokeLinecap: "round" },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "g",
-                { id: "Artboard-5", transform: "translate(-385.000000, -125.000000)", stroke: "#3B4752", strokeWidth: "2" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "g",
-                    { id: "Group-2", transform: "translate(385.000000, 126.000000)" },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("path", { d: "M1,0.5 L1,11.5", id: "Line" }),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("path", { d: "M7,0.5 L7,11.5", id: "Line-Copy" })
-                )
-            )
+          "g",
+          { id: "Group-2", transform: "translate(385.000000, 126.000000)" },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("path", { d: "M1,0.5 L1,11.5", id: "Line" }),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("path", { d: "M7,0.5 L7,11.5", id: "Line-Copy" })
         )
-    );
+      )
+    )
+  );
 };
 
 var DownloadIcon = function DownloadIcon() {
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        "svg",
-        { width: "22px", height: "16px", viewBox: "1 4 22 16", version: "1.1" },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("path", { d: "M5,18 L19,18 L19,14.990778 C19,14.4435864 19.4438648,14 20,14 C20.5522847,14 21,14.4509752 21,14.990778 L21,19.009222 C21,19.2817391 20.8899071,19.5285588 20.7106822,19.707684 C20.526412,19.8893137 20.2793017,20 20.0066023,20 L3.99339768,20 C3.72059477,20 3.47347534,19.8902571 3.29394673,19.7115371 C3.1110417,19.5248505 3,19.2780517 3,19.009222 L3,14.990778 C3,14.4435864 3.44386482,14 4,14 C4.55228475,14 5,14.4509752 5,14.990778 L5,18 Z M10.9799805,10.9861538 L10.9799805,5.00262796 C10.9799805,4.45312946 11.4276957,4 11.9799805,4 C12.5361156,4 12.9799805,4.44889183 12.9799805,5.00262796 L12.9799805,10.9861538 L14.6839762,10.9861538 C15.2404693,10.9868609 15.5586673,11.6218428 15.2242058,12.0680271 L12.5209366,15.6721504 C12.2508218,16.0327749 11.7098851,16.0320678 11.4397703,15.6714433 L8.73650108,12.06732 C8.40203958,11.6225499 8.72023763,10.9861538 9.27743777,10.9861538 L10.9799805,10.9861538 Z", id: "Combined-Shape", stroke: "none", fill: "#3B4752", fillRule: "evenodd" })
-    );
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    "svg",
+    { width: "14px", height: "13px", viewBox: "0 0 14 13", version: "1.1", xmlns: "http://www.w3.org/2000/svg" },
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "g",
+      { id: "Inbox", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "g",
+        { id: "Inbox-Message-Detailed-Copy", transform: "translate(-1249.000000, -103.000000)", fill: "#3B4752" },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "g",
+          { id: "Header", transform: "translate(615.000000, 88.000000)" },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("path", { d: "M646.875,22.25 C647.187502,22.25 647.453124,22.3593739 647.671875,22.578125 C647.890626,22.7968761 648,23.0624984 648,23.375 L648,26.375 C648,26.6875016 647.890626,26.9531239 647.671875,27.171875 C647.453124,27.3906261 647.187502,27.5 646.875,27.5 L635.625,27.5 C635.312498,27.5 635.046876,27.3906261 634.828125,27.171875 C634.609374,26.9531239 634.5,26.6875016 634.5,26.375 L634.5,23.375 C634.5,23.0624984 634.609374,22.7968761 634.828125,22.578125 C635.046876,22.3593739 635.312498,22.25 635.625,22.25 L637.78125,22.25 L636.703125,21.171875 C636.484374,20.9374988 636.378906,20.6679703 636.386719,20.3632812 C636.394531,20.0585922 636.503905,19.7968761 636.714844,19.578125 C636.925782,19.3593739 637.187498,19.25 637.5,19.25 L639,19.25 L639,16.625 C639,16.3124984 639.109374,16.0468761 639.328125,15.828125 C639.546876,15.6093739 639.812498,15.5 640.125,15.5 L642.375,15.5 C642.687502,15.5 642.953124,15.6093739 643.171875,15.828125 C643.390626,16.0468761 643.5,16.3124984 643.5,16.625 L643.5,19.25 L645,19.25 C645.328127,19.25 645.597655,19.3593739 645.808594,19.578125 C646.019532,19.7968761 646.128906,20.0585922 646.136719,20.3632812 C646.144531,20.6679703 646.031251,20.9374988 645.796875,21.171875 L644.71875,22.25 L646.875,22.25 Z M637.5,20.375 L641.25,24.125 L645,20.375 L642.375,20.375 L642.375,16.625 L640.125,16.625 L640.125,20.375 L637.5,20.375 Z M646.875,26.375 L646.875,23.375 L643.59375,23.375 L642.046875,24.921875 C641.828124,25.1406261 641.562502,25.25 641.25,25.25 C640.937498,25.25 640.671876,25.1406261 640.453125,24.921875 L638.90625,23.375 L635.625,23.375 L635.625,26.375 L646.875,26.375 Z M644.8125,24.875 C644.8125,24.7187492 644.867187,24.585938 644.976562,24.4765625 C645.085938,24.367187 645.218749,24.3125 645.375,24.3125 C645.531251,24.3125 645.664062,24.367187 645.773438,24.4765625 C645.882813,24.585938 645.9375,24.7187492 645.9375,24.875 C645.9375,25.0312508 645.882813,25.164062 645.773438,25.2734375 C645.664062,25.382813 645.531251,25.4375 645.375,25.4375 C645.218749,25.4375 645.085938,25.382813 644.976562,25.2734375 C644.867187,25.164062 644.8125,25.0312508 644.8125,24.875 Z", id: "More-Icon" })
+        )
+      )
+    )
+  );
 };
 
 var ReloadIcon = function ReloadIcon() {
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        "svg",
-        { width: "16px", height: "16px", viewBox: "0 0 17 17", version: "1.1" },
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    "svg",
+    { width: "16px", height: "16px", viewBox: "0 0 17 17", version: "1.1" },
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "defs",
+      null,
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("path", { d: "M10,21 C8.89742857,21 8,20.1028571 8,19 C8,17.8971429 8.89742857,17 10,17 C11.1025714,17 12,17.8971429 12,19 C12,20.1028571 11.1025714,21 10,21 Z", id: "path-1" })
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "g",
+      { id: "Messages", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "g",
+        { id: "Messages-V2", transform: "translate(-973.000000, -248.000000)", fillRule: "nonzero" },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "defs",
-            null,
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("path", { d: "M10,21 C8.89742857,21 8,20.1028571 8,19 C8,17.8971429 8.89742857,17 10,17 C11.1025714,17 12,17.8971429 12,19 C12,20.1028571 11.1025714,21 10,21 Z", id: "path-1" })
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "g",
+          { id: "Replay-Icon", transform: "translate(969.000000, 244.000000)" },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("path", { d: "M7.02419728,11.4574669 C7.2984025,8.3979809 9.86916203,6 13,6 C16.3137085,6 19,8.6862915 19,12 C19,15.3137085 16.3137085,18 13,18 L13,20 C17.418278,20 21,16.418278 21,12 C21,7.581722 17.418278,4 13,4 C8.76405539,4 5.29704552,7.29220101 5.01810658,11.4574669 L3.80875019,11.4574669 C3.34987948,11.4574669 3.08783403,11.9815578 3.36327292,12.3478391 L5.58949463,15.3159406 C5.81194211,15.6129254 6.25741938,15.6135078 6.47986685,15.3165229 L8.70608857,12.3484214 C8.98152746,11.9809754 8.719482,11.4580492 8.26119362,11.4574669 L7.02419728,11.4574669 Z", id: "Combined-Shape", fill: "#3B4752", transform: "translate(12.125420, 12.000000) rotate(30.000000) translate(-12.125420, -12.000000) " }),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             "g",
-            { id: "Messages", stroke: "none", strokeWidth: "1", fill: "none", fillRule: "evenodd" },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "g",
-                { id: "Messages-V2", transform: "translate(-973.000000, -248.000000)", fillRule: "nonzero" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "g",
-                    { id: "Replay-Icon", transform: "translate(969.000000, 244.000000)" },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("path", { d: "M7.02419728,11.4574669 C7.2984025,8.3979809 9.86916203,6 13,6 C16.3137085,6 19,8.6862915 19,12 C19,15.3137085 16.3137085,18 13,18 L13,20 C17.418278,20 21,16.418278 21,12 C21,7.581722 17.418278,4 13,4 C8.76405539,4 5.29704552,7.29220101 5.01810658,11.4574669 L3.80875019,11.4574669 C3.34987948,11.4574669 3.08783403,11.9815578 3.36327292,12.3478391 L5.58949463,15.3159406 C5.81194211,15.6129254 6.25741938,15.6135078 6.47986685,15.3165229 L8.70608857,12.3484214 C8.98152746,11.9809754 8.719482,11.4580492 8.26119362,11.4574669 L7.02419728,11.4574669 Z", id: "Combined-Shape", fill: "#3B4752", transform: "translate(12.125420, 12.000000) rotate(30.000000) translate(-12.125420, -12.000000) " }),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        "g",
-                        { id: "Shape" },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("use", { fill: "#00BBE5", fillRule: "evenodd", xlinkHref: "#path-1" }),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("path", { stroke: "#FFFFFF", strokeWidth: "0.8", d: "M10,20.75 C10.9646044,20.75 11.75,19.9646818 11.75,19 C11.75,18.0353182 10.9646044,17.25 10,17.25 C9.03539562,17.25 8.25,18.0353182 8.25,19 C8.25,19.9646818 9.03539562,20.75 10,20.75 Z" })
-                    )
-                )
-            )
+            { id: "Shape" },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("use", { fill: "#00BBE5", fillRule: "evenodd", xlinkHref: "#path-1" }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("path", { stroke: "#FFFFFF", strokeWidth: "0.8", d: "M10,20.75 C10.9646044,20.75 11.75,19.9646818 11.75,19 C11.75,18.0353182 10.9646044,17.25 10,17.25 C9.03539562,17.25 8.25,18.0353182 8.25,19 C8.25,19.9646818 9.03539562,20.75 10,20.75 Z" })
+          )
         )
-    );
+      )
+    )
+  );
 };
 
 /***/ }),
@@ -104,6 +116,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_classnames__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_classnames__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__icons__ = __webpack_require__(20);
+/* harmony export (immutable) */ __webpack_exports__["getExtensionFromType"] = getExtensionFromType;
+/* harmony export (immutable) */ __webpack_exports__["getFileName"] = getFileName;
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -129,6 +143,43 @@ function convertToTime(number) {
   var mins = Math.floor(number / 60);
   var secs = (number % 60).toFixed();
   return '' + (mins < 10 ? '0' : '') + mins + ':' + (secs < 10 ? '0' : '') + secs;
+}
+
+/**
+ * Returns true for Internet Explorer and Edge, false otherwise
+ * @returns {Boolean}
+ */
+function isIEBrowser() {
+  return navigator.userAgent.indexOf('MSIE ') > -1 || navigator.userAgent.indexOf('Trident/') > -1 || navigator.userAgent.indexOf('Edge/') > -1;
+}
+
+/**
+ * Returns the extension based on the passed type
+ * @param {String} type The file type
+ * @returns {String} The extension of the file
+ */
+function getExtensionFromType(type) {
+  if (type === 'audio/wav') {
+    return '.wav';
+  } else if (type === 'audio/ogg') {
+    return '.ogg';
+  } else if (type === 'audio/mpeg') {
+    return '.mp3';
+  }
+  return '';
+}
+
+/**
+ * Returns the file name with the extension, if any, removed
+ * @param {String} filename The name of the file
+ * @returns {String} The new file name
+ */
+function getFileName(filename) {
+  var extensionLength = filename.slice((filename.lastIndexOf(".") - 1 >>> 0) + 2).length;
+  if (extensionLength) {
+    return filename.slice(0, filename.length - extensionLength - 1);
+  }
+  return filename;
 }
 
 /*
@@ -232,6 +283,8 @@ var AudioPlayer = function (_Component) {
     };
 
     _this.audio = document.createElement('audio');
+
+    _this.downloadAudio = _this.downloadAudio.bind(_this);
     return _this;
   }
 
@@ -428,6 +481,20 @@ var AudioPlayer = function (_Component) {
       });
     }
   }, {
+    key: 'downloadAudio',
+    value: function downloadAudio() {
+      var filename = this.props.type ? getFileName(this.props.src) + getExtensionFromType(this.props.type) : this.props.src;
+      if (isIEBrowser()) {
+        var blob = new Blob([this.props.src]);
+        window.navigator.msSaveBlob(blob, filename);
+      } else {
+        var a = document.createElement('a');
+        a.href = this.props.src;
+        a.download = filename;
+        a.click();
+      }
+    }
+  }, {
     key: 'seek',
     value: function seek(event) {
       /* this function is activated when the user lets
@@ -534,6 +601,15 @@ var AudioPlayer = function (_Component) {
               )
             )
           )
+        ),
+        this.props.enableDownload && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'download-btn' },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'button',
+            { className: 'nostyle', onClick: this.downloadAudio },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__icons__["d" /* DownloadIcon */], null)
+          )
         )
       );
     }
@@ -554,12 +630,16 @@ AudioPlayer.propTypes = {
   style: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object,
   onMediaEvent: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object,
   audioElementRef: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
-  showLoader: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool
+  showLoader: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
+  enableDownload: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
+  type: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOf(['audio/wav', 'audio/ogg', 'audio/mpeg', ''])
 };
 
 AudioPlayer.defaultProps = {
   cycle: false,
-  showLoader: false
+  showLoader: false,
+  enableDownload: true,
+  type: ''
 };
 
 if (typeof Object.assign != 'function') {
