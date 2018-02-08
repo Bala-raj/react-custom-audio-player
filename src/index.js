@@ -316,6 +316,19 @@ export default class AudioPlayer extends Component {
     });
   }
 
+  downloadAudio() {
+    const filename = this.props.type ? (getFileName(this.props.src) + getExtensionFromType(this.props.type)) : this.props.src;
+    if (isIEBrowser()) {
+      const blob = new Blob([this.props.src]);
+      window.navigator.msSaveBlob(blob, filename);
+    } else {
+      const a = document.createElement('a');
+      a.href = this.props.src;
+      a.download = filename;
+      a.click();
+    }
+  }
+
   seek(event) {
     /* this function is activated when the user lets
      * go of the mouse, so if .noselect was applied
