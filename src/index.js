@@ -19,6 +19,43 @@ function convertToTime(number) {
   return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
 }
 
+/**
+ * Returns true for Internet Explorer and Edge, false otherwise
+ * @returns {Boolean}
+ */
+function isIEBrowser() {
+  return navigator.userAgent.indexOf('MSIE ') > -1 || navigator.userAgent.indexOf('Trident/') > -1 || navigator.userAgent.indexOf('Edge/') > -1;
+}
+
+/**
+ * Returns the extension based on the passed type
+ * @param {String} type The file type
+ * @returns {String} The extension of the file
+ */
+function getExtensionFromType(type) {
+  if (type === 'audio/wav') {
+    return 'wav';
+  } else if (type === 'audio/ogg') {
+    return 'ogg';
+  } else if (type === 'audio/mpeg') {
+    return 'mp3';
+  }
+  return '';
+}
+
+/**
+ * Returns the file name with the extension, if any, removed
+ * @param {String} filename The name of the file
+ * @returns {String} The new file name
+ */
+function getFileName(filename) {
+  const extensionLength = filename.slice((filename.lastIndexOf(".") - 1 >>> 0) + 2).length;
+  if (extensionLength) {
+    return filename.slice(0, filename.length - extensionLength);
+  }
+  return filename;
+}
+
 /*
  * AudioPlayer
  *
