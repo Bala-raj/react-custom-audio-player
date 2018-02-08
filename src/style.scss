@@ -43,9 +43,13 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
 }
 
 .download-btn {
-    padding-top: 10px;
+    padding-top: 12px;
     border-left: 1px solid $border-color;
     padding-left: 10px;
+    margin-left: 15px;
+    button{
+        cursor: pointer;
+    }
 
     svg {
         width: 16px;

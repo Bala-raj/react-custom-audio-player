@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { PlayIcon, PauseIcon, /*DownloadIcon,*/ ReloadIcon/*, SpinnerIcon*/ } from './icons';
+import { PlayIcon, PauseIcon, DownloadIcon, ReloadIcon/*, SpinnerIcon*/ } from './icons';
 
 
 
@@ -17,6 +17,43 @@ function convertToTime(number) {
   const mins = Math.floor(number / 60);
   const secs = (number % 60).toFixed();
   return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
+}
+
+/**
+ * Returns true for Internet Explorer and Edge, false otherwise
+ * @returns {Boolean}
+ */
+function isIEBrowser() {
+  return navigator.userAgent.indexOf('MSIE ') > -1 || navigator.userAgent.indexOf('Trident/') > -1 || navigator.userAgent.indexOf('Edge/') > -1;
+}
+
+/**
+ * Returns the extension based on the passed type
+ * @param {String} type The file type
+ * @returns {String} The extension of the file
+ */
+function getExtensionFromType(type) {
+  if (type === 'audio/wav') {
+    return 'wav';
+  } else if (type === 'audio/ogg') {
+    return 'ogg';
+  } else if (type === 'audio/mpeg') {
+    return 'mp3';
+  }
+  return '';
+}
+
+/**
+ * Returns the file name with the extension, if any, removed
+ * @param {String} filename The name of the file
+ * @returns {String} The new file name
+ */
+export function getFileName(filename) {
+  const extensionLength = filename.slice((filename.lastIndexOf(".") - 1 >>> 0) + 2).length;
+  if (extensionLength) {
+    return filename.slice(0, filename.length - extensionLength);
+  }
+  return filename;
 }
 
 /*
@@ -101,6 +138,8 @@ export default class AudioPlayer extends Component {
     };
 
     this.audio = document.createElement('audio');
+
+    this.downloadAudio = this.downloadAudio.bind(this);
   }
 
   componentDidMount() {
@@ -278,6 +317,19 @@ export default class AudioPlayer extends Component {
       displayedTime: progressPercentage * this.audio.duration,
     });
   }
+  
+  downloadAudio() {
+    const filename = this.props.type ? (getFileName(this.props.src) + getExtensionFromType(this.props.type)) : this.props.src;
+    if (isIEBrowser()) {
+      const blob = new Blob([this.props.src]);
+      window.navigator.msSaveBlob(blob, filename);
+    } else {
+      const a = document.createElement('a');
+      a.href = this.props.src;
+      a.download = filename;
+      a.click();
+    }
+  }
 
   seek(event) {
     /* this function is activated when the user lets
@@ -344,9 +396,8 @@ export default class AudioPlayer extends Component {
             </div>
           </div>
         </div>
-
         
-        {/*<div className="download-btn"><button className="nostyle"><DownloadIcon /></button></div>*/}
+        {this.props.enableDownload && <div className="download-btn"><button className="nostyle" onClick={this.downloadAudio}><DownloadIcon /></button></div>}
       </div>
     );
   }
@@ -363,11 +414,15 @@ AudioPlayer.propTypes = {
   onMediaEvent: PropTypes.object,
   audioElementRef: PropTypes.func,
   showLoader: PropTypes.bool,
+  enableDownload: PropTypes.bool,
+  type: PropTypes.oneOf(['audio/wav', 'audio/ogg', 'audio/mpeg', ''])
 };
 
 AudioPlayer.defaultProps = {
   cycle: false,
   showLoader: false,
+  enableDownload: true,
+  type: ''
 };
 
 if (typeof Object.assign != 'function') {
