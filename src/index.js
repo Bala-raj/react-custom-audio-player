@@ -395,7 +395,7 @@ export default class AudioPlayer extends Component {
           </div>
         </div>
         
-        <div className="download-btn"><button className="nostyle"><DownloadIcon /></button></div>
+        {this.props.enableDownload && <div className="download-btn"><button className="nostyle" onClick={this.downloadAudio}><DownloadIcon /></button></div>}
       </div>
     );
   }
