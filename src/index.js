@@ -32,13 +32,13 @@ function isIEBrowser() {
  * @param {String} type The file type
  * @returns {String} The extension of the file
  */
-function getExtensionFromType(type) {
+export function getExtensionFromType(type) {
   if (type === 'audio/wav') {
-    return 'wav';
+    return '.wav';
   } else if (type === 'audio/ogg') {
-    return 'ogg';
+    return '.ogg';
   } else if (type === 'audio/mpeg') {
-    return 'mp3';
+    return '.mp3';
   }
   return '';
 }
@@ -51,7 +51,7 @@ function getExtensionFromType(type) {
 export function getFileName(filename) {
   const extensionLength = filename.slice((filename.lastIndexOf(".") - 1 >>> 0) + 2).length;
   if (extensionLength) {
-    return filename.slice(0, filename.length - extensionLength);
+    return filename.slice(0, filename.length - extensionLength - 1);
   }
   return filename;
 }
