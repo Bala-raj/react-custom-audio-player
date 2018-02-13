@@ -325,9 +325,11 @@ export default class AudioPlayer extends Component {
       window.navigator.msSaveBlob(blob, filename);
     } else {
       const a = document.createElement('a');
+      document.body.appendChild(a);
       a.href = this.props.src;
       a.download = filename;
       a.click();
+      document.removeChild(a);
     }
   }
 
