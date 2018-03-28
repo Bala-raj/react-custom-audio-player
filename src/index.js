@@ -215,6 +215,14 @@ export default class AudioPlayer extends Component {
       }
       this.setState(this.defaultState);
     }
+
+    if (newSrc && !this.props.src) {
+      if (this.props.autoplay) {
+        const delay = this.props.autoplayDelayInSeconds || 0;
+        clearTimeout(this.delayTimeout);
+        this.delayTimeout = setTimeout(() => this.togglePause(false), delay * 1000);
+      }
+    }
   }
 
   addMediaEventListeners(mediaEvents) {
