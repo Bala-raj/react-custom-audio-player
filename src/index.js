@@ -48,7 +48,7 @@ export function getExtensionFromType(type) {
  * @param {String} filename The name of the file
  * @returns {String} The new file name
  */
-export function getFileName(filename) {
+export function extractFileName(filename) {
   const extensionLength = filename.slice((filename.lastIndexOf(".") - 1 >>> 0) + 2).length;
   if (extensionLength) {
     return filename.slice(0, filename.length - extensionLength - 1);
@@ -326,14 +326,14 @@ export default class AudioPlayer extends Component {
       displayedTime: progressPercentage * this.audio.duration,
     });
   }
-  
+
   getName() {
     return this.props.filename ? (this.props.type ? (extractFileName(this.props.filename) + getExtensionFromType(this.props.type)) : this.props.filename) : (this.props.type ? (extractFileName(this.proops.src) + getExtensionFromType(this.props.type)) : this.props.src);
     alert(filename);
   }
   
   downloadAudio() {
-    const filename = this.props.type ? (getFileName(this.props.src) + getExtensionFromType(this.props.type)) : this.props.src;
+    const filename = this.getName();
     if (isIEBrowser()) {
       const blob = new Blob([this.props.src]);
       window.navigator.msSaveBlob(blob, filename);
@@ -431,14 +431,16 @@ AudioPlayer.propTypes = {
   audioElementRef: PropTypes.func,
   showLoader: PropTypes.bool,
   enableDownload: PropTypes.bool,
-  type: PropTypes.oneOf(['audio/wav', 'audio/ogg', 'audio/mpeg', ''])
+  type: PropTypes.oneOf(['audio/wav', 'audio/ogg', 'audio/mpeg', '']),
+  filename: PropTypes.string
 };
 
 AudioPlayer.defaultProps = {
   cycle: false,
   showLoader: false,
   enableDownload: true,
-  type: ''
+  type: '',
+  filename: ''
 };
 
 if (typeof Object.assign != 'function') {
