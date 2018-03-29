@@ -329,7 +329,6 @@ export default class AudioPlayer extends Component {
 
   getName() {
     return this.props.filename ? (this.props.type ? (extractFileName(this.props.filename) + getExtensionFromType(this.props.type)) : this.props.filename) : (this.props.type ? (extractFileName(this.proops.src) + getExtensionFromType(this.props.type)) : this.props.src);
-    alert(filename);
   }
   
   downloadAudio() {
