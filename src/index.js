@@ -190,6 +190,7 @@ export default class AudioPlayer extends Component {
     this.audio.removeEventListener('timeupdate', this.audioTimeUpdateListener);
     this.audio.removeEventListener('loadedmetadata', this.audioMetadataLoadedListener);   
     this.audio.addEventListener('loadeddata', this.onBuffered);   
+    this.getName = this.getName.bind(this);
     
     this.removeMediaEventListeners(this.props.onMediaEvent);
     clearTimeout(this.gapLengthTimeout);
