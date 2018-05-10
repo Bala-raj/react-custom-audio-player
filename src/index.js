@@ -137,9 +137,22 @@ export default class AudioPlayer extends Component {
         this.setState({ loading: false })
     };
 
+    this.forward = () => {
+      const currentTime = this.audio.currentTime + 15;
+      this.audio.currentTime = currentTime;
+      this.setState({ displayedTime: currentTime })
+    }
+    
+    this.rewind = () => {
+      const currentTime = this.audio.currentTime - 15;
+      this.audio.currentTime = currentTime;
+      this.setState({ displayedTime: currentTime })
+    }
+  
+
     this.audio = document.createElement('audio');
 
-    this.downloadAudio = this.downloadAudio.bind(this);
+    this.downloadAudio = this.downloadAudio.bind(this);    
   }
 
   componentDidMount() {
@@ -413,6 +426,8 @@ export default class AudioPlayer extends Component {
         </div>
         
         {this.props.enableDownload && <div className="download-btn"><i className="button" onClick={this.downloadAudio}><DownloadIcon /></i></div>}
+        { this.props.showSeekControls && <div className={"download-btn " + (this.state.reload ? 'disabled' : '') }><i className="button" onClick={this.rewind}><DownloadIcon /></i></div>}
+        { this.props.showSeekControls && <div className={"download-btn " + (this.state.reload ? 'disabled' : '' )}><i className="button" onClick={this.forward}><DownloadIcon /></i></div>}
       </div>
     );
   }
@@ -429,6 +444,7 @@ AudioPlayer.propTypes = {
   onMediaEvent: PropTypes.object,
   audioElementRef: PropTypes.func,
   showLoader: PropTypes.bool,
+  showSeekControls: PropTypes.bool,
   enableDownload: PropTypes.bool,
   type: PropTypes.oneOf(['audio/wav', 'audio/ogg', 'audio/mpeg', '']),
   filename: PropTypes.string
@@ -437,6 +453,7 @@ AudioPlayer.propTypes = {
 AudioPlayer.defaultProps = {
   cycle: false,
   showLoader: false,
+  showSeekControls: false,
   enableDownload: true,
   type: '',
   filename: ''
