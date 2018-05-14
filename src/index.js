@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { PlayIcon, PauseIcon, DownloadIcon, ReloadIcon/*, SpinnerIcon*/ } from './icons';
+import { PlayIcon, PauseIcon, DownloadIcon, ForwardIcon, BackwardIcon, ReloadIcon/*, SpinnerIcon*/ } from './icons';
 
 
 
@@ -138,13 +138,13 @@ export default class AudioPlayer extends Component {
     };
 
     this.forward = () => {
-      const currentTime = this.audio.currentTime + 15;
+      const currentTime = this.audio.currentTime + 5;
       this.audio.currentTime = currentTime;
       this.setState({ displayedTime: currentTime })
     }
     
     this.rewind = () => {
-      const currentTime = this.audio.currentTime - 15;
+      const currentTime = this.audio.currentTime - 5;
       this.audio.currentTime = currentTime;
       this.setState({ displayedTime: currentTime })
     }
@@ -386,7 +386,7 @@ export default class AudioPlayer extends Component {
     const duration = this.audio && this.audio.duration || 0;
 
     const elapsedTime = convertToTime(displayedTime);
-    // const fullTime = convertToTime(duration);
+    const fullTime = convertToTime(duration);
     const timeRatio = `${elapsedTime} `;
 
     const progressBarWidth = `${( displayedTime && duration && (displayedTime / duration) * 100 || 0) }%`;
@@ -408,6 +408,9 @@ export default class AudioPlayer extends Component {
           </div>          
         </div>
         
+        { this.props.showSeekControls && <div className={"btn " + (this.state.reload ? 'disabled' : '') }><i className="button" onClick={this.rewind}><BackwardIcon /></i></div>}
+        { this.props.showSeekControls && <div className={"btn " + (this.state.reload ? 'disabled' : '' )}><i className="button" onClick={this.forward}><ForwardIcon /></i></div>}
+
         <div id="audio_time_progress" className="audio_time_progress noselect" draggable="false">
           {timeRatio}
         </div>
@@ -424,10 +427,12 @@ export default class AudioPlayer extends Component {
             </div>
           </div>
         </div>
+
+        <div draggable="false" className="audio_time_progress noselect remaining-time">
+          {fullTime}
+        </div>
         
-        {this.props.enableDownload && <div className="download-btn"><i className="button" onClick={this.downloadAudio}><DownloadIcon /></i></div>}
-        { this.props.showSeekControls && <div className={"download-btn " + (this.state.reload ? 'disabled' : '') }><i className="button" onClick={this.rewind}><DownloadIcon /></i></div>}
-        { this.props.showSeekControls && <div className={"download-btn " + (this.state.reload ? 'disabled' : '' )}><i className="button" onClick={this.forward}><DownloadIcon /></i></div>}
+        {this.props.enableDownload && <div className="btn"><i className="button" onClick={this.downloadAudio}><DownloadIcon /></i></div>}
       </div>
     );
   }
