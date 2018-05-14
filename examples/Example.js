@@ -54,7 +54,7 @@ class Example extends React.Component {
 
                 </div>
 
-                <MyComponent autoplay src={ url } showLoader={showLoader} onMediaEvent={{ play: (e)=> {console.error(e)}}}/>
+                <MyComponent autoplay src={ url } showSeekControls showLoader={showLoader} onMediaEvent={{ play: (e)=> {console.error(e)}}}/>
             </center>
         )
     }
