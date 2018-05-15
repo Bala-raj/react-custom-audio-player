@@ -51,12 +51,15 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
     color: #767F86;
     .button{
         cursor: pointer;
-        line-height: 42px;
+        line-height: 43px;
         display: inline-block;
     }
     svg {
         vertical-align: middle;
     }
+}
+.btn:last-of-type {
+    border-right: none;
 }
 
 
@@ -186,9 +189,9 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
     // background-color: $audio_player_base_bg_color;
     /*@include boxshadow;*/
     border: 1px solid $border-color;
-    border-radius: 5px;
+    border-radius: 2px;
     min-width: 600px;
-    padding: 0px 15px;
+    padding: 0 0 0 15px;
     background: $white;
     position: relative;
 
@@ -335,7 +338,7 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
         padding: 0 5px;
         border-right: 1px solid $border-color;
         height: 42px;
-        line-height: 42px;
+        line-height: 43px;
         text-align: center;
         font-family: 'open sans', sans-serif;
     }
@@ -402,7 +405,7 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
 
             .reload-icon {
                 position: absolute;
-                top: 7px;
+                top: 3px;
                 left: -2px;
                 display: none;
             }
