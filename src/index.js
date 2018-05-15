@@ -431,7 +431,19 @@ export default class AudioPlayer extends Component {
         <div draggable="false" className="audio_time_progress noselect remaining-time">
           {fullTime}
         </div>
-        
+
+         <div className="player-speed-control dropdown-field ft-left">
+          <div className="dropdown-button">
+            <button className="button nostyle" >1x <i className="drop-arrow"></i></button>
+          </div>
+          <div className="dropdownmenu bottom">
+          <ul>
+              <li><a><code className="brand-bg" />1x</a></li>
+              <li><a><code className="brand-bg" />2x</a></li>
+          </ul>
+          </div>
+        </div>
+
         {this.props.enableDownload && <div className="btn"><i className="button" onClick={this.downloadAudio}><DownloadIcon /></i></div>}
       </div>
     );

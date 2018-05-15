@@ -41,6 +41,7 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
     background: none;
     outline: none;
 }
+
 // common styles for all button/icons
 .btn {
     width: 45px;
@@ -49,19 +50,21 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
     font-family: Open Sans, sans-serif;
     font-size: 8px;
     color: #767F86;
-    .button{
+
+    .button {
         cursor: pointer;
-        line-height: 43px;
+        line-height: 41px;
         display: inline-block;
     }
+
     svg {
         vertical-align: middle;
     }
 }
+
 .btn:last-of-type {
     border-right: none;
 }
-
 
 .download-btn {
     padding-top: 12px;
@@ -183,9 +186,6 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
     flex-direction: row;
     height: 42px;
 
-
-    
-
     // background-color: $audio_player_base_bg_color;
     /*@include boxshadow;*/
     border: 1px solid $border-color;
@@ -265,7 +265,7 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
         right: 0;
         border: 1px solid #fff;
         top: -3px;
-        padding:0;
+        padding: 0;
         cursor: pointer;
     }
 
@@ -347,6 +347,7 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
         border-left: 1px solid $border-color;
         margin-left: 15px;
     }
+
     .audio_button {
         // padding-left: 0;
         // margin-right: 0;
@@ -355,6 +356,7 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
         height: 42px;
         line-height: 42px;
         text-align: left;
+
         // -ms-flex-item-align: center;
         // align-self: center;
         // display: -webkit-box;
@@ -369,6 +371,7 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
         // flex-direction: column;
         // height: 30px;
         // text-align: left;
+   
     }
 
     /* http://codepen.io/aralon/pen/NqGWXZ */
@@ -386,6 +389,7 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
             // > div {
             //     position: absolute;
             // }
+       
         }
 
         .play_pause_inner {
@@ -414,7 +418,8 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
         .spinner {
             display: none;
             animation: unset;
-            img{
+
+            img {
                 width: 100%;
                 height: 100%;
                 position: relative;
@@ -582,3 +587,141 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
         }
     }
 }
+
+/* Dropdown menu */
+.dropdown-field {
+    position: relative;
+
+    &.open {
+        > .dropdownmenu {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
+    &.player-speed-control {
+        .dropdown-button {
+            width: 50px;
+
+            .button {
+                width: 100%;
+                font-size: 12px;
+                line-height: 42px;
+                color: #767F86;
+                border-right: 1px solid rgba(172, 172, 172, 0.3);
+            }
+
+            .drop-arrow {
+                display: inline-block;
+                vertical-align: middle;
+                width: 0;
+                height: 0;
+                border-left: 3px solid transparent;
+                border-right: 3px solid transparent;
+                border-top: 3px solid #767F86;
+            }
+        }
+    }
+
+    .dropdownmenu {
+        width: 100%;
+        position: absolute;
+        z-index: 100;
+        top: 100%;
+        transition: 0.3s ease;
+        transform: translateY(-20px);
+        opacity: 0;
+        visibility: hidden;
+
+        > ul {
+            max-height: 240px;
+            overflow: auto;
+            padding: 10px 0;
+            margin: 10px 0;
+            border-radius: 4px;
+            background-color: $white;
+
+            @include boxshadow;
+
+            li {
+                padding: 0;
+                font-size: 14px;
+                text-align: left;
+                cursor: pointer;
+                font-weight: 400;
+
+                // transition: 0.1s ease all;
+                position: relative;
+
+                a {
+                    font-size: 12px;
+                    text-align: left;
+                    cursor: pointer;
+                    color: #767F86;
+                    font-weight: 400;
+                    margin-left: 5px;
+                    padding: 5px 10px;
+                    display: block;
+                    text-decoration: none;
+                    font-family: Open Sans, sans-serif;
+                }
+
+                button {
+                    padding: 5px 10px;
+                    color: $primary-color;
+                }
+
+                &:after {
+                    clear: both;
+                    display: block;
+                    content: "";
+                }
+
+                code {
+                    width: 5px;
+                    height: 95%;
+                    background-color: #00bbe5;
+                    border-radius: 0;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    opacity: 0;
+                    margin: 0;
+                    transition: 0.3s ease;
+                }
+
+                &:hover {
+                    code {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+
+        &.bottom:after,
+        &.bottom:before {
+            bottom: 100%;
+            right: 20px;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+            margin-bottom: -10px;
+            border-color: rgba(255, 255, 255, 0);
+            border-bottom-color: #fff;
+            border-width: 6px;
+        }
+
+        &.bottom:before {
+            border-color: rgba(217, 219, 219, 0);
+            border-bottom-color: rgba(#efefef, 0.6);
+            border-width: 7px;
+            right: 19px;
+        }
+    }
+}
+
+/* Dropdown menu */
