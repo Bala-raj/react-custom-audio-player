@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -95,11 +95,11 @@ export default class AudioPlayer extends Component {
      * to seek a new track position
      */
     this.seekInProgress = false;
-    
+
     this.defaultState = {
       paused: true,
       loading: false,
-      reload:false,
+      reload: false,
       /* elapsed time for current track, in seconds -
        * DISPLAY ONLY! the actual elapsed time may
        * not match up if we're currently seeking, since
@@ -107,12 +107,12 @@ export default class AudioPlayer extends Component {
        * audio seeks.
        */
       displayedTime: 0,
-      playbackRate: 1,
+      playbackRate: '1x',
       showPlaybackRateList: false,
     };
 
     this.state = Object.assign({}, this.defaultState);
-    if(props.showLoader) {
+    if (props.showLoader) {
       this.state.loading = true;
     }
 
@@ -127,16 +127,16 @@ export default class AudioPlayer extends Component {
     // event listeners to add on mount and remove on unmount
     this.seekReleaseListener = e => this.seek(e);
     this.resizeListener = () => this.fetchAudioProgressBoundingRect();
-    this.audioPlayListener = () => this.setState({ paused: false, reload:false });
+    this.audioPlayListener = () => this.setState({ paused: false, reload: false });
     this.audioPauseListener = () => this.setState({ paused: true });
-    this.audioEndListener = () => this.setState({reload: true});
+    this.audioEndListener = () => this.setState({ reload: true });
     this.audioStallListener = () => this.togglePause(true);
     this.audioTimeUpdateListener = () => this.handleTimeUpdate();
     this.audioMetadataLoadedListener = () => this.setState({
       activeTrackIndex: this.currentTrackIndex,
     });
     this.onBuffered = () => {
-        this.setState({ loading: false })
+      this.setState({ loading: false })
     };
 
     this.forward = () => {
@@ -144,24 +144,24 @@ export default class AudioPlayer extends Component {
       this.audio.currentTime = currentTime;
       this.setState({ displayedTime: currentTime })
     }
-    
+
     this.rewind = () => {
       const currentTime = this.audio.currentTime - 5;
       this.audio.currentTime = currentTime;
       this.setState({ displayedTime: currentTime })
     }
 
-    this.changePlaybackRate = (speed) => {      
+    this.changePlaybackRate = (speed, display) => {
       this.audio.playbackRate = speed;
-      this.setState({ playbackRate: speed, showPlaybackRateList: false })
+      this.setState({ playbackRate: display, showPlaybackRateList: false })
     }
 
-    this.togglePlaybackRate = () => this.setState({showPlaybackRateList: !this.state.showPlaybackRateList});
-  
+    this.togglePlaybackRate = () => this.setState({ showPlaybackRateList: !this.state.showPlaybackRateList });
+
 
     this.audio = document.createElement('audio');
 
-    this.downloadAudio = this.downloadAudio.bind(this);    
+    this.downloadAudio = this.downloadAudio.bind(this);
   }
 
   componentDidMount() {
@@ -180,9 +180,9 @@ export default class AudioPlayer extends Component {
     audio.addEventListener('ended', this.audioEndListener);
     audio.addEventListener('stalled', this.audioStallListener);
     audio.addEventListener('timeupdate', this.audioTimeUpdateListener);
-    audio.addEventListener('loadedmetadata', this.audioMetadataLoadedListener);    
-    audio.addEventListener('loadeddata', this.onBuffered);    
-    this.addMediaEventListeners(this.props.onMediaEvent);    
+    audio.addEventListener('loadedmetadata', this.audioMetadataLoadedListener);
+    audio.addEventListener('loadeddata', this.onBuffered);
+    this.addMediaEventListeners(this.props.onMediaEvent);
 
     if (this.props.src) {
       this.updateSource();
@@ -210,10 +210,10 @@ export default class AudioPlayer extends Component {
     this.audio.removeEventListener('ended', this.audioEndListener);
     this.audio.removeEventListener('stalled', this.audioStallListener);
     this.audio.removeEventListener('timeupdate', this.audioTimeUpdateListener);
-    this.audio.removeEventListener('loadedmetadata', this.audioMetadataLoadedListener);   
-    this.audio.addEventListener('loadeddata', this.onBuffered);   
+    this.audio.removeEventListener('loadedmetadata', this.audioMetadataLoadedListener);
+    this.audio.addEventListener('loadeddata', this.onBuffered);
     this.getName = this.getName.bind(this);
-    
+
     this.removeMediaEventListeners(this.props.onMediaEvent);
     clearTimeout(this.gapLengthTimeout);
     clearTimeout(this.delayTimeout);
@@ -232,7 +232,7 @@ export default class AudioPlayer extends Component {
     this.addMediaEventListeners(nextProps.onMediaEvent);
 
     const newSrc = nextProps.src;
-    if ((newSrc !== this.props.src) || ( nextProps.showLoader != this.props.showLoader)) {
+    if ((newSrc !== this.props.src) || (nextProps.showLoader != this.props.showLoader)) {
       if (this.audio) {
         this.audio.src = newSrc || '';
       }
@@ -275,7 +275,7 @@ export default class AudioPlayer extends Component {
   // componentDidUpdate() {
   //    if we loaded a new playlist and reset the current track marker, we
   //    * should load up the first one.
-     
+
   //   if (this.audio && this.currentTrackIndex === -1) {
   //     this.skipToNextTrack(false);
   //   }
@@ -294,9 +294,9 @@ export default class AudioPlayer extends Component {
     }
     try {
       this.audio.play();
-      if(this.audio.readyState === 0) {
-        this.setState({loading:true});
-    }
+      if (this.audio.readyState === 0) {
+        this.setState({ loading: true });
+      }
     } catch (error) {
       logError(error);
       const warningMessage =
@@ -352,7 +352,7 @@ export default class AudioPlayer extends Component {
   getName() {
     return this.props.filename ? (this.props.type ? (extractFileName(this.props.filename) + getExtensionFromType(this.props.type)) : this.props.filename) : (this.props.type ? (extractFileName(this.props.src) + getExtensionFromType(this.props.type)) : this.props.src);
   }
-  
+
   downloadAudio() {
     const filename = this.getName();
     if (isIEBrowser()) {
@@ -398,36 +398,36 @@ export default class AudioPlayer extends Component {
     const fullTime = convertToTime(duration);
     const timeRatio = `${elapsedTime} `;
 
-    const progressBarWidth = `${( displayedTime && duration && (displayedTime / duration) * 100 || 0) }%`;
+    const progressBarWidth = `${(displayedTime && duration && (displayedTime / duration) * 100 || 0)}%`;
 
     const adjustDisplayedTime = e => this.adjustDisplayedTime(e);
 
     return (
-      <div id="audio_player" className={classNames('audio_player',{ disabled: !this.props.src })} style={this.props.style}>
+      <div id="audio_player" className={classNames('audio_player', { disabled: !this.props.src })} style={this.props.style}>
 
         <div className="audio_controls">
 
-          <div id="play_pause_button" className={classNames('play_pause_button', 'audio_button', { paused: (!this.state.reload && this.state.paused), loading: this.state.loading, reload:this.state.reload })} onClick={() => this.togglePause()} >
+          <div id="play_pause_button" className={classNames('play_pause_button', 'audio_button', { paused: (!this.state.reload && this.state.paused), loading: this.state.loading, reload: this.state.reload })} onClick={() => this.togglePause()} >
             <div className="play_pause_inner">
               <div className="ivrplaybtn"><PlayIcon /></div>
               <div className="ivrpausebtn"><PauseIcon /></div>
               <div className="spinner"><img src='https://storage.googleapis.com/branddesignmanager/CWANewDesign/images/spinners.gif' /></div>
               <div className="reload-icon"><ReloadIcon /> </div>
             </div>
-          </div>          
+          </div>
         </div>
-        
-        { this.props.showSeekControls && <div className={"btn " + (this.state.reload ? 'disabled' : '') }><i className="button" onClick={this.rewind}><BackwardIcon /></i></div>}
-        { this.props.showSeekControls && <div className={"btn " + (this.state.reload ? 'disabled' : '' )}><i className="button" onClick={this.forward}><ForwardIcon /></i></div>}
+
+        {this.props.showSeekControls && <div className={"btn " + (this.state.reload ? 'disabled' : '')}><i className="button" onClick={this.rewind}><BackwardIcon /></i></div>}
+        {this.props.showSeekControls && <div className={"btn " + (this.state.reload ? 'disabled' : '')}><i className="button" onClick={this.forward}><ForwardIcon /></i></div>}
 
         <div id="audio_time_progress" className="audio_time_progress noselect" draggable="false">
           {timeRatio}
         </div>
-        
-        <div id="audio_progress_container"className={ classNames("audio_progress_container", { disabled: (this.audio && this.audio.readyState < 3)})} ref={ref => this.audioProgressContainer = ref}onMouseDown={adjustDisplayedTime}onMouseMove={adjustDisplayedTime}onTouchStart={adjustDisplayedTime}onTouchMove={adjustDisplayedTime}>
-          
-          <div id="audio_progress" className="audio_progress" style={{ width: progressBarWidth }}> <code/></div>
-          
+
+        <div id="audio_progress_container" className={classNames("audio_progress_container", { disabled: (this.audio && this.audio.readyState < 3) })} ref={ref => this.audioProgressContainer = ref} onMouseDown={adjustDisplayedTime} onMouseMove={adjustDisplayedTime} onTouchStart={adjustDisplayedTime} onTouchMove={adjustDisplayedTime}>
+
+          <div id="audio_progress" className="audio_progress" style={{ width: progressBarWidth }}> <code /></div>
+
           <div id="audio_progress_overlay" className="audio_progress_overlay">
             <div className="audio_info_marquee">
               <div id="audio_info" className="audio_info noselect" draggable="false">
@@ -441,15 +441,16 @@ export default class AudioPlayer extends Component {
           {fullTime}
         </div>
 
-         { this.props.showPlaybackRate && <div className={`player-speed-control dropdown-field ft-left ${(this.state.showPlaybackRateList ? 'open' : '')}`}>
+        {this.props.showPlaybackRate && <div className={`player-speed-control dropdown-field ft-left ${(this.state.showPlaybackRateList ? 'open' : '')}`}>
           <div className="dropdown-button">
-            <button className="button nostyle" onClick={this.togglePlaybackRate}><span>{ `${this.audio.playbackRate}x` } </span><i className="drop-arrow"></i></button>
+            <button className="button nostyle" onClick={this.togglePlaybackRate}><span>{this.state.playbackRate} </span><i className="drop-arrow"></i></button>
           </div>
           <div className="dropdownmenu bottom">
-          <ul>
-              <li onClick={() => {this.changePlaybackRate('1')}}><a><code className="brand-bg" />1x</a></li>
-              <li onClick={() => {this.changePlaybackRate('2')}}><a><code className="brand-bg" />2x</a></li>
-          </ul>
+            <ul>
+              <li onClick={() => { this.changePlaybackRate('1', '1x') }}><a><code className="brand-bg" />1x</a></li>
+              <li onClick={() => { this.changePlaybackRate('1.2', '2x') }}><a><code className="brand-bg" />2x</a></li>
+              <li onClick={() => { this.changePlaybackRate('1.4', '3x') }}><a><code className="brand-bg" />3x</a></li>
+            </ul>
           </div>
         </div>}
 
@@ -463,9 +464,9 @@ export default class AudioPlayer extends Component {
 AudioPlayer.propTypes = {
   src: PropTypes.string,
   autoplay: PropTypes.bool,
-  autoplayDelayInSeconds: PropTypes.number,  
+  autoplayDelayInSeconds: PropTypes.number,
   cycle: PropTypes.bool,
-  disableSeek: PropTypes.bool,  
+  disableSeek: PropTypes.bool,
   style: PropTypes.object,
   onMediaEvent: PropTypes.object,
   audioElementRef: PropTypes.func,
@@ -480,7 +481,7 @@ AudioPlayer.propTypes = {
 AudioPlayer.defaultProps = {
   cycle: false,
   showLoader: false,
-  showSeekControls: false,  
+  showSeekControls: false,
   showPlaybackRate: false,
   enableDownload: true,
   type: '',
