@@ -443,7 +443,7 @@ export default class AudioPlayer extends Component {
 
          <div className={`player-speed-control dropdown-field ft-left ${(this.state.showPlaybackRateList ? 'open' : '')}`}>
           <div className="dropdown-button">
-            <button className="button nostyle" onClick={this.togglePlaybackRate}>{ `${this.audio.playbackRate}x` } <i className="drop-arrow"></i></button>
+            <button className="button nostyle" onClick={this.togglePlaybackRate}><span>{ `${this.audio.playbackRate}x` } </span><i className="drop-arrow"></i></button>
           </div>
           <div className="dropdownmenu bottom">
           <ul>
