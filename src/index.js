@@ -441,7 +441,7 @@ export default class AudioPlayer extends Component {
           {fullTime}
         </div>
 
-         <div className={`player-speed-control dropdown-field ft-left ${(this.state.showPlaybackRateList ? 'open' : '')}`}>
+         { this.props.showPlaybackRate && <div className={`player-speed-control dropdown-field ft-left ${(this.state.showPlaybackRateList ? 'open' : '')}`}>
           <div className="dropdown-button">
             <button className="button nostyle" onClick={this.togglePlaybackRate}><span>{ `${this.audio.playbackRate}x` } </span><i className="drop-arrow"></i></button>
           </div>
@@ -451,7 +451,7 @@ export default class AudioPlayer extends Component {
               <li onClick={() => {this.changePlaybackRate('2')}}><a><code className="brand-bg" />2x</a></li>
           </ul>
           </div>
-        </div>
+        </div>}
 
         {this.props.enableDownload && <div className="btn"><i className="button" onClick={this.downloadAudio}><DownloadIcon /></i></div>}
       </div>
@@ -471,6 +471,7 @@ AudioPlayer.propTypes = {
   audioElementRef: PropTypes.func,
   showLoader: PropTypes.bool,
   showSeekControls: PropTypes.bool,
+  showPlaybackRate: PropTypes.bool,
   enableDownload: PropTypes.bool,
   type: PropTypes.oneOf(['audio/wav', 'audio/ogg', 'audio/mpeg', '']),
   filename: PropTypes.string
@@ -480,7 +481,7 @@ AudioPlayer.defaultProps = {
   cycle: false,
   showLoader: false,
   showSeekControls: false,  
-  playbackRate: false,
+  showPlaybackRate: false,
   enableDownload: true,
   type: '',
   filename: ''
