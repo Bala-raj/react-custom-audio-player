@@ -107,6 +107,8 @@ export default class AudioPlayer extends Component {
        * audio seeks.
        */
       displayedTime: 0,
+      playbackRate: 1,
+      showPlaybackRateList: false,
     };
 
     this.state = Object.assign({}, this.defaultState);
@@ -148,6 +150,13 @@ export default class AudioPlayer extends Component {
       this.audio.currentTime = currentTime;
       this.setState({ displayedTime: currentTime })
     }
+
+    this.changePlaybackRate = (speed) => {      
+      this.audio.playbackRate = speed;
+      this.setState({ playbackRate: speed, showPlaybackRateList: false })
+    }
+
+    this.togglePlaybackRate = () => this.setState({showPlaybackRateList: !this.state.showPlaybackRateList});
   
 
     this.audio = document.createElement('audio');
@@ -432,14 +441,14 @@ export default class AudioPlayer extends Component {
           {fullTime}
         </div>
 
-         <div className="player-speed-control dropdown-field ft-left">
+         <div className={`player-speed-control dropdown-field ft-left ${(this.state.showPlaybackRateList ? 'open' : '')}`}>
           <div className="dropdown-button">
-            <button className="button nostyle" >1x <i className="drop-arrow"></i></button>
+            <button className="button nostyle" onClick={this.togglePlaybackRate}>{ `${this.audio.playbackRate}x` } <i className="drop-arrow"></i></button>
           </div>
           <div className="dropdownmenu bottom">
           <ul>
-              <li><a><code className="brand-bg" />1x</a></li>
-              <li><a><code className="brand-bg" />2x</a></li>
+              <li onClick={() => {this.changePlaybackRate('1')}}><a><code className="brand-bg" />1x</a></li>
+              <li onClick={() => {this.changePlaybackRate('2')}}><a><code className="brand-bg" />2x</a></li>
           </ul>
           </div>
         </div>
@@ -470,39 +479,9 @@ AudioPlayer.propTypes = {
 AudioPlayer.defaultProps = {
   cycle: false,
   showLoader: false,
-  showSeekControls: false,
+  showSeekControls: false,  
+  playbackRate: false,
   enableDownload: true,
   type: '',
   filename: ''
 };
-
-if (typeof Object.assign != 'function') {
-  // Must be writable: true, enumerable: false, configurable: true
-  Object.defineProperty(Object, "assign", {
-    value: function assign(target, varArgs) { // .length of function is 2
-      'use strict';
-      if (target == null) { // TypeError if undefined or null
-        throw new TypeError('Cannot convert undefined or null to object');
-      }
-
-      var to = Object(target);
-
-      for (var index = 1; index < arguments.length; index++) {
-        var nextSource = arguments[index];
-
-        if (nextSource != null) { // Skip over if undefined or null
-          for (var nextKey in nextSource) {
-            // Avoid bugs when hasOwnProperty is shadowed
-            if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
-              to[nextKey] = nextSource[nextKey];
-            }
-          }
-        }
-      }
-      return to;
-    },
-    writable: true,
-    configurable: true
-  });
-}
-
