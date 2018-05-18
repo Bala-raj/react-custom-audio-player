@@ -448,8 +448,9 @@ export default class AudioPlayer extends Component {
           <div className="dropdownmenu bottom">
             <ul>
               <li onClick={() => { this.changePlaybackRate('1', '1x') }}><a><code className="brand-bg" />1x</a></li>
-              <li onClick={() => { this.changePlaybackRate('1.2', '2x') }}><a><code className="brand-bg" />2x</a></li>
-              <li onClick={() => { this.changePlaybackRate('1.4', '3x') }}><a><code className="brand-bg" />3x</a></li>
+              <li onClick={() => { this.changePlaybackRate('1.5', '1.5x') }}><a><code className="brand-bg" />1.5x</a></li>
+              <li onClick={() => { this.changePlaybackRate('2', '2x') }}><a><code className="brand-bg" />2x</a></li>
+              <li onClick={() => { this.changePlaybackRate('3', '3x') }}><a><code className="brand-bg" />3x</a></li>
             </ul>
           </div>
         </div>}
