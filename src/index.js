@@ -286,17 +286,22 @@ export default class AudioPlayer extends Component {
       return;
     }
     const pause = typeof value === 'boolean' ? value : !this.state.paused;
-    if (pause) {
+    if (pause && !this.audioPromise) {
       return this.audio.pause();
     }
     if (!this.props.src) {
       return;
     }
     try {
-      this.audio.play();
+      this.audioPromise = this.audio.play();
       if (this.audio.readyState === 0) {
         this.setState({ loading: true });
       }
+      if(this.audioPromise !== undefined) { // Little funny logic to avoid this issue https://goo.gl/LdLk22
+        this.audioPromise.then( () => {
+          this.audioPromise = undefined;
+        });
+      }      
     } catch (error) {
       logError(error);
       const warningMessage =
