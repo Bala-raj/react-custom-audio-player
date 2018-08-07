@@ -460,7 +460,9 @@ export default class AudioPlayer extends Component {
           </div>
         </div>}
 
-        {this.props.enableDownload && <div className="btn"><i className="button" onClick={this.downloadAudio}><DownloadIcon /></i></div>}
+        {this.props.enableDownload && 
+          this.props.customDownloadButton && this.props.children ? this.props.children :  <div className="btn"><i className="button" onClick={this.downloadAudio}><DownloadIcon /></i></div>
+        }
       </div>
     );
   }
@@ -480,6 +482,8 @@ AudioPlayer.propTypes = {
   showSeekControls: PropTypes.bool,
   showPlaybackRate: PropTypes.bool,
   enableDownload: PropTypes.bool,
+  customDownloadButton: PropTypes.bool,
+  children: PropTypes.any,
   type: PropTypes.oneOf(['audio/wav', 'audio/ogg', 'audio/mpeg', '']),
   filename: PropTypes.string
 };
@@ -490,6 +494,8 @@ AudioPlayer.defaultProps = {
   showSeekControls: false,
   showPlaybackRate: false,
   enableDownload: true,
+  customDownloadButton: false,
   type: '',
-  filename: ''
+  filename: '',
+  children: undefined,
 };
