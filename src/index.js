@@ -369,7 +369,7 @@ export default class AudioPlayer extends Component {
       a.href = this.props.src;
       a.download = filename;
       a.click();
-      document.removeChild(a);
+      document.body.removeChild(a);
     }
   }
 
