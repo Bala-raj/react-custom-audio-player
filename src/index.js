@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import { PlayIcon, PauseIcon, DownloadIcon, ForwardIcon, BackwardIcon, ReloadIcon/*, SpinnerIcon*/ } from './icons';
 
 
-
 const log = console.log.bind(console); //eslint-disable-line
 const logError = console.error ? console.error.bind(console) : log; //eslint-disable-line
 const logWarning = console.warn ? console.warn.bind(console) : log; //eslint-disable-line
@@ -98,7 +97,7 @@ export default class AudioPlayer extends Component {
 
     this.defaultState = {
       paused: true,
-      loading: false,
+      loading: !!props.showLoader,
       reload: false,
       /* elapsed time for current track, in seconds -
        * DISPLAY ONLY! the actual elapsed time may
@@ -112,10 +111,7 @@ export default class AudioPlayer extends Component {
     };
 
     this.state = Object.assign({}, this.defaultState);
-    if (props.showLoader) {
-      this.state.loading = true;
-    }
-
+ 
     // html audio element used for playback
     this.audio = null;
     this.audioProgressContainer = null;
