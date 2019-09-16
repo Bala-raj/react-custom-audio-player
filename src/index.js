@@ -1,9 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { PlayIcon, PauseIcon, DownloadIcon, ForwardIcon, BackwardIcon, ReloadIcon/*, SpinnerIcon*/ } from './icons';
-
+import { PlayIcon, PauseIcon, DownloadIcon, ForwardIcon, BackwardIcon, VolumeIcon, MutedIcon, ReloadIcon/*, SpinnerIcon*/ } from './icons';
 
 
 const log = console.log.bind(console); //eslint-disable-line
@@ -17,6 +16,15 @@ function convertToTime(number) {
   const mins = Math.floor(number / 60);
   const secs = (number % 60).toFixed();
   return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
+}
+
+/**
+*  Convert given time to number
+* @returns {Number}
+*/
+function parseTime(s) { // 0:23
+  const c = s.split(':');//0,23
+  return (parseInt(c[0]) * 60) + parseInt(c[1]); // 23
 }
 
 /**
@@ -95,11 +103,12 @@ export default class AudioPlayer extends Component {
      * to seek a new track position
      */
     this.seekInProgress = false;
-    
+
     this.defaultState = {
       paused: true,
       loading: false,
-      reload:false,
+      reload: false,
+      isMuted: false,
       /* elapsed time for current track, in seconds -
        * DISPLAY ONLY! the actual elapsed time may
        * not match up if we're currently seeking, since
@@ -110,7 +119,7 @@ export default class AudioPlayer extends Component {
     };
 
     this.state = Object.assign({}, this.defaultState);
-    if(props.showLoader) {
+    if (props.showLoader) {
       this.state.loading = true;
     }
 
@@ -125,16 +134,16 @@ export default class AudioPlayer extends Component {
     // event listeners to add on mount and remove on unmount
     this.seekReleaseListener = e => this.seek(e);
     this.resizeListener = () => this.fetchAudioProgressBoundingRect();
-    this.audioPlayListener = () => this.setState({ paused: false, reload:false });
+    this.audioPlayListener = () => this.setState({ paused: false, reload: false });
     this.audioPauseListener = () => this.setState({ paused: true });
-    this.audioEndListener = () => this.setState({reload: true});
+    this.audioEndListener = () => this.setState({ reload: true });
     this.audioStallListener = () => this.togglePause(true);
     this.audioTimeUpdateListener = () => this.handleTimeUpdate();
     this.audioMetadataLoadedListener = () => this.setState({
       activeTrackIndex: this.currentTrackIndex,
     });
     this.onBuffered = () => {
-        this.setState({ loading: false })
+      this.setState({ loading: false })
     };
 
     this.forward = () => {
@@ -142,17 +151,39 @@ export default class AudioPlayer extends Component {
       this.audio.currentTime = currentTime;
       this.setState({ displayedTime: currentTime })
     }
-    
+
     this.rewind = () => {
       const currentTime = this.audio.currentTime - 5;
       this.audio.currentTime = currentTime;
       this.setState({ displayedTime: currentTime })
     }
-  
+
 
     this.audio = document.createElement('audio');
 
-    this.downloadAudio = this.downloadAudio.bind(this);    
+    this.downloadAudio = this.downloadAudio.bind(this);
+    this.audioVolumeHandler = () => {
+      const settings = {
+        fill: '#00BBE5',
+        background: '#ACACAC'
+      }
+      // Let's turn our value into a percentage to figure out how far it is in between the min and max of our input
+      const percentage = 100 * (this.range.value - this.range.min) / (this.range.max - this.range.min);
+      // now we'll create a linear gradient that separates at the above point
+      // Our background color will change here
+      const bg = `linear-gradient(90deg, ${settings.fill} ${percentage}%, ${settings.background} ${percentage + 0.1}%)`;
+      this.range.style.background = bg;
+
+      this.audio.volume = this.range.value / 100;
+      this.range.value == 0 ? this.setState({ isMuted: true }) : this.setState({ isMuted: false })
+    }
+    this.toggleVolume = () => {
+      const currentVolume = this.range.value;
+      this.setState({ isMuted: !this.state.isMuted }, () => {
+        this.state.isMuted ? this.range.value = 0 : this.range.value = currentVolume;
+      });
+
+    }
   }
 
   componentDidMount() {
@@ -171,9 +202,10 @@ export default class AudioPlayer extends Component {
     audio.addEventListener('ended', this.audioEndListener);
     audio.addEventListener('stalled', this.audioStallListener);
     audio.addEventListener('timeupdate', this.audioTimeUpdateListener);
-    audio.addEventListener('loadedmetadata', this.audioMetadataLoadedListener);    
-    audio.addEventListener('loadeddata', this.onBuffered);    
-    this.addMediaEventListeners(this.props.onMediaEvent);    
+    audio.addEventListener('loadedmetadata', this.audioMetadataLoadedListener);
+    audio.addEventListener('loadeddata', this.onBuffered);
+    this.addMediaEventListeners(this.props.onMediaEvent);
+    // this.range.addEventListener('click', this.audioVolumeHandler);
 
     if (this.props.src) {
       this.updateSource();
@@ -187,6 +219,7 @@ export default class AudioPlayer extends Component {
     if (this.props.audioElementRef) {
       this.props.audioElementRef(audio);
     }
+    this.audioVolumeHandler();
   }
 
   componentWillUnmount() {
@@ -201,10 +234,10 @@ export default class AudioPlayer extends Component {
     this.audio.removeEventListener('ended', this.audioEndListener);
     this.audio.removeEventListener('stalled', this.audioStallListener);
     this.audio.removeEventListener('timeupdate', this.audioTimeUpdateListener);
-    this.audio.removeEventListener('loadedmetadata', this.audioMetadataLoadedListener);   
-    this.audio.addEventListener('loadeddata', this.onBuffered);   
+    this.audio.removeEventListener('loadedmetadata', this.audioMetadataLoadedListener);
+    this.audio.addEventListener('loadeddata', this.onBuffered);
     this.getName = this.getName.bind(this);
-    
+
     this.removeMediaEventListeners(this.props.onMediaEvent);
     clearTimeout(this.gapLengthTimeout);
     clearTimeout(this.delayTimeout);
@@ -223,7 +256,7 @@ export default class AudioPlayer extends Component {
     this.addMediaEventListeners(nextProps.onMediaEvent);
 
     const newSrc = nextProps.src;
-    if ((newSrc !== this.props.src) || ( nextProps.showLoader != this.props.showLoader)) {
+    if ((newSrc !== this.props.src) || (nextProps.showLoader != this.props.showLoader)) {
       if (this.audio) {
         this.audio.src = newSrc || '';
       }
@@ -266,7 +299,7 @@ export default class AudioPlayer extends Component {
   // componentDidUpdate() {
   //    if we loaded a new playlist and reset the current track marker, we
   //    * should load up the first one.
-     
+
   //   if (this.audio && this.currentTrackIndex === -1) {
   //     this.skipToNextTrack(false);
   //   }
@@ -285,9 +318,9 @@ export default class AudioPlayer extends Component {
     }
     try {
       this.audio.play();
-      if(this.audio.readyState === 0) {
-        this.setState({loading:true});
-    }
+      if (this.audio.readyState === 0) {
+        this.setState({ loading: true });
+      }
     } catch (error) {
       logError(error);
       const warningMessage =
@@ -343,7 +376,7 @@ export default class AudioPlayer extends Component {
   getName() {
     return this.props.filename ? (this.props.type ? (extractFileName(this.props.filename) + getExtensionFromType(this.props.type)) : this.props.filename) : (this.props.type ? (extractFileName(this.props.src) + getExtensionFromType(this.props.type)) : this.props.src);
   }
-  
+
   downloadAudio() {
     const filename = this.getName();
     if (isIEBrowser()) {
@@ -380,45 +413,46 @@ export default class AudioPlayer extends Component {
     this.audio.currentTime = displayedTime;
   }
 
-  render() {
 
+  render() {
+    const isMuted = this.state.isMuted;
     const displayedTime = this.state.displayedTime;
     const duration = this.audio && this.audio.duration || 0;
 
     const elapsedTime = convertToTime(displayedTime);
     const fullTime = convertToTime(duration);
     const timeRatio = `${elapsedTime} `;
+    const rn = parseTime(fullTime) - parseTime(timeRatio);
+    const remainingTime = convertToTime(rn);
 
-    const progressBarWidth = `${( displayedTime && duration && (displayedTime / duration) * 100 || 0) }%`;
+    const progressBarWidth = `${(displayedTime && duration && (displayedTime / duration) * 100 || 0)
+      }% `;
 
     const adjustDisplayedTime = e => this.adjustDisplayedTime(e);
 
     return (
-      <div id="audio_player" className={classNames('audio_player',{ disabled: !this.props.src })} style={this.props.style}>
+      <div id="audio_player" className={classNames('audio_player', { disabled: !this.props.src })} style={this.props.style}>
 
         <div className="audio_controls">
 
-          <div id="play_pause_button" className={classNames('play_pause_button', 'audio_button', { paused: (!this.state.reload && this.state.paused), loading: this.state.loading, reload:this.state.reload })} onClick={() => this.togglePause()} >
+          <div id="play_pause_button" className={classNames('play_pause_button', 'audio_button', { paused: (!this.state.reload && this.state.paused), loading: this.state.loading, reload: this.state.reload })} onClick={() => this.togglePause()} >
             <div className="play_pause_inner">
               <div className="ivrplaybtn"><PlayIcon /></div>
               <div className="ivrpausebtn"><PauseIcon /></div>
               <div className="spinner"><img src='https://storage.googleapis.com/branddesignmanager/CWANewDesign/images/spinners.gif' /></div>
               <div className="reload-icon"><ReloadIcon /> </div>
             </div>
-          </div>          
+          </div>
         </div>
-        
-        { this.props.showSeekControls && <div className={"btn " + (this.state.reload ? 'disabled' : '') }><i className="button" onClick={this.rewind}><BackwardIcon /></i></div>}
-        { this.props.showSeekControls && <div className={"btn " + (this.state.reload ? 'disabled' : '' )}><i className="button" onClick={this.forward}><ForwardIcon /></i></div>}
 
-        <div id="audio_time_progress" className="audio_time_progress noselect" draggable="false">
-          {timeRatio}
-        </div>
-        
-        <div id="audio_progress_container"className={ classNames("audio_progress_container", { disabled: (this.audio && this.audio.readyState < 3)})} ref={ref => this.audioProgressContainer = ref}onMouseDown={adjustDisplayedTime}onMouseMove={adjustDisplayedTime}onTouchStart={adjustDisplayedTime}onTouchMove={adjustDisplayedTime}>
-          
-          <div id="audio_progress" className="audio_progress" style={{ width: progressBarWidth }}> <code/></div>
-          
+        {this.props.showSeekControls && <div className={"btn " + (this.state.reload ? 'disabled' : '')}><i className="button" onClick={this.rewind}><BackwardIcon /></i></div>}
+        {this.props.showSeekControls && <div className={"btn " + (this.state.reload ? 'disabled' : '')}><i className="button" onClick={this.forward}><ForwardIcon /></i></div>}
+
+
+        <div id="audio_progress_container" className={classNames("audio_progress_container", { disabled: (this.audio && this.audio.readyState < 3) })} ref={ref => this.audioProgressContainer = ref} onMouseDown={adjustDisplayedTime} onMouseMove={adjustDisplayedTime} onTouchStart={adjustDisplayedTime} onTouchMove={adjustDisplayedTime}>
+
+          <div id="audio_progress" className="audio_progress" style={{ width: progressBarWidth }}> <code /></div>
+
           <div id="audio_progress_overlay" className="audio_progress_overlay">
             <div className="audio_info_marquee">
               <div id="audio_info" className="audio_info noselect" draggable="false">
@@ -429,11 +463,17 @@ export default class AudioPlayer extends Component {
         </div>
 
         <div draggable="false" className="audio_time_progress noselect remaining-time">
-          {fullTime}
+          {remainingTime}
         </div>
-        
+        <div draggable="false" className="volume-wrapper">
+          <button onClick={this.toggleVolume} className="audio_button volume-button">
+            {!isMuted ? <VolumeIcon /> : <MutedIcon />}
+          </button>
+          <input ref={ele => { this.range = ele }} className="range-slider" type="range" min="0" max="100" onInput={this.audioVolumeHandler} onChange={this.audioVolumeHandler} />
+        </div>
+
         {this.props.enableDownload && <div className="btn"><i className="button" onClick={this.downloadAudio}><DownloadIcon /></i></div>}
-      </div>
+      </div >
     );
   }
 
@@ -442,9 +482,9 @@ export default class AudioPlayer extends Component {
 AudioPlayer.propTypes = {
   src: PropTypes.string,
   autoplay: PropTypes.bool,
-  autoplayDelayInSeconds: PropTypes.number,  
+  autoplayDelayInSeconds: PropTypes.number,
   cycle: PropTypes.bool,
-  disableSeek: PropTypes.bool,  
+  disableSeek: PropTypes.bool,
   style: PropTypes.object,
   onMediaEvent: PropTypes.object,
   audioElementRef: PropTypes.func,
@@ -459,7 +499,7 @@ AudioPlayer.defaultProps = {
   cycle: false,
   showLoader: false,
   showSeekControls: false,
-  enableDownload: true,
+  enableDownload: false,
   type: '',
   filename: ''
 };
