@@ -448,6 +448,7 @@ export default class AudioPlayer extends Component {
         {this.props.showSeekControls && <div className={"btn " + (this.state.reload ? 'disabled' : '')}><i className="button" onClick={this.rewind}><BackwardIcon /></i></div>}
         {this.props.showSeekControls && <div className={"btn " + (this.state.reload ? 'disabled' : '')}><i className="button" onClick={this.forward}><ForwardIcon /></i></div>}
 
+        {this.props.showRunningTimer && <div id="audio_time_progress" className="audio_time_progress noselect" draggable="false">{timeRatio}</div>}
 
         <div id="audio_progress_container" className={classNames("audio_progress_container", { disabled: (this.audio && this.audio.readyState < 3) })} ref={ref => this.audioProgressContainer = ref} onMouseDown={adjustDisplayedTime} onMouseMove={adjustDisplayedTime} onTouchStart={adjustDisplayedTime} onTouchMove={adjustDisplayedTime}>
 
@@ -462,15 +463,14 @@ export default class AudioPlayer extends Component {
           </div>
         </div>
 
-        <div draggable="false" className="audio_time_progress noselect remaining-time">
-          {remainingTime}
-        </div>
-        <div draggable="false" className="volume-wrapper">
+        {this.props.showFullDuration && <div id="audio_time_progress" className="audio_time_progress noselect" draggable="false">{timeRatio}</div>}
+        {this.props.showRemainingTime && <div draggable="false" className="audio_time_progress noselect">{remainingTime}</div>}
+        {this.props.showVolumeSlider && <div draggable="false" className="volume-wrapper">
           <button onClick={this.toggleVolume} className="audio_button volume-button">
             {!isMuted ? <VolumeIcon /> : <MutedIcon />}
           </button>
           <input ref={ele => { this.range = ele }} className="range-slider" type="range" min="0" max="100" onInput={this.audioVolumeHandler} onChange={this.audioVolumeHandler} />
-        </div>
+        </div>}
 
         {this.props.enableDownload && <div className="btn"><i className="button" onClick={this.downloadAudio}><DownloadIcon /></i></div>}
       </div >
@@ -491,15 +491,23 @@ AudioPlayer.propTypes = {
   showLoader: PropTypes.bool,
   showSeekControls: PropTypes.bool,
   enableDownload: PropTypes.bool,
+  showRunningTimer: PropTypes.bool,
+  showFullDuration: PropTypes.bool,
+  showRemainingTime: PropTypes.bool,
+  showVolumeSlider: PropTypes.bool,
   type: PropTypes.oneOf(['audio/wav', 'audio/ogg', 'audio/mpeg', '']),
   filename: PropTypes.string
 };
 
 AudioPlayer.defaultProps = {
   cycle: false,
-  showLoader: false,
-  showSeekControls: false,
-  enableDownload: false,
+  showLoader: true,
+  showSeekControls: true,
+  enableDownload: true,
+  showRunningTimer: true,
+  showFullDuration: true,
+  showRemainingTime: true,
+  showVolumeSlider: true,
   type: '',
   filename: ''
 };
