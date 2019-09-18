@@ -116,6 +116,7 @@ export default class AudioPlayer extends Component {
        * audio seeks.
        */
       displayedTime: 0,
+      volumeRange: 50, 
     };
 
     this.state = Object.assign({}, this.defaultState);
@@ -162,32 +163,21 @@ export default class AudioPlayer extends Component {
     this.audio = document.createElement('audio');
 
     this.downloadAudio = this.downloadAudio.bind(this);
-    this.audioVolumeHandler = () => {
-      const settings = {
-        fill: '#00BBE5',
-        background: '#ACACAC'
-      }
-      // Let's turn our value into a percentage to figure out how far it is in between the min and max of our input
-      const percentage = 100 * (this.range.value - this.range.min) / (this.range.max - this.range.min);
-      // now we'll create a linear gradient that separates at the above point
-      // Our background color will change here
-      const bg = `linear-gradient(90deg, ${settings.fill} ${percentage}%, ${settings.background} ${percentage + 0.1}%)`;
-      this.range.style.background = bg;
-
-      this.audio.volume = this.range.value / 100;
-      this.range.value == 0 ? this.setState({ isMuted: true }) : this.setState({ isMuted: false })
+    this.audioVolumeHandler = (event) => {
+      this.setState({ volumeRange: Number(event.target.value) }, () => {
+        this.updateVolume();
+      });
     }
 
-    this.currentVolume = null;
+    this.prevVolume = null;
 
     this.toggleVolume = () => {
-      if (!this.state.isMuted) {
-        this.currentVolume = this.range.value;
+      if (this.state.volumeRange) {
+        this.prevVolume = this.state.volumeRange;
       }
-      this.setState({ isMuted: !this.state.isMuted }, () => {
-        this.state.isMuted ? this.range.value = 0 : this.range.value = this.currentVolume;
-        this.audioVolumeHandler();
-      });
+      this.setState(prevState => ({
+        volumeRange: prevState.volumeRange === 0 ? this.prevVolume : 0
+      }), () => { this.updateVolume() });
     }
   }
 
@@ -210,7 +200,6 @@ export default class AudioPlayer extends Component {
     audio.addEventListener('loadedmetadata', this.audioMetadataLoadedListener);
     audio.addEventListener('loadeddata', this.onBuffered);
     this.addMediaEventListeners(this.props.onMediaEvent);
-    // this.range.addEventListener('click', this.audioVolumeHandler);
 
     if (this.props.src) {
       this.updateSource();
@@ -224,7 +213,8 @@ export default class AudioPlayer extends Component {
     if (this.props.audioElementRef) {
       this.props.audioElementRef(audio);
     }
-    this.audioVolumeHandler();
+
+    this.updateVolume();
   }
 
   componentWillUnmount() {
@@ -340,6 +330,10 @@ export default class AudioPlayer extends Component {
     this.audio.src = this.props.src;
   }
 
+  updateVolume() {
+    this.audio.volume = this.state.volumeRange/100;
+  }
+
   fetchAudioProgressBoundingRect() {
     this.audioProgressBoundingRect = this.audioProgressContainer.getBoundingClientRect();
   }
@@ -418,17 +412,26 @@ export default class AudioPlayer extends Component {
     this.audio.currentTime = displayedTime;
   }
 
+  getVolumeSliderBgStyle() {
+    const settings = {
+      fill: '#00BBE5',
+      background: '#ACACAC'
+    }
+    const min = 0;
+    const max= 100;
+    const percentage = 100 * (this.state.volumeRange - min) / (max - min);
+    return `linear-gradient(90deg, ${settings.fill} ${percentage}%, ${settings.background} ${percentage + 0.1}%)`;
+  }
+
 
   render() {
-    const isMuted = this.state.isMuted;
     const displayedTime = this.state.displayedTime;
     const duration = this.audio && this.audio.duration || 0;
 
     const elapsedTime = convertToTime(displayedTime);
     const fullTime = convertToTime(duration);
     const timeRatio = `${elapsedTime} `;
-    const rn = parseTime(fullTime) - parseTime(timeRatio);
-    const remainingTime = convertToTime(rn);
+    const remainingTime = convertToTime(parseTime(fullTime) - parseTime(timeRatio));
 
     const progressBarWidth = `${(displayedTime && duration && (displayedTime / duration) * 100 || 0)
       }% `;
@@ -472,9 +475,9 @@ export default class AudioPlayer extends Component {
         {this.props.showRemainingTime && <div draggable="false" className="audio_time_progress noselect">{remainingTime}</div>}
         {this.props.showVolumeSlider && <div draggable="false" className="volume-wrapper">
           <button onClick={this.toggleVolume} className="audio_button volume-button">
-            {!isMuted ? <VolumeIcon /> : <MutedIcon />}
+            {this.state.volumeRange !== 0 ? <VolumeIcon /> : <MutedIcon />}
           </button>
-          <input ref={ele => { this.range = ele }} className="range-slider" type="range" min="0" max="100" onInput={this.audioVolumeHandler} onChange={this.audioVolumeHandler} />
+          <input ref={ele => { this.range = ele }} className="range-slider" style={{ background: this.getVolumeSliderBgStyle()}} value={this.state.volumeRange} type="range" min="0" max="100" onInput={this.audioVolumeHandler} onChange={this.audioVolumeHandler} />
         </div>}
 
         {this.props.enableDownload && <div className="btn"><i className="button" onClick={this.downloadAudio}><DownloadIcon /></i></div>}
