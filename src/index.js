@@ -177,12 +177,17 @@ export default class AudioPlayer extends Component {
       this.audio.volume = this.range.value / 100;
       this.range.value == 0 ? this.setState({ isMuted: true }) : this.setState({ isMuted: false })
     }
-    this.toggleVolume = () => {
-      const currentVolume = this.range.value;
-      this.setState({ isMuted: !this.state.isMuted }, () => {
-        this.state.isMuted ? this.range.value = 0 : this.range.value = currentVolume;
-      });
 
+    this.currentVolume = null;
+
+    this.toggleVolume = () => {
+      if (!this.state.isMuted) {
+        this.currentVolume = this.range.value;
+      }
+      this.setState({ isMuted: !this.state.isMuted }, () => {
+        this.state.isMuted ? this.range.value = 0 : this.range.value = this.currentVolume;
+        this.audioVolumeHandler();
+      });
     }
   }
 
