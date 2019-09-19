@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { PlayIcon, PauseIcon, DownloadIcon, ForwardIcon, BackwardIcon, ReloadIcon/*, SpinnerIcon*/ } from './icons';
-
+import { PlayIcon, PauseIcon, DownloadIcon, ForwardIcon, BackwardIcon, VolumeIcon, MutedIcon, ReloadIcon/*, SpinnerIcon*/ } from './icons';
 
 const log = console.log.bind(console); //eslint-disable-line
 const logError = console.error ? console.error.bind(console) : log; //eslint-disable-line
@@ -16,6 +15,15 @@ function convertToTime(number) {
   const mins = Math.floor(number / 60);
   const secs = (number % 60).toFixed();
   return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
+}
+
+/**
+*  Convert given time to number
+* @returns {Number}
+*/
+function parseTime(s) { // 0:23
+  const c = s.split(':');//0,23
+  return (parseInt(c[0]) * 60) + parseInt(c[1]); // 23
 }
 
 /**
@@ -108,6 +116,7 @@ export default class AudioPlayer extends Component {
       displayedTime: 0,
       playbackRate: '1x',
       showPlaybackRateList: false,
+      volumeRange: 50, 
     };
 
     this.state = Object.assign({}, this.defaultState);
@@ -154,10 +163,28 @@ export default class AudioPlayer extends Component {
 
     this.togglePlaybackRate = () => this.setState({ showPlaybackRateList: !this.state.showPlaybackRateList });
 
+    this.changeVolumeRange = (event) => {
+      this.setState({ volumeRange: Number(event.target.value) }, () => {
+        this.updateVolume();
+      });
+    }
+
+    this.prevVolumeRange = null;
+
+    this.toggleVolumeRange = () => {
+      if (this.state.volumeRange) {
+        this.prevVolumeRange = this.state.volumeRange;
+      }
+      this.setState(prevState => ({
+        volumeRange: prevState.volumeRange === 0 ? this.prevVolumeRange : 0
+      }), () => { this.updateVolume() });
+    }
+
 
     this.audio = document.createElement('audio');
 
     this.downloadAudio = this.downloadAudio.bind(this);
+
   }
 
   componentDidMount() {
@@ -192,6 +219,8 @@ export default class AudioPlayer extends Component {
     if (this.props.audioElementRef) {
       this.props.audioElementRef(audio);
     }
+
+    this.updateVolume();
   }
 
   componentWillUnmount() {
@@ -312,6 +341,10 @@ export default class AudioPlayer extends Component {
     this.audio.src = this.props.src;
   }
 
+  updateVolume() {
+    this.audio.volume = this.state.volumeRange/100;
+  }
+
   fetchAudioProgressBoundingRect() {
     this.audioProgressBoundingRect = this.audioProgressContainer.getBoundingClientRect();
   }
@@ -390,14 +423,26 @@ export default class AudioPlayer extends Component {
     this.audio.currentTime = displayedTime;
   }
 
-  render() {
+  getVolumeSliderBgStyle() {
+    const settings = {
+      fill: '#00BBE5',
+      background: '#ACACAC'
+    }
+    const min = 0;
+    const max= 100;
+    const percentage = 100 * (this.state.volumeRange - min) / (max - min);
+    return `linear-gradient(90deg, ${settings.fill} ${percentage}%, ${settings.background} ${percentage + 0.1}%)`;
+  }
 
+
+  render() {
     const displayedTime = this.state.displayedTime;
     const duration = this.audio && this.audio.duration || 0;
 
     const elapsedTime = convertToTime(displayedTime);
     const fullTime = convertToTime(duration);
     const timeRatio = `${elapsedTime} `;
+    const remainingTime = convertToTime(parseTime(fullTime) - parseTime(timeRatio));
 
     const progressBarWidth = `${(displayedTime && duration && (displayedTime / duration) * 100 || 0)}%`;
 
@@ -421,9 +466,7 @@ export default class AudioPlayer extends Component {
         {this.props.showSeekControls && <div className={"btn " + (this.state.reload ? 'disabled' : '')}><i className="button" onClick={this.rewind}><BackwardIcon /></i></div>}
         {this.props.showSeekControls && <div className={"btn " + (this.state.reload ? 'disabled' : '')}><i className="button" onClick={this.forward}><ForwardIcon /></i></div>}
 
-        <div id="audio_time_progress" className="audio_time_progress noselect" draggable="false">
-          {timeRatio}
-        </div>
+        {this.props.showRunningTimer && <div id="audio_time_progress" className="audio_time_progress noselect" draggable="false">{timeRatio}</div>}
 
         <div id="audio_progress_container" className={classNames("audio_progress_container", { disabled: (this.audio && this.audio.readyState < 3) })} ref={ref => this.audioProgressContainer = ref} onMouseDown={adjustDisplayedTime} onMouseMove={adjustDisplayedTime} onTouchStart={adjustDisplayedTime} onTouchMove={adjustDisplayedTime}>
 
@@ -438,9 +481,18 @@ export default class AudioPlayer extends Component {
           </div>
         </div>
 
-        <div draggable="false" className="audio_time_progress noselect remaining-time">
+        {this.props.showFullDuration && <div draggable="false" className="audio_time_progress noselect remaining-time">
           {fullTime}
-        </div>
+        </div>}
+
+        {this.props.showRemainingTime && <div draggable="false" className="audio_time_progress noselect">{remainingTime}</div>}
+        
+        {this.props.showVolumeSlider && <div draggable="false" className="volume-wrapper">
+          <button onClick={this.toggleVolumeRange} className="audio_button volume-button">
+            {this.state.volumeRange !== 0 ? <VolumeIcon /> : <MutedIcon />}
+          </button>
+          <input ref={ele => { this.range = ele }} className="range-slider" style={{ background: this.getVolumeSliderBgStyle()}} value={this.state.volumeRange} type="range" min="0" max="100" onInput={this.changeVolumeRange} onChange={this.changeVolumeRange} />
+        </div>}
 
         {this.props.showPlaybackRate && <div className={`player-speed-control dropdown-field ft-left ${(this.state.showPlaybackRateList ? 'open' : '')}`}>
           <div className="dropdown-button">
@@ -478,6 +530,10 @@ AudioPlayer.propTypes = {
   showSeekControls: PropTypes.bool,
   showPlaybackRate: PropTypes.bool,
   enableDownload: PropTypes.bool,
+  showRunningTimer: PropTypes.bool,
+  showFullDuration: PropTypes.bool,
+  showRemainingTime: PropTypes.bool,
+  showVolumeSlider: PropTypes.bool,
   customDownloadButton: PropTypes.bool,
   children: PropTypes.any,
   type: PropTypes.oneOf(['audio/wav', 'audio/ogg', 'audio/mpeg', '']),
@@ -488,8 +544,12 @@ AudioPlayer.defaultProps = {
   cycle: false,
   showLoader: false,
   showSeekControls: false,
-  showPlaybackRate: false,
   enableDownload: true,
+  showRunningTimer: false,
+  showFullDuration: false,
+  showRemainingTime: false,
+  showVolumeSlider: false,
+  showPlaybackRate: false,
   customDownloadButton: false,
   type: '',
   filename: '',

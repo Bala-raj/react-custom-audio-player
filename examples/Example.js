@@ -7,8 +7,8 @@ import '../src/style.scss';
 class Example extends React.Component {
     constructor(props) {
         super(props);
-        this.state ={
-            showLoader:true
+        this.state = {
+            showLoader: true
         }
 
         this.onChange = this.onChange.bind(this);
@@ -25,15 +25,15 @@ class Example extends React.Component {
     }
 
     onLoad() {
-        this.setState({ url : this.input.value})
+        this.setState({ url: this.input.value })
     }
 
     onClickOfSong(e) {
-        this.setState({url: e.target.dataset.url})
+        this.setState({ url: e.target.dataset.url })
     }
 
     onClickOfTest() {
-        this.setState({showLoader: false});
+        this.setState({ showLoader: false });
     }
 
     onPlayCB(e) {
@@ -45,18 +45,18 @@ class Example extends React.Component {
         return (
             <center>
                 <div>
-                <input ref={(c) => (this.input = c)}  type="text" value ={input} placeholder="URL to play"/> <button onClick={this.onLoad}> Load </button>
-                <hr />
-                <ul>
-                    <li onClick={this.onClickOfSong} data-url="https://static1.squarespace.com/static/5547ab1ee4b0f235dbd475fc/5548268de4b0ec2ff50da4e9/59305add197aea69127bb033/1496341318490/10.+Kuthu+Fire+Mix+6.mp3">Kuthu Fire Mix</li>
-                    <li onClick={this.onClickOfSong} data-url="https://static1.squarespace.com/static/5547ab1ee4b0f235dbd475fc/5548268de4b0ec2ff50da4e9/5548dc18e4b0b0a763d06e89/1430838296099/09+Ashai+Mugam+-+ft.+Vidya+Vandana.mp3">Ashai Mugam</li>                    
-                </ul>
+                    <input ref={(c) => (this.input = c)} type="text" value={input} placeholder="URL to play" /> <button onClick={this.onLoad}> Load </button>
+                    <hr />
+                    <ul>
+                        <li onClick={this.onClickOfSong} data-url="https://static1.squarespace.com/static/5547ab1ee4b0f235dbd475fc/5548268de4b0ec2ff50da4e9/59305add197aea69127bb033/1496341318490/10.+Kuthu+Fire+Mix+6.mp3">Kuthu Fire Mix</li>
+                        <li onClick={this.onClickOfSong} data-url="https://static1.squarespace.com/static/5547ab1ee4b0f235dbd475fc/5548268de4b0ec2ff50da4e9/5548dc18e4b0b0a763d06e89/1430838296099/09+Ashai+Mugam+-+ft.+Vidya+Vandana.mp3">Ashai Mugam</li>
+                    </ul>
 
-                <button onClick={this.onClickOfTest}>remove loader</button>
+                    <button onClick={this.onClickOfTest}>remove loader</button>
 
                 </div>
 
-                <MyComponent autoplay src={ url } customDownloadButton showSeekControls showPlaybackRate showLoader={showLoader} onMediaEvent={{ play: (e)=> {console.error(e)}}}> <ReactDownload/> </MyComponent>
+                <MyComponent autoplay src={ url } customDownloadButton showSeekControls showPlaybackRate showLoader={showLoader} onMediaEvent={{ play: (e)=> {console.error(e)}}} showVolumeSlider showRemainingTime> <ReactDownload/> </MyComponent>
             </center>
         )
     }
