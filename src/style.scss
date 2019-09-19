@@ -4,6 +4,8 @@ $smoke-gray: #F6F6F6;
 $light-gray: #ACACAC;
 $border-color: rgba($light-gray, 0.3);
 $backgroundColor: #00BBE5;
+$primary-text-color: #767F86;
+
 
 @mixin boxshadow {
     -webkit-box-shadow: 0px 0px 20px 0px rgba(12, 51, 92, 0.1);
@@ -50,7 +52,7 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
     font-family: Open Sans, sans-serif;
     font-size: 8px;
     outline: none;
-    color: #767F86;
+    color: $primary-text-color;
     text-align: center;
 
     .button {
@@ -62,10 +64,10 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
     svg {
         vertical-align: middle;
     }
-    
-// .btn:last-of-type {
-//     border-right: none;
-// }
+
+    // .btn:last-of-type {
+    //     border-right: none;
+    // }
 
     &:last-of-type {
         border-right: none;
@@ -74,6 +76,7 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
     &.download {
         .spinner {
             line-height: 41px;
+
             img {
                 width: 25px;
                 height: 25px;
@@ -229,18 +232,6 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
         border-right: 1px solid $border-color;
     }
 
-    // .audio_controls {
-    //     // display: -webkit-box;
-    //     // display: -ms-flexbox;
-    //     // display: flex;
-    //     // -webkit-box-orient: horizontal;
-    //     // -webkit-box-direction: normal;
-    //     // -ms-flex-direction: row;
-    //     // flex-direction: row;
-    //     // margin: 0;
-    //     // border-right: 1px solid $border-color;
-    // }
-
     .audio_progress_container {
         position: relative;
         height: 100%;
@@ -253,7 +244,6 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
         text-align: left;
         background-color: rgba($light-gray, 0.25);
 
-        /*max-width: 66px;*/
         &+* {
             border-left: 1px solid $border-color;
         }
@@ -349,68 +339,26 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
         color: $primary-color;
         font-size: 12px;
         white-space: nowrap;
-        // left: 100%;
-        // z-index: 2;
         width: 40px;
         padding: 0 5px;
-        // border-right: 1px solid $border-color;
         height: 42px;
         line-height: 43px;
         text-align: center;
         font-family: 'open sans', sans-serif;
     }
 
-    // .audio_progress_container+.audio_time_progress {
-    //     // border-left: 1px solid $border-color;
-    //     // margin-left: 15px;
-    // }
-    .remaining-time {
-        border-left: 1px solid $border-color;
-        margin-left: 15px;
-    }
-
     .audio_button {
-        // padding-left: 0;
-        // margin-right: 0;
         cursor: pointer;
         width: 24px;
         height: 42px;
         line-height: 42px;
         text-align: left;
         outline: none;
-        // -ms-flex-item-align: center;
-        // align-self: center;
-        // display: -webkit-box;
-        // display: -ms-flexbox;
-        // display: flex;
-        // -webkit-box-pack: center;
-        // -ms-flex-pack: center;
-        // justify-content: center;
-        // -webkit-box-orient: vertical;
-        // -webkit-box-direction: normal;
-        // -ms-flex-direction: column;
-        // flex-direction: column;
-        // height: 30px;
-        // text-align: left;
-   
     }
 
-    /* http://codepen.io/aralon/pen/NqGWXZ */
     .play_pause_button {
         .play_pause_inner {
-            // height: $audio_player_play_btn_inner_height;
-            // width: 26px;
-
-            // overflow: hidden;
             position: relative;
-
-            // transform: scale(0.5);
-            // transform-origin: left center;
-
-            // > div {
-            //     position: absolute;
-            // }
-       
         }
 
         .play_pause_inner {
@@ -419,11 +367,6 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
             .ivrplaybtn,
             .ivrpausebtn {
                 svg {
-                    // width: 14px;
-                    // height: auto;
-                    // text-align: left;
-                    // float: left;
-                    // margin-top: 8px;
                     vertical-align: middle;
                     margin-top: -1px;
                 }
@@ -536,11 +479,6 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
             .ivrpausebtn {
                 display: none;
             }
-
-            .spinner {
-                // display: none;
-
-            }
         }
 
         &.loading {
@@ -548,11 +486,6 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
             & .ivrplaybtn,
             & .ivrpausebtn {
                 display: none;
-            }
-
-            .spinner {
-                // display: inline-block;
-
             }
         }
 
@@ -692,13 +625,14 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
 
     }
 }
+
 /* Dropdown menu */
 .audio_player {
     .dropdown-field {
         position: relative;
 
         &.open {
-            > .dropdownmenu {
+            >.dropdownmenu {
                 transform: translateY(0);
                 opacity: 1;
                 visibility: visible;
@@ -713,8 +647,9 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
                     width: 100%;
                     font-size: 14px;
                     line-height: 43px;
-                    color: #767F86;
-                    border-right: 1px solid rgba(172, 172, 172, 0.3);
+                    cursor: pointer;
+                    color: $primary-text-color;
+                    // border-right: 1px solid rgba(172, 172, 172, 0.3);
 
                     span {
                         width: 27px;
@@ -729,7 +664,7 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
                     height: 0;
                     border-left: 3px solid transparent;
                     border-right: 3px solid transparent;
-                    border-top: 3px solid #767F86;
+                    border-top: 3px solid $primary-text-color;
                 }
             }
         }
@@ -744,7 +679,7 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
             opacity: 0;
             visibility: hidden;
 
-            > ul {
+            >ul {
                 max-height: 240px;
                 overflow: auto;
                 padding: 10px 0;
@@ -768,7 +703,7 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
                         font-size: 14px;
                         text-align: left;
                         cursor: pointer;
-                        color: #767F86;
+                        color: $primary-text-color;
                         font-weight: 400;
                         margin-left: 5px;
                         padding: 5px 10px;
