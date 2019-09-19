@@ -19,6 +19,20 @@ See the example directory for a basic working example of using this.  You can ru
 
 ## Props
 
+Prop | Type | Default | Description
+--- | --- | --- | ---
+showLoader | `Boolean` | `false` | Show loader till file downloads
+showSeekControls | `Boolean` | `false` | Show Forward & Rewind options
+enableDownload | `Boolean` | `false` | Show Button to download Audio file
+showRunningTimer | `Boolean` | `false` | Show Elapsed time
+showFullDuration | `Boolean` | `false` | Show Full Duration of Audio file
+showRemainingTime | `Boolean` | `false` | Show Remaining Duration of Audio file while playing
+showVolumeSlider | `Boolean` | `false` | Controls to Adjust Volume
+showPlaybackRate | `Boolean` | `false` | Controls to Adjust Audio Play Rate
+customDownloadButton |  `Boolean` | `false` | Custom Icon for Download button
+type | `String` | `''` | Type of Audio file Ex: .mp3, .wav
+filename | `String` | `''` | Audio file name
+
 ### Props - Native/React Attributes
 See the [audio tag documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio) for detailed explanations of these attributes.
 
