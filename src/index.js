@@ -105,8 +105,8 @@ export default class AudioPlayer extends Component {
 
     this.defaultState = {
       paused: true,
-      reload: false,
       loading: !!props.showLoader,
+      reload: false,
       /* elapsed time for current track, in seconds -
        * DISPLAY ONLY! the actual elapsed time may
        * not match up if we're currently seeking, since
@@ -163,26 +163,28 @@ export default class AudioPlayer extends Component {
 
     this.togglePlaybackRate = () => this.setState({ showPlaybackRateList: !this.state.showPlaybackRateList });
 
-
-    this.audio = document.createElement('audio');
-
-    this.downloadAudio = this.downloadAudio.bind(this);
-    this.audioVolumeHandler = (event) => {
+    this.changeVolumeRange = (event) => {
       this.setState({ volumeRange: Number(event.target.value) }, () => {
         this.updateVolume();
       });
     }
 
-    this.prevVolume = null;
+    this.prevVolumeRange = null;
 
-    this.toggleVolume = () => {
+    this.toggleVolumeRange = () => {
       if (this.state.volumeRange) {
-        this.prevVolume = this.state.volumeRange;
+        this.prevVolumeRange = this.state.volumeRange;
       }
       this.setState(prevState => ({
-        volumeRange: prevState.volumeRange === 0 ? this.prevVolume : 0
+        volumeRange: prevState.volumeRange === 0 ? this.prevVolumeRange : 0
       }), () => { this.updateVolume() });
     }
+
+
+    this.audio = document.createElement('audio');
+
+    this.downloadAudio = this.downloadAudio.bind(this);
+
   }
 
   componentDidMount() {
@@ -486,10 +488,10 @@ export default class AudioPlayer extends Component {
         {this.props.showRemainingTime && <div draggable="false" className="audio_time_progress noselect">{remainingTime}</div>}
         
         {this.props.showVolumeSlider && <div draggable="false" className="volume-wrapper">
-          <button onClick={this.toggleVolume} className="audio_button volume-button">
+          <button onClick={this.toggleVolumeRange} className="audio_button volume-button">
             {this.state.volumeRange !== 0 ? <VolumeIcon /> : <MutedIcon />}
           </button>
-          <input ref={ele => { this.range = ele }} className="range-slider" style={{ background: this.getVolumeSliderBgStyle()}} value={this.state.volumeRange} type="range" min="0" max="100" onInput={this.audioVolumeHandler} onChange={this.audioVolumeHandler} />
+          <input ref={ele => { this.range = ele }} className="range-slider" style={{ background: this.getVolumeSliderBgStyle()}} value={this.state.volumeRange} type="range" min="0" max="100" onInput={this.changeVolumeRange} onChange={this.changeVolumeRange} />
         </div>}
 
         {this.props.showPlaybackRate && <div className={`player-speed-control dropdown-field ft-left ${(this.state.showPlaybackRateList ? 'open' : '')}`}>
