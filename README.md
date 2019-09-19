@@ -8,7 +8,9 @@ This is a light React wrapper around the HTML5 audio tag.  It provides the abili
 ## Usage
 
     import AudioPlayer from 'react-custom-audio-player';
+
     //...
+    
      <AudioPlayer src='sample.wav'/>
 
 ### Example

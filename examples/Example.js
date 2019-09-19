@@ -1,6 +1,7 @@
 import React from 'react';
 
 import MyComponent from '../src/index';
+import {  DownloadIcon } from '../src/icons';
 import '../src/style.scss';
 
 class Example extends React.Component {
@@ -14,6 +15,7 @@ class Example extends React.Component {
         this.onLoad = this.onLoad.bind(this);
         this.onClickOfSong = this.onClickOfSong.bind(this);
         this.onClickOfTest = this.onClickOfTest.bind(this);
+        this.onPlayCB = this.onPlayCB.bind(this);
     }
 
     onChange(e) {
@@ -54,10 +56,30 @@ class Example extends React.Component {
 
                 </div>
 
-                <MyComponent autoplay src={url} showLoader={showLoader} onMediaEvent={{ play: (e) => { console.error(e) } }} />
+                <MyComponent autoplay src={ url } customDownloadButton showSeekControls showPlaybackRate showLoader={showLoader} onMediaEvent={{ play: (e)=> {console.error(e)}}} showVolumeSlider showRemainingTime> <ReactDownload/> </MyComponent>
             </center>
         )
     }
 }
+
+
+ class ReactDownload extends React.Component {
+    constructor(props) {
+         super(props);
+         this.state = { showLoader: false };
+
+         this.downloadAudio = this.downloadAudio.bind(this);
+    }
+
+    downloadAudio() {
+        this.setState({showLoader: true})
+        setTimeout( () => {this.setState({ showLoader: false})},4000);
+    }
+
+    render() {
+        return(<div className="btn download">{this.state.showLoader ? <div className="spinner"><img src='https://storage.googleapis.com/branddesignmanager/CWANewDesign/images/spinners.gif' /></div> : <i className="button" onClick={this.downloadAudio}><DownloadIcon /></i>}</div>)
+    }
+ }
+
 
 export default Example;
