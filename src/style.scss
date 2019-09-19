@@ -232,18 +232,6 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
         border-right: 1px solid $border-color;
     }
 
-    // .audio_controls {
-    //     // display: -webkit-box;
-    //     // display: -ms-flexbox;
-    //     // display: flex;
-    //     // -webkit-box-orient: horizontal;
-    //     // -webkit-box-direction: normal;
-    //     // -ms-flex-direction: row;
-    //     // flex-direction: row;
-    //     // margin: 0;
-    //     // border-right: 1px solid $border-color;
-    // }
-
     .audio_progress_container {
         position: relative;
         height: 100%;
@@ -256,7 +244,6 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
         text-align: left;
         background-color: rgba($light-gray, 0.25);
 
-        /*max-width: 66px;*/
         &+* {
             border-left: 1px solid $border-color;
         }
@@ -352,68 +339,26 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
         color: $primary-color;
         font-size: 12px;
         white-space: nowrap;
-        // left: 100%;
-        // z-index: 2;
         width: 40px;
         padding: 0 5px;
-        // border-right: 1px solid $border-color;
         height: 42px;
         line-height: 43px;
         text-align: center;
         font-family: 'open sans', sans-serif;
     }
 
-    // .audio_progress_container+.audio_time_progress {
-    //     // border-left: 1px solid $border-color;
-    //     // margin-left: 15px;
-    // }
-    .remaining-time {
-        border-left: 1px solid $border-color;
-        margin-left: 15px;
-    }
-
     .audio_button {
-        // padding-left: 0;
-        // margin-right: 0;
         cursor: pointer;
         width: 24px;
         height: 42px;
         line-height: 42px;
         text-align: left;
         outline: none;
-        // -ms-flex-item-align: center;
-        // align-self: center;
-        // display: -webkit-box;
-        // display: -ms-flexbox;
-        // display: flex;
-        // -webkit-box-pack: center;
-        // -ms-flex-pack: center;
-        // justify-content: center;
-        // -webkit-box-orient: vertical;
-        // -webkit-box-direction: normal;
-        // -ms-flex-direction: column;
-        // flex-direction: column;
-        // height: 30px;
-        // text-align: left;
-
     }
 
-    /* http://codepen.io/aralon/pen/NqGWXZ */
     .play_pause_button {
         .play_pause_inner {
-            // height: $audio_player_play_btn_inner_height;
-            // width: 26px;
-
-            // overflow: hidden;
             position: relative;
-
-            // transform: scale(0.5);
-            // transform-origin: left center;
-
-            // > div {
-            //     position: absolute;
-            // }
-
         }
 
         .play_pause_inner {
@@ -422,11 +367,6 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
             .ivrplaybtn,
             .ivrpausebtn {
                 svg {
-                    // width: 14px;
-                    // height: auto;
-                    // text-align: left;
-                    // float: left;
-                    // margin-top: 8px;
                     vertical-align: middle;
                     margin-top: -1px;
                 }
@@ -539,11 +479,6 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
             .ivrpausebtn {
                 display: none;
             }
-
-            .spinner {
-                // display: none;
-
-            }
         }
 
         &.loading {
@@ -551,11 +486,6 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
             & .ivrplaybtn,
             & .ivrpausebtn {
                 display: none;
-            }
-
-            .spinner {
-                // display: inline-block;
-
             }
         }
 
