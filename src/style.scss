@@ -12,6 +12,14 @@ $colors: (light: (border-color: rgba($light-gray, 0.3),
         highlightColor: $light-gray,
         primary-text-color:$white,
         baseColor: #181818),
+    green: (border-color: #aacf38,
+        highlightColor: #aacf38,
+        primary-text-color: $light-gray,
+        baseColor: $smoke-gray),
+    lightblue: (border-color: #ADD8E6,
+        highlightColor: #ADD8E6,
+        primary-text-color: #181818,
+        baseColor: #fff),
 );
 
 @function get-color($key, $type: 'light') {
@@ -40,6 +48,14 @@ $colors: (light: (border-color: rgba($light-gray, 0.3),
     @at-root .dark & {
         #{$property}: get-color($color, dark) $content;
     }
+
+    @at-root .green & {
+        #{$property}: get-color($color, green) $content;
+    }
+
+    @at-root .lightblue & {
+        #{$property}: get-color($color, lightblue) $content;
+    }
 }
 
 
@@ -48,6 +64,14 @@ $colors: (light: (border-color: rgba($light-gray, 0.3),
 
     @at-root .dark & {
         #{$property}: #{$pixel}px #{$type} get-border($color, dark) $content;
+    }
+
+    @at-root .green & {
+        #{$property}: #{$pixel}px #{$type} get-border($color, green) $content;
+    }
+
+    @at-root .lightblue & {
+        #{$property}: #{$pixel}px #{$type} get-border($color, lightblue) $content;
     }
 }
 
@@ -87,6 +111,14 @@ svg * {
 
     .dark & {
         fill: #fff;
+    }
+
+    .green & {
+        fill: #aacf38;
+    }
+
+    .lightblue & {
+        fill: #ADD8E6;
     }
 }
 
@@ -293,7 +325,7 @@ svg * {
         @include get-color(background-color, primary-text-color);
 
         &+* {
-            @include get-border(border, border-color, 1, solid);
+            @include get-border(border-left, border-color, 1, solid);
         }
     }
 
@@ -621,20 +653,20 @@ svg * {
         position: relative;
         margin-top: 20px;
         z-index: 2;
+        @include get-color(background, highlightColor);
 
         // Range Handle
         &::-webkit-slider-runnable-track {
-            @include get-color(background, highlightColor);
             height: 5px;
         }
 
         &::-moz-range-track {
-            @include get-color(background, highlightColor);
+            // @include get-color(background, highlightColor);
             height: 5px;
         }
 
         &::-ms-track {
-            @include get-color(background, highlightColor);
+            // @include get-color(background, highlightColor);
             height: 5px;
         }
 
@@ -757,7 +789,7 @@ svg * {
                     vertical-align: middle;
                     width: 0;
                     height: 0;
-                    @include get-border(border, primary-text-color, 3, solid);
+                    @include get-border(border-top, primary-text-color, 3, solid);
                     border-left: 3px solid transparent;
                     border-right: 3px solid transparent;
                     border-bottom: 3px solid transparent;
