@@ -567,7 +567,7 @@ AudioPlayer.defaultProps = {
   filename: '',
   children: undefined,
   theme: {
-    color: 'red',
+    color: '#181818',
     backgroundColor: '#fff',
     progressBarColor: '#e6e9f0',
     progressBarFillColor: '#6699ff',
