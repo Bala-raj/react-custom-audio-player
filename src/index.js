@@ -116,11 +116,11 @@ export default class AudioPlayer extends Component {
       displayedTime: 0,
       playbackRate: '1x',
       showPlaybackRateList: false,
-      volumeRange: 50, 
+      volumeRange: 50,
     };
 
     this.state = Object.assign({}, this.defaultState);
- 
+
     // html audio element used for playback
     this.audio = null;
     this.audioProgressContainer = null;
@@ -322,11 +322,11 @@ export default class AudioPlayer extends Component {
       if (this.audio.readyState === 0) {
         this.setState({ loading: true });
       }
-      if(this.audioPromise !== undefined) { // Little funny logic to avoid this issue https://goo.gl/LdLk22
-        this.audioPromise.then( () => {
+      if (this.audioPromise !== undefined) { // Little funny logic to avoid this issue https://goo.gl/LdLk22
+        this.audioPromise.then(() => {
           this.audioPromise = undefined;
         });
-      }      
+      }
     } catch (error) {
       logError(error);
       const warningMessage =
@@ -342,7 +342,7 @@ export default class AudioPlayer extends Component {
   }
 
   updateVolume() {
-    this.audio.volume = this.state.volumeRange/100;
+    this.audio.volume = this.state.volumeRange / 100;
   }
 
   fetchAudioProgressBoundingRect() {
@@ -425,11 +425,11 @@ export default class AudioPlayer extends Component {
 
   getVolumeSliderBgStyle() {
     const settings = {
-      fill: '#00BBE5',
-      background: '#ACACAC'
+      fill: this.props.theme.progressBarFillColor,
+      background: this.props.theme.progressBarColor
     }
     const min = 0;
-    const max= 100;
+    const max = 100;
     const percentage = 100 * (this.state.volumeRange - min) / (max - min);
     return `linear-gradient(90deg, ${settings.fill} ${percentage}%, ${settings.background} ${percentage + 0.1}%)`;
   }
@@ -449,69 +449,73 @@ export default class AudioPlayer extends Component {
     const adjustDisplayedTime = e => this.adjustDisplayedTime(e);
 
     return (
-      <div id="audio_player" className={classNames('audio_player', { disabled: !this.props.src })} style={this.props.style}>
+      <div className={typeof this.props.theme === 'object' ? 'custom' : this.props.theme}>
 
-        <div className="audio_controls">
 
-          <div id="play_pause_button" className={classNames('play_pause_button', 'audio_button', { paused: (!this.state.reload && this.state.paused), loading: this.state.loading, reload: this.state.reload })} onClick={() => this.togglePause()} >
-            <div className="play_pause_inner">
-              <div className="ivrplaybtn"><PlayIcon /></div>
-              <div className="ivrpausebtn"><PauseIcon /></div>
-              <div className="spinner"><img src='https://storage.googleapis.com/branddesignmanager/CWANewDesign/images/spinners.gif' /></div>
-              <div className="reload-icon"><ReloadIcon /> </div>
-            </div>
-          </div>
-        </div>
+        <div id="audio_player" className={classNames('audio_player', { disabled: !this.props.src, dark: this.props.theme.isNotString })} style={{ color: this.props.theme.color, background: this.props.theme.backgroundColor }}>
 
-        {this.props.showSeekControls && <div className={"btn " + (this.state.reload ? 'disabled' : '')}><i className="button" onClick={this.rewind}><BackwardIcon /></i></div>}
-        {this.props.showSeekControls && <div className={"btn " + (this.state.reload ? 'disabled' : '')}><i className="button" onClick={this.forward}><ForwardIcon /></i></div>}
+          <div className="audio_controls">
 
-        {this.props.showRunningTimer && <div id="audio_time_progress" className="audio_time_progress noselect" draggable="false">{timeRatio}</div>}
-
-        <div id="audio_progress_container" className={classNames("audio_progress_container", { disabled: (this.audio && this.audio.readyState < 3) })} ref={ref => this.audioProgressContainer = ref} onMouseDown={adjustDisplayedTime} onMouseMove={adjustDisplayedTime} onTouchStart={adjustDisplayedTime} onTouchMove={adjustDisplayedTime}>
-
-          <div id="audio_progress" className="audio_progress" style={{ width: progressBarWidth }}> <code /></div>
-
-          <div id="audio_progress_overlay" className="audio_progress_overlay">
-            <div className="audio_info_marquee">
-              <div id="audio_info" className="audio_info noselect" draggable="false">
-                {'Test'}
+            <div id="play_pause_button" className={classNames('play_pause_button', 'audio_button', { paused: (!this.state.reload && this.state.paused), loading: this.state.loading, reload: this.state.reload })} onClick={() => this.togglePause()} >
+              <div className="play_pause_inner">
+                <div className="ivrplaybtn"><PlayIcon /></div>
+                <div className="ivrpausebtn"><PauseIcon /></div>
+                <div className="spinner"><img src='https://storage.googleapis.com/branddesignmanager/CWANewDesign/images/spinners.gif' /></div>
+                <div className="reload-icon"><ReloadIcon /> </div>
               </div>
             </div>
           </div>
+
+          {this.props.showSeekControls && <div className={"btn " + (this.state.reload ? 'disabled' : '')}><i className="button" onClick={this.rewind}><BackwardIcon /></i></div>}
+          {this.props.showSeekControls && <div className={"btn " + (this.state.reload ? 'disabled' : '')}><i className="button" onClick={this.forward}><ForwardIcon /></i></div>}
+
+          {this.props.showRunningTimer && <div id="audio_time_progress" className="audio_time_progress noselect" draggable="false" style={{ color: this.props.theme.color }} > {timeRatio}</div>}
+
+          <div id="audio_progress_container" className={classNames("audio_progress_container", { disabled: (this.audio && this.audio.readyState < 3) })} ref={ref => this.audioProgressContainer = ref} onMouseDown={adjustDisplayedTime} onMouseMove={adjustDisplayedTime} onTouchStart={adjustDisplayedTime} onTouchMove={adjustDisplayedTime} style={{ background: this.props.theme.progressBarColor }}>
+
+            <div id="audio_progress" className="audio_progress" style={{ width: progressBarWidth, background: this.props.theme.progressBarFillColor }}> <code /></div>
+
+            <div id="audio_progress_overlay" className="audio_progress_overlay">
+              <div className="audio_info_marquee">
+                <div id="audio_info" className="audio_info noselect" draggable="false">
+                  {'Test'}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {this.props.showFullDuration && <div draggable="false" className="audio_time_progress noselect remaining-time" style={{ color: this.props.theme.color }}>
+            {fullTime}
+          </div>}
+
+          {this.props.showRemainingTime && <div draggable="false" className="audio_time_progress noselect" style={{ color: this.props.theme.color }}>{remainingTime}</div>}
+
+          {this.props.showVolumeSlider && <div draggable="false" className="volume-wrapper">
+            <button onClick={this.toggleVolumeRange} className="audio_button volume-button">
+              {this.state.volumeRange !== 0 ? <VolumeIcon /> : <MutedIcon />}
+            </button>
+            <input ref={ele => { this.range = ele }} className="range-slider" style={{ background: this.getVolumeSliderBgStyle() }} value={this.state.volumeRange} type="range" min="0" max="100" onInput={this.changeVolumeRange} onChange={this.changeVolumeRange} />
+          </div>}
+
+          {this.props.showPlaybackRate && <div className={`player-speed-control dropdown-field ft-left ${(this.state.showPlaybackRateList ? 'open' : '')}`}>
+            <div className="dropdown-button">
+              <button className="button nostyle" onClick={this.togglePlaybackRate} style={{ color: this.props.theme.color }}><span>{this.state.playbackRate} </span><i className="drop-arrow"></i></button>
+            </div>
+            <div className="dropdownmenu bottom">
+              <ul>
+                <li onClick={() => { this.changePlaybackRate('1', '1x') }}><a style={{ color: this.props.theme.color }}><code className="brand-bg" />1x</a></li>
+                <li onClick={() => { this.changePlaybackRate('1.5', '1.5x') }}><a style={{ color: this.props.theme.color }}><code className="brand-bg" />1.5x</a></li>
+                <li onClick={() => { this.changePlaybackRate('2', '2x') }}><a style={{ color: this.props.theme.color }}><code className="brand-bg" />2x</a></li>
+                <li onClick={() => { this.changePlaybackRate('3', '3x') }}><a style={{ color: this.props.theme.color }}><code className="brand-bg" />3x</a></li>
+              </ul>
+            </div>
+          </div>}
+
+          {this.props.enableDownload &&
+            this.props.customDownloadButton && this.props.children ? this.props.children : <div className="btn"><i className="button" onClick={this.downloadAudio}><DownloadIcon /></i></div>
+          }
         </div>
-
-        {this.props.showFullDuration && <div draggable="false" className="audio_time_progress noselect remaining-time">
-          {fullTime}
-        </div>}
-
-        {this.props.showRemainingTime && <div draggable="false" className="audio_time_progress noselect">{remainingTime}</div>}
-        
-        {this.props.showVolumeSlider && <div draggable="false" className="volume-wrapper">
-          <button onClick={this.toggleVolumeRange} className="audio_button volume-button">
-            {this.state.volumeRange !== 0 ? <VolumeIcon /> : <MutedIcon />}
-          </button>
-          <input ref={ele => { this.range = ele }} className="range-slider" style={{ background: this.getVolumeSliderBgStyle()}} value={this.state.volumeRange} type="range" min="0" max="100" onInput={this.changeVolumeRange} onChange={this.changeVolumeRange} />
-        </div>}
-
-        {this.props.showPlaybackRate && <div className={`player-speed-control dropdown-field ft-left ${(this.state.showPlaybackRateList ? 'open' : '')}`}>
-          <div className="dropdown-button">
-            <button className="button nostyle" onClick={this.togglePlaybackRate}><span>{this.state.playbackRate} </span><i className="drop-arrow"></i></button>
-          </div>
-          <div className="dropdownmenu bottom">
-            <ul>
-              <li onClick={() => { this.changePlaybackRate('1', '1x') }}><a><code className="brand-bg" />1x</a></li>
-              <li onClick={() => { this.changePlaybackRate('1.5', '1.5x') }}><a><code className="brand-bg" />1.5x</a></li>
-              <li onClick={() => { this.changePlaybackRate('2', '2x') }}><a><code className="brand-bg" />2x</a></li>
-              <li onClick={() => { this.changePlaybackRate('3', '3x') }}><a><code className="brand-bg" />3x</a></li>
-            </ul>
-          </div>
-        </div>}
-
-        {this.props.enableDownload && 
-          this.props.customDownloadButton && this.props.children ? this.props.children :  <div className="btn"><i className="button" onClick={this.downloadAudio}><DownloadIcon /></i></div>
-        }
-      </div>
+      </div >
     );
   }
 
@@ -523,7 +527,7 @@ AudioPlayer.propTypes = {
   autoplayDelayInSeconds: PropTypes.number,
   cycle: PropTypes.bool,
   disableSeek: PropTypes.bool,
-  style: PropTypes.object,
+  // style: PropTypes.object,
   onMediaEvent: PropTypes.object,
   audioElementRef: PropTypes.func,
   showLoader: PropTypes.bool,
@@ -537,7 +541,15 @@ AudioPlayer.propTypes = {
   customDownloadButton: PropTypes.bool,
   children: PropTypes.any,
   type: PropTypes.oneOf(['audio/wav', 'audio/ogg', 'audio/mpeg', '']),
-  filename: PropTypes.string
+  filename: PropTypes.string,
+  theme: PropTypes.oneOf(
+    [PropTypes.string, PropTypes.shape({
+      color: PropTypes.string.isRequired,
+      backgroundColor: PropTypes.string.isRequired,
+      progressBarColor: PropTypes.string.isRequired,
+      progressBarFillColor: PropTypes.string.isRequired,
+    })
+    ]),
 };
 
 AudioPlayer.defaultProps = {
@@ -554,4 +566,11 @@ AudioPlayer.defaultProps = {
   type: '',
   filename: '',
   children: undefined,
+  theme: {
+    color: 'red',
+    backgroundColor: '#fff',
+    progressBarColor: '#e6e9f0',
+    progressBarFillColor: '#6699ff',
+  },
+  // theme: 'green',
 };
