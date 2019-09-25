@@ -341,7 +341,7 @@ export default class AudioPlayer extends Component {
     this.audio.src = this.props.src;
   }
 
-  updateVolume() {
+  updateVolume = () => {
     this.audio.volume = this.state.volumeRange / 100;
   }
 
