@@ -156,6 +156,10 @@ export default class AudioPlayer extends Component {
       this.setState({ displayedTime: currentTime })
     }
 
+    this.updateVolume = () => {
+      this.audio.volume = this.state.volumeRange / 100;
+    }
+
     this.changePlaybackRate = (speed, display) => {
       this.audio.playbackRate = speed;
       this.setState({ playbackRate: display, showPlaybackRateList: false })
@@ -339,10 +343,6 @@ export default class AudioPlayer extends Component {
 
   updateSource() {
     this.audio.src = this.props.src;
-  }
-
-  updateVolume = () => {
-    this.audio.volume = this.state.volumeRange / 100;
   }
 
   fetchAudioProgressBoundingRect() {
@@ -542,14 +542,15 @@ AudioPlayer.propTypes = {
   children: PropTypes.any,
   type: PropTypes.oneOf(['audio/wav', 'audio/ogg', 'audio/mpeg', '']),
   filename: PropTypes.string,
-  theme: PropTypes.oneOf(
-    [PropTypes.string, PropTypes.shape({
-      color: PropTypes.string.isRequired,
-      backgroundColor: PropTypes.string.isRequired,
+  theme: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape({
+      color: PropTypes.string,
+      backgroundColor: PropTypes.string,
       progressBarColor: PropTypes.string.isRequired,
       progressBarFillColor: PropTypes.string.isRequired,
     })
-    ]),
+  ]),
 };
 
 AudioPlayer.defaultProps = {
@@ -567,10 +568,7 @@ AudioPlayer.defaultProps = {
   filename: '',
   children: undefined,
   theme: {
-    color: '#181818',
-    backgroundColor: '#fff',
     progressBarColor: '#e6e9f0',
     progressBarFillColor: '#6699ff',
   },
-  // theme: 'green',
 };
