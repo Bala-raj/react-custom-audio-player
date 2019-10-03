@@ -1,10 +1,79 @@
 $white: #ffffff;
-$primary-color: #3B4752;
+
 $smoke-gray: #F6F6F6;
 $light-gray: #ACACAC;
-$border-color: rgba($light-gray, 0.3);
-$backgroundColor: #00BBE5;
-$primary-text-color: #767F86;
+
+$colors: (light: (border-color: rgba($light-gray, 0.3),
+        highlightColor: #00BBE5,
+        primary-text-color: #767F86,
+        baseColor: #fff,
+    ),
+    dark: (border-color: rgba($smoke-gray, 0.9),
+        highlightColor: $light-gray,
+        primary-text-color:$white,
+        baseColor: #181818),
+    green: (border-color: #aacf38,
+        highlightColor: #aacf38,
+        primary-text-color: $light-gray,
+        baseColor: $smoke-gray),
+    lightblue: (border-color: #ADD8E6,
+        highlightColor: #ADD8E6,
+        primary-text-color: #181818,
+        baseColor: #fff),
+);
+
+@function get-color($key, $type: 'light') {
+
+    @each $name,
+    $color in map-get($colors, $type) {
+        @if($key==$name) {
+            @return $color
+        }
+    }
+}
+
+@function get-border($key, $type: 'light') {
+
+    @each $name,
+    $color in map-get($colors, $type) {
+        @if($key==$name) {
+            @return $color
+        }
+    }
+}
+
+@mixin get-color($property, $color, $content:null) {
+    #{$property}: get-color($color) $content;
+
+    @at-root .dark & {
+        #{$property}: get-color($color, dark) $content;
+    }
+
+    @at-root .green & {
+        #{$property}: get-color($color, green) $content;
+    }
+
+    @at-root .lightblue & {
+        #{$property}: get-color($color, lightblue) $content;
+    }
+}
+
+
+@mixin get-border($property, $color, $pixel, $type, $content:null) {
+    #{$property}: #{$pixel}px #{$type} get-border($color) $content;
+
+    @at-root .dark & {
+        #{$property}: #{$pixel}px #{$type} get-border($color, dark) $content;
+    }
+
+    @at-root .green & {
+        #{$property}: #{$pixel}px #{$type} get-border($color, green) $content;
+    }
+
+    @at-root .lightblue & {
+        #{$property}: #{$pixel}px #{$type} get-border($color, lightblue) $content;
+    }
+}
 
 
 @mixin boxshadow {
@@ -37,6 +106,22 @@ $audio_player_play_btn_inner_height: 30px !default;
 $audio_player_play_btn_inner_width: 30px !default;
 $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
 
+svg * {
+    fill: #181818;
+
+    .dark & {
+        fill: #fff;
+    }
+
+    .green & {
+        fill: #aacf38;
+    }
+
+    .lightblue & {
+        fill: #ADD8E6;
+    }
+}
+
 .nostyle {
     padding: 0;
     border: 0;
@@ -47,12 +132,10 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
 // common styles for all button/icons
 .audio_player .btn {
     width: 45px;
-    background: #FFFFFF;
-    // border-right: 1px solid rgba(172, 172, 172, 0.3);
     font-family: Open Sans, sans-serif;
     font-size: 8px;
     outline: none;
-    color: $primary-text-color;
+    @include get-color(color, primary-text-color);
     text-align: center;
 
     .button {
@@ -199,14 +282,11 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
     -ms-flex-direction: row;
     flex-direction: row;
     height: 42px;
-
-    // background-color: $audio_player_base_bg_color;
-    /*@include boxshadow;*/
-    border: 1px solid $border-color;
+    @include get-border(border, border-color, 1, solid);
+    @include get-color(background-color, baseColor);
     border-radius: 2px;
     min-width: 600px;
     padding: 0 0 0 15px;
-    background: $white;
     position: relative;
 
     &.disabled:after {
@@ -229,7 +309,7 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
     }
 
     >div {
-        border-right: 1px solid $border-color;
+        @include get-border(border-right, border-color, 1, solid);
     }
 
     .audio_progress_container {
@@ -242,15 +322,15 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
         border-radius: 30px;
         margin: 19px 15px 0;
         text-align: left;
-        background-color: rgba($light-gray, 0.25);
+        @include get-color(background-color, primary-text-color);
 
         &+* {
-            border-left: 1px solid $border-color;
+            @include get-border(border-left, border-color, 1, solid);
         }
     }
 
     .audio_progress {
-        background-color: $backgroundColor;
+        @include get-color(background-color, highlightColor);
         height: 100%;
         width: 0;
         will-change: width;
@@ -266,11 +346,11 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
         height: 8px;
         transform: scale(1.3);
         border-radius: 50%;
-        background-color: $white;
+        @include get-color(background-color, baseColor);
         position: absolute;
         left: initial;
         right: 0;
-        border: 1px solid $border-color;
+        @include get-border(border, border-color, 1, solid);
         top: -3px;
         padding: 0;
         cursor: pointer;
@@ -336,7 +416,7 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
 
     .audio_time_progress {
         align-self: center;
-        color: $primary-color;
+        @include get-color(color, primary-text-color);
         font-size: 12px;
         white-space: nowrap;
         width: 40px;
@@ -354,6 +434,7 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
         line-height: 42px;
         text-align: left;
         outline: none;
+        background: transparent;
     }
 
     .play_pause_button {
@@ -362,7 +443,6 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
         }
 
         .play_pause_inner {
-            .ivrpausebtn {}
 
             .ivrplaybtn,
             .ivrpausebtn {
@@ -560,6 +640,7 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
 
     input[type=range] {
         -webkit-appearance: none;
+        -moz-appearance: none;
         border-radius: 15px;
         vertical-align: top;
         display: inline-block;
@@ -572,58 +653,105 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
         position: relative;
         margin-top: 20px;
         z-index: 2;
+        @include get-color(background, highlightColor);
 
         // Range Handle
+        &::-webkit-slider-runnable-track {
+            height: 5px;
+        }
+
+        &::-moz-range-track {
+            // @include get-color(background, highlightColor);
+            height: 5px;
+        }
+
+        &::-ms-track {
+            // @include get-color(background, highlightColor);
+            height: 5px;
+        }
+
         &::-webkit-slider-thumb {
             -webkit-appearance: none;
             width: 13px;
             height: 13px;
             border-radius: 50%;
-            border: 1px solid rgba($light-gray, 0.3);
-            background: #fff;
+            @include get-border(border, border-color, 1, solid);
+            @include get-color(background, baseColor);
             cursor: pointer;
+            position: relative;
+            top: -4px;
             transition: background .15s ease-in-out;
 
             &:hover {
-                background: #fff;
+                @include get-color(background, baseColor);
             }
-        }
-
-        &:active::-webkit-slider-thumb {
-            background: #fff;
         }
 
         &::-moz-range-thumb {
+            -webkit-appearance: none;
             width: 13px;
             height: 13px;
-            border: 0;
             border-radius: 50%;
-            background: #fff;
+            @include get-border(border, border-color, 1, solid);
+            @include get-color(background, baseColor);
             cursor: pointer;
-            border: 1px solid rgba($light-gray, 0.3);
+            position: relative;
+            top: -4px;
             transition: background .15s ease-in-out;
 
             &:hover {
-                background: #fff;
+                @include get-color(background, baseColor);
             }
+        }
+
+        &::-ms-thumb {
+            -webkit-appearance: none;
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            @include get-border(border, border-color, 1, solid);
+            @include get-color(background, baseColor);
+            cursor: pointer;
+            position: relative;
+            top: -4px;
+            transition: background .15s ease-in-out;
+
+            &:hover {
+                @include get-color(background, baseColor);
+            }
+        }
+
+        // active-state
+        &:active::-webkit-slider-thumb {
+            @include get-color(background, baseColor);
         }
 
         &:active::-moz-range-thumb {
-            background: #fff;
+            @include get-color(background, baseColor);
         }
+
+        &:active::-ms-thumb {
+            @include get-color(background, baseColor);
+        }
+
 
         // Focus state 
-        &:focus {
-
-            &::-webkit-slider-thumb,
-            &::-moz-range-thumb {
-                box-shadow: 0 1px 1px rgba(#000, 0.15), 0 0 0 2px rgba($backgroundColor, 0.5);
-                box-shadow: none;
-                background: #fff;
-            }
+        &:focus::-webkit-slider-thumb {
+            box-shadow: none;
+            @include get-color(background, baseColor);
         }
 
+        &:focus::-moz-range-thumb {
+            box-shadow: none;
+            @include get-color(background, baseColor);
+        }
+
+        &:focus::-ms-thumb {
+            box-shadow: none;
+            @include get-color(background, baseColor);
+        }
     }
+
 }
 
 /* Dropdown menu */
@@ -648,8 +776,7 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
                     font-size: 14px;
                     line-height: 43px;
                     cursor: pointer;
-                    color: $primary-text-color;
-                    // border-right: 1px solid rgba(172, 172, 172, 0.3);
+                    @include get-color(color, primary-text-color);
 
                     span {
                         width: 27px;
@@ -662,9 +789,10 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
                     vertical-align: middle;
                     width: 0;
                     height: 0;
+                    @include get-border(border-top, primary-text-color, 3, solid);
                     border-left: 3px solid transparent;
                     border-right: 3px solid transparent;
-                    border-top: 3px solid $primary-text-color;
+                    border-bottom: 3px solid transparent;
                 }
             }
         }
@@ -703,7 +831,7 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
                         font-size: 14px;
                         text-align: left;
                         cursor: pointer;
-                        color: $primary-text-color;
+                        @include get-color(color, primary-text-color);
                         font-weight: 400;
                         margin-left: 5px;
                         padding: 5px 10px;
@@ -714,7 +842,7 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
 
                     button {
                         padding: 5px 10px;
-                        color: $primary-color;
+                        @include get-color(color, primary-text-color);
                     }
 
                     &:after {
@@ -726,7 +854,7 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
                     code {
                         width: 5px;
                         height: 95%;
-                        background-color: #00bbe5;
+                        @include get-color(background-color, highlightColor);
                         border-radius: 0;
                         position: absolute;
                         left: 0;
@@ -756,7 +884,7 @@ $audio_player_play_btn_triangle_color: $audio_player_base_bg_color !default;
                 pointer-events: none;
                 margin-bottom: -10px;
                 border-color: rgba(255, 255, 255, 0);
-                border-bottom-color: #fff;
+                border-bottom-color: $white;
                 border-width: 6px;
             }
 

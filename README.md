@@ -23,7 +23,7 @@ Prop | Type | Default | Description
 --- | --- | --- | ---
 showLoader | `Boolean` | `false` | Show loader till file downloads
 showSeekControls | `Boolean` | `false` | Show Forward & Rewind options
-enableDownload | `Boolean` | `false` | Show Button to download Audio file
+enableDownload | `Boolean` | `true` | Show Button to download Audio file
 showRunningTimer | `Boolean` | `false` | Show Elapsed time
 showFullDuration | `Boolean` | `false` | Show Full Duration of Audio file
 showRemainingTime | `Boolean` | `false` | Show Remaining Duration of Audio file while playing
@@ -32,6 +32,7 @@ showPlaybackRate | `Boolean` | `false` | Controls to Adjust Audio Play Rate
 customDownloadButton |  `Boolean` | `false` | Custom Icon for Download button
 type | `String` | `''` | Type of Audio file Ex: .mp3, .wav
 filename | `String` | `''` | Audio file name
+theme | `String or Object` | `'{progressBarColor: '#e6e9f0',progressBarFillColor: '#6699ff',}'` | Custom theme Options
 
 ### Props - Native/React Attributes
 See the [audio tag documentation](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio) for detailed explanations of these attributes.
