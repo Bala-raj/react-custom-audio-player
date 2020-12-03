@@ -1,6 +1,6 @@
 {
   "name": "react-custom-audio-player",
-  "version": "1.3.3",
+  "version": "1.3.5",
   "author": {
     "name": "Balachander",
     "url": "https://github.com/Bala-raj"
@@ -20,7 +20,8 @@
     "deploy": "",
     "lint": "eslint ./src",
     "build-examples": "webpack --config examples/webpack.config.babel.js --progress",
-    "start": "webpack-dev-server --config examples/webpack.config.live.babel.js"
+    "start": "webpack-dev-server --config examples/webpack.config.live.babel.js",
+    "publish": "npm run build && npm publish"
   },
   "peerDependencies": {
     "react": "~0.14.8 || ^16.8.6",
