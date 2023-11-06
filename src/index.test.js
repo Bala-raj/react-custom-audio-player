@@ -23,5 +23,34 @@ describe('Filename manipulation', () => {
     
     });
 
-})
+});
+describe('Iframe', () => {
+    
+    const topRef = Object.assign({}, window.top); //this is immediate parent 
+    const selfRef = Object.assign({}, window.self);//this is self window 
+    let iframe,iframeDocument, divContainer;
+
+    
+    beforeEach(() => {
+        delete window.top;
+        delete window.self;
+
+
+        window.top  = topRef;
+        window.self = selfRef;
+
+        iframe = document.createElement('iframe');
+        iframeDocument = document.implementation.createHTMLDocument('IFrame Document');
+        divContainer = iframeDocument.createElement('div');
+        divContainer.textContent = 'This is a div container inside the iframe document';
+    });
+    
+    it('should return isContainerInIframe as TRUE', () => { 
+        
+        const DOM = ReactDOM.render(<MyComponent />, divContainer); // Render your component
+        iframeDocument.body.appendChild(divContainer);
+        document.body.appendChild(iframe);
+        expect(DOM.state.isContainerInIframe).toBeTruthy();
+    });
+});
 
