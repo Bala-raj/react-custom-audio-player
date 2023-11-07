@@ -117,8 +117,9 @@ export default class AudioPlayer extends Component {
       playbackRate: '1x',
       showPlaybackRateList: false,
       volumeRange: 50,
+      isContainerInIframe : (window.top !== window) || false,
     };
-
+    
     this.state = Object.assign({}, this.defaultState);
 
     // html audio element used for playback
@@ -193,9 +194,13 @@ export default class AudioPlayer extends Component {
 
   componentDidMount() {
     // add event listeners bound outside the scope of our component
+    
     window.addEventListener('mouseup', this.seekReleaseListener);
     document.addEventListener('touchend', this.seekReleaseListener);
     window.addEventListener('resize', this.resizeListener);
+    if(this.state.isContainerInIframe) {       
+      window.self.document.addEventListener('touchend', this.seekReleaseListener);
+    }
     this.resizeListener();
 
     const audio = this.audio;
@@ -364,7 +369,8 @@ export default class AudioPlayer extends Component {
     // make sure we don't select stuff in the background while seeking
     if (event.type === 'mousedown' || event.type === 'touchstart') {
       this.seekInProgress = true;
-      document.body.classList.add('noselect');
+      const body = this.state.isContainerInIframe ? window.self.document.body : document.body;
+      body.classList.add('noselect');  
     } else if (!this.seekInProgress) {
       return;
     }
@@ -407,7 +413,9 @@ export default class AudioPlayer extends Component {
      * go of the mouse, so if .noselect was applied
      * to the document body, get rid of it.
      */
-    document.body.classList.remove('noselect');
+    const body = this.state.isContainerInIframe ? window.self.document.body : document.body;
+    body.classList.remove('noselect');
+    
     if (!this.seekInProgress) {
       return;
     }
