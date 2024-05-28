@@ -306,15 +306,16 @@ export default class AudioPlayer extends Component {
     });
   }
 
-  // componentDidUpdate() {
-  //    if we loaded a new playlist and reset the current track marker, we
-  //    * should load up the first one.
+  updateSource() {
+    this.audio.src = this.props.src;
+  }
 
-  //   if (this.audio && this.currentTrackIndex === -1) {
-  //     this.skipToNextTrack(false);
-  //   }
-  // }
-
+  /* 
+  * It will be triggered for play and pause of the audio.
+  * and in case of play for the first time: 
+  * will fetch the audio source and play it.
+  *  - In case the source is unavailable {onErrorHandler} will be called.
+  */
   togglePause(value) {
     if (!this.audio) {
       return;
@@ -327,15 +328,19 @@ export default class AudioPlayer extends Component {
       return;
     }
     try {
-      this.audioPromise = this.audio.play();
       if (this.audio.readyState === 0) {
         this.setState({ loading: true });
       }
-      if (this.audioPromise !== undefined) { // Little funny logic to avoid this issue https://goo.gl/LdLk22
-        this.audioPromise.then(() => {
-          this.audioPromise = undefined;
-        });
-      }
+      this.audio.play().then(() => { 
+        this.audioPromise = undefined;  // Little funny logic to avoid this issue https://goo.gl/LdLk22
+      }).catch(() => {
+        // will enter catch block is the source is unavailable.
+        this.audio.pause();
+        this.setState({ loading: false });
+        // custom function that can be passed in this scenario.
+        this.props.onLoadErrorHandler();
+        this.updateSource();
+      });
     } catch (error) {
       logError(error);
       const warningMessage =
@@ -344,10 +349,6 @@ export default class AudioPlayer extends Component {
         }! (Perhaps autoplay is disabled in this browser.)`;
       logWarning(warningMessage);
     }
-  }
-
-  updateSource() {
-    this.audio.src = this.props.src;
   }
 
   fetchAudioProgressBoundingRect() {
@@ -550,6 +551,7 @@ AudioPlayer.propTypes = {
   children: PropTypes.any,
   type: PropTypes.oneOf(['audio/wav', 'audio/ogg', 'audio/mpeg', '']),
   filename: PropTypes.string,
+  onLoadErrorHandler: PropTypes.func,
   theme: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.shape({
@@ -575,6 +577,7 @@ AudioPlayer.defaultProps = {
   type: '',
   filename: '',
   children: undefined,
+  onLoadErrorHandler: () => logError("Unable to play the audio."),
   theme: {
     progressBarColor: '#e6e9f0',
     progressBarFillColor: '#6699ff',
