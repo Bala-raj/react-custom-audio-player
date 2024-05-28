@@ -32,6 +32,7 @@ showPlaybackRate | `Boolean` | `false` | Controls to Adjust Audio Play Rate
 customDownloadButton |  `Boolean` | `false` | Custom Icon for Download button
 type | `String` | `''` | Type of Audio file Ex: .mp3, .wav
 filename | `String` | `''` | Audio file name
+onLoadErrorHandler | `Function` | `error log entry` | Custom errror handling function if the audio source is not available
 theme | `String or Object` | `'{progressBarColor: '#e6e9f0',progressBarFillColor: '#6699ff',}'` | Custom theme Options
 
 ### Props - Native/React Attributes
