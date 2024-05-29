@@ -336,7 +336,7 @@ export default class AudioPlayer extends Component {
       }).catch(() => {
         // will enter catch block is the source is unavailable.
         this.audio.pause();
-        this.setState({ loading: false });
+        this.setState({ loading: false, paused: true });
         // custom function that can be passed in this scenario.
         this.props.onLoadErrorHandler();
         this.updateSource();
