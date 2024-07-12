@@ -24,8 +24,8 @@
     "publish": "npm run build && npm publish"
   },
   "peerDependencies": {
-    "react": "~0.14.8 || ^16.8.6",
-    "react-dom": "~0.14.8 || ^16.8.6"
+    "react": "~0.14.8 || ^16.8.6 || ^18.0.0",
+    "react-dom": "~0.14.8 || ^16.8.6 || ^18.0.0"
   },
   "dependencies": {
     "classnames": "^2.2.5",
