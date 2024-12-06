@@ -138,9 +138,10 @@ export default class AudioPlayer extends Component {
     this.audioEndListener = () => this.setState({ reload: true });
     this.audioStallListener = () => this.togglePause(true);
     this.audioTimeUpdateListener = () => this.handleTimeUpdate();
-    this.audioMetadataLoadedListener = () => this.setState({
-      activeTrackIndex: this.currentTrackIndex,
-    });
+    this.audioMetadataLoadedListener = () => {
+      this.audio.currentTime = this.props.currentTime || 0;
+      this.setState({ activeTrackIndex: this.currentTrackIndex, displayedTime: this.props.currentTime || 0 });
+    };
     this.onBuffered = () => {
       this.setState({ loading: false })
     };
@@ -261,24 +262,25 @@ export default class AudioPlayer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    const shouldAutoplay = nextProps.autoplay !== undefined ? nextProps.autoplay: this.props.autoplay;
+    const newSrc = nextProps.src;
     // Update media event listeners that may have changed
     this.removeMediaEventListeners(this.props.onMediaEvent);
     this.addMediaEventListeners(nextProps.onMediaEvent);
 
-    const newSrc = nextProps.src;
-    if ((newSrc !== this.props.src) || (nextProps.showLoader != this.props.showLoader)) {
+    if (newSrc !== this.props.src) {
       if (this.audio) {
         this.audio.src = newSrc || '';
       }
-      this.setState(this.defaultState);
+      const state = this.defaultState;
+      state.loading = !!nextProps.showLoader;
+      this.setState(state);
     }
 
-    if (newSrc && !this.props.src) {
-      if (this.props.autoplay) {
+    if (newSrc && shouldAutoplay) {
         const delay = this.props.autoplayDelayInSeconds || 0;
         clearTimeout(this.delayTimeout);
         this.delayTimeout = setTimeout(() => this.togglePause(false), delay * 1000);
-      }
     }
   }
 
@@ -333,14 +335,11 @@ export default class AudioPlayer extends Component {
       }
       this.audio.play().then(() => { 
         this.audioPromise = undefined;  // Little funny logic to avoid this issue https://goo.gl/LdLk22
-      }).catch(() => {
-        // will enter catch block is the source is unavailable.
+    }).catch((error) => {
         this.audio.pause();
         this.setState({ loading: false, paused: true });
-        // custom function that can be passed in this scenario.
-        this.props.onLoadErrorHandler();
-        this.updateSource();
-      });
+        this.props.onLoadErrorHandler({error, audioTimestamp: this.audio.currentTime });
+    });
     } catch (error) {
       logError(error);
       const warningMessage =
@@ -561,6 +560,7 @@ AudioPlayer.propTypes = {
       progressBarFillColor: PropTypes.string.isRequired,
     })
   ]),
+  currentTime: PropTypes.number,
 };
 
 AudioPlayer.defaultProps = {
@@ -582,4 +582,5 @@ AudioPlayer.defaultProps = {
     progressBarColor: '#e6e9f0',
     progressBarFillColor: '#6699ff',
   },
+  currentTime: 0,
 };
