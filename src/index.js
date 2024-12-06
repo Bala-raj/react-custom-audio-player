@@ -583,4 +583,5 @@ AudioPlayer.defaultProps = {
     progressBarFillColor: '#6699ff',
   },
   currentTime: 0,
+  autoplay: false,
 };
