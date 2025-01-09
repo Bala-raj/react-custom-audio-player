@@ -335,10 +335,11 @@ export default class AudioPlayer extends Component {
       }
       this.audio.play().then(() => { 
         this.audioPromise = undefined;  // Little funny logic to avoid this issue https://goo.gl/LdLk22
-    }).catch((error) => {
+    }).catch(async (error) => {
         this.audio.pause();
+        this.setState({ loading: true });
+        await this.props.onLoadErrorHandler({error, audioTimestamp: this.audio.currentTime });
         this.setState({ loading: false, paused: true });
-        this.props.onLoadErrorHandler({error, audioTimestamp: this.audio.currentTime });
     });
     } catch (error) {
       logError(error);
